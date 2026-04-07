@@ -9,10 +9,10 @@ export function CampoCadastro() {
                 <MenuCadastroLogin />
                 <h2 className="mt-[8%] text-4xl font-semibold font-title">Cadastre-se</h2>
                 <div className="flex flex-col space-y-3 items-center justify-center mt-8 mb-10">
-                    <InputCadastro nome={"Nome"} />
-                    <InputCadastro nome={"Email"} />
-                    <InputCadastro nome={"Telefone"} />
-                    <InputCadastro nome={"Senha"} />
+                    <InputCadastro nome={"Nome"} placeholder={"Digite seu nome"}/>
+                    <InputCadastro nome={"Email"} placeholder={"Digite seu email"}/>
+                    <InputCadastro nome={"Telefone"} placeholder={"Digite seu telefone (somente números)"}/>
+                    <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"}/>
                 </div>
                 <BotaoEntrar legenda={"Já possui uma conta? Entrar"}/>
             </div>
