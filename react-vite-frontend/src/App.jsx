@@ -4,7 +4,7 @@ import { Login } from './pages/Login'
 
 function App() {
 
-  const [tela, setTela] = useState("Cadastro")
+  const [tela, setTela] = useState("Login")
   let telaAtual = "";
 
   switch (tela) {
