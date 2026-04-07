@@ -2,7 +2,7 @@ export function Calculadora() {
 
     return (
 
-        <div className="w-[80%] bg-amber-400">
+        <div className="10/12 bg-amber-400">
 
             Calculadora
 

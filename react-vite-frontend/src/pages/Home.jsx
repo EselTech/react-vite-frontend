@@ -2,7 +2,7 @@ export function Home() {
 
     return (
 
-        <div className="w-[80%] bg-amber-100">
+        <div className="10/12 bg-amber-100">
 
             Home
 

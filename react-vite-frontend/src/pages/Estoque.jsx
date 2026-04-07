@@ -2,7 +2,7 @@ export function Estoque() {
 
     return (
 
-        <div className="w-[80%] bg-amber-300">
+        <div className="10/12 bg-amber-300">
 
             Estoque
 
