@@ -1,13 +1,25 @@
 import { useState } from 'react'
 import { Cadastro } from './pages/Cadastro'
+import { Login } from './pages/Login'
 
 function App() {
 
   const [tela, setTela] = useState("Cadastro")
+  let telaAtual = "";
+
+  switch (tela) {
+    case "Cadastro":
+      telaAtual = <Cadastro tela={tela} setTela={setTela}/>
+      break;
+    case "Login":
+      telaAtual  = <Login tela={tela} setTela={setTela}/>
+      break;
+  }
+
 
   return (
     <>
-      <Cadastro tela={tela} setTela={setTela} />
+      {telaAtual}
     </>
   )
 

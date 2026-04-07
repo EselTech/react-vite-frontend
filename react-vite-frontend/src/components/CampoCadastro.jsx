@@ -5,7 +5,7 @@ import { MenuCadastroLogin } from "./MenuCadastroLogin";
 export function CampoCadastro(props) {
     return (
         <>
-            <div className="p-[6%] w-1/2 h-1/1 rounded-3xl bg-[#FAF7FB] text-center" aria-label="Area com os campos de entrada do usuario para realizar o cadastro">
+            <div className="p-[6%] w-1/2 h-1/1 rounded-l-3xl bg-[#FAF7FB] text-center" aria-label="Area com os campos de entrada do usuario para realizar o cadastro">
                 <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
                 <h2 className="mt-[8%] text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
                 <div className="flex flex-col space-y-3 items-center justify-center mt-8 mb-10">
