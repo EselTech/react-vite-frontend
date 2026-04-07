@@ -3,5 +3,5 @@
   --font-title: "Fredoka", sans-serif;
 };
 @theme{
-  --font-quicksand: "Quicksand", sans-serif; /* Mudar "--font-quicksand" para nome desejado */
+  --font-text: "Nunito", sans-serif; /* Mudar "--font-quicksand" para nome desejado */
 }
