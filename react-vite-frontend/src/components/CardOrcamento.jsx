@@ -37,7 +37,7 @@ export function CardOrcamento(props) {
                             Total
                         </p>
                         <h1 className="font-title text-[#7a6688] font-bold text-2xl">
-                            R$ {props.preco}
+                            R$ {props.preco.toFixed(2)}
                         </h1>
                     </div>
                     <button className="w-1/3 h-1/1 py-2 text-xs text-[#7a6688] bg-[#ede0f0] flex items-center justify-center rounded-2xl font-medium cursor-pointer">
