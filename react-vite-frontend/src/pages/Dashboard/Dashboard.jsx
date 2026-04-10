@@ -52,7 +52,7 @@ export function Dashboard() {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-white font-sans text-gray-800">
 
-    <Sidebar/>
+    {/* <Sidebar/> */}
 
       {/*main content*/}
       <main className="w-4/5 h-full p-10 flex flex-col min-h-0">
