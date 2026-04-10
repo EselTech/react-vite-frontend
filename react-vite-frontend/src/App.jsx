@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import {Dashboard} from './pages/Dashboard/Dashboard'
 
 function App() {
   
   return (
     <>
-      
+      <Dashboard/>
     </>
   )
 }
