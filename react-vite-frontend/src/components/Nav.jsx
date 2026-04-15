@@ -37,6 +37,12 @@ export function Nav(props) {
                 <BotaoNav imagem="perfil" descricao="Perfil" ativo={props.tela == "Perfil"} aoClicar={() => props.setTela("Perfil")} />
 
             </div>
+            <div className="flex gap-2 mt-auto mb-4 ml-4 cursor-pointer" onClick={() => props.setTela("Login")}>
+                <img src="logoutIcon.svg" className="w-4"/>
+                <p className="font-title">
+                    Sair
+                </p>
+            </div>
 
         </nav>
 
