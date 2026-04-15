@@ -113,7 +113,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                     <div className="h-24 border-t border-[#e8d8f0] flex items-center px-8">
                         <button
                             onClick={handleCalcular}
-                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest"
+                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
                         > 
                             Calcular Orçamento 
                         </button>

@@ -45,7 +45,7 @@ export function Orcamentos() {
 
                             </div>
                             <button
-                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-40 font-semibold cursor-pointer shadow-md"
+                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-40 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:hover:shadow-lg hover:brightness-110 active:scale-95"
                                 onClick={() => setDrawerIsOpen(true)}
                             >
                                 + Novo Orçamento
