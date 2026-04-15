@@ -13,7 +13,7 @@ export function Perfil() {
                 <div className="w-xl flex flex-col gap-7">
                     <InputPerfil legenda={"Nome"} placeholder={"Cibelle"} />
                     <InputPerfil legenda={"Email"} placeholder={"cibelle@email.com"} />
-                    <InputPerfil legenda={"Telefone"} placeholder={"(11) 98765-4321"} />
+                    <InputPerfil legenda={"Telefone"} placeholder={"(11) 98765-4321"} /> 
                     <InputPerfil legenda={"Senha"} placeholder={"password123"} />
                 </div>
                 <div className="flex gap-4 mt-14">
