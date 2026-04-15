@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Cadastro } from './pages/Cadastro'
 import { Login } from './pages/Login'
-import { Calculadora } from './pages/Calculadora'
+import { Orcamentos } from './pages/Orcamentos'
 import { Chatbot } from './pages/Chatbot'
 import { Dashboard } from './pages/Dashboard'
 import { Estoque } from './pages/Estoque'
@@ -22,8 +22,8 @@ function App() {
     case "Login":
       telaAtual = <Login tela={tela} setTela={setTela} />
       break;
-    case "Calculadora":
-      telaAtual = <Calculadora tela={tela} setTela={setTela} />
+    case "Orcamentos":
+      telaAtual = <Orcamentos tela={tela} setTela={setTela} />
       break;
     case "Chatbot":
       telaAtual = <Chatbot tela={tela} setTela={setTela} />
