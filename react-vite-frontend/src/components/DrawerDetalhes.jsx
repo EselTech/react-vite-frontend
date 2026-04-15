@@ -44,8 +44,8 @@ export function DrawerDetalhes({ isOpen, setIsOpen, orcamento, onAtualizar }) {
                 >
                     <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
                         <div>
-                            <h2 className="text-[#3D2B4F] font-bold text-xl tracking-tight">Editar Orçamento</h2>
-                            <p className="text-[#3D2B4F] text-sm">Altere as informações necessárias</p>
+                            <h2 className="text-[#3D2B4F] font-semibold text-xl tracking-tight font-title">Editar Orçamento</h2>
+                            <p className="text-[#3D2B4F] text-sm font-text">Altere as informações necessárias</p>
                         </div>
                         <button
                             className="text-[#3D2B4F] text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer hover:bg-white/50 transition-colors"

@@ -10,7 +10,7 @@ export function CardOrcamento(props) {
         <h1 className="font-title text-[#695088] font-bold text-lg leading-tight shrink-0 max-w-[60%]">
           {props.titulo}
         </h1>
-        <span className="text-[10px] text-[#7a6688] bg-[#ede0f0] px-3 py-1 rounded-full font-medium whitespace-nowrap self-start">
+        <span className="text-[10px] text-[#7a6688] bg-[#ede0f0] px-3 py-1 rounded-full font-medium whitespace-nowrap self-start font-text">
           {`${props.dia} de ${props.mes}. ${props.ano} • ${props.hora}`}
         </span>
       </div>
@@ -42,7 +42,7 @@ export function CardOrcamento(props) {
             R$ {props.precoTotal.toFixed(2)}
           </h2>
         </div>
-        <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-colors px-4 py-2 rounded-xl font-semibold flex items-center gap-1">
+        <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-colors px-4 py-2 rounded-xl font-semibold flex items-center gap-1 font-text">
           Detalhes <span>→</span>
         </button>
       </div>

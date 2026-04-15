@@ -35,9 +35,15 @@ export function Orcamentos() {
                 {listaOrcamentos.length > 0 ? (
                     <>
                         <div className="h-16 flex justify-between w-11/12 items-center mb-12">
-                            <h1 className="text-[#695088] font-title font-semibold text-5xl self-start">
-                                Meus Orçamentos
-                            </h1>
+                            <div>
+                                <h1 className="text-[#695088] font-title font-semibold text-5xl self-start">
+                                    Meus Orçamentos
+                                </h1>
+                                <p className="text-gray-400 m-0">
+                                    Faça o orçamento de seus pedidos
+                                </p>
+
+                            </div>
                             <button
                                 className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-40 font-semibold cursor-pointer shadow-md"
                                 onClick={() => setDrawerIsOpen(true)}
