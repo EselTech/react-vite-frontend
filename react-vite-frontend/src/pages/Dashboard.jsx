@@ -58,7 +58,7 @@ export function Dashboard() {
       </header>
 
       {/* kpis */}
-      <section className="grid grid-cols-4 gap-5 mb-6 shrink-0">
+      <section className="grid grid-cols-4 gap-5 mb-4 shrink-0">
         {[1, 2, 3, 4].map((item) => (
           <div key={item} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 text-center shadow-sm">
             <p className="text-gray-400 text-sm mb-2">Indicador de Estoque</p>
@@ -69,11 +69,11 @@ export function Dashboard() {
       </section>
 
 {/* graficos */}
-      <section className="grid grid-cols-2 grid-rows-2 gap-6 flex-1 ">
+      <section className="grid grid-cols-2 grid-rows-2 gap-6 flex-1  ">
         {[1, 2, 3, 4].map((chart) => (
-          <div key={chart} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 shadow-sm flex flex-col">
+          <div key={chart} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col">
             
-            <h3 className="text-gray-400 text-sm font-semibold mb-4">Gráfico {chart}</h3>
+            <h3 className="text-gray-400 text-sm font-semibold mb-6">Gráfico {chart}</h3>
             
             <div className="flex-1 w-full min-h-0">
               <ReactECharts 
