@@ -9,11 +9,11 @@ const produtosIniciais = [
 ];
 
 const colunas = [
-    { id: "open", label: "Abertos", color: "text-emerald-700", headerFrom: "from-emerald-100", strip: "from-emerald-500 to-emerald-300" },
-    { id: "ongoing", label: "Em Andamento", color: "text-amber-700", headerFrom: "from-amber-100", strip: "from-amber-500 to-amber-300" },
-    { id: "shipped", label: "Enviados", color: "text-blue-700", headerFrom: "from-blue-100", strip: "from-blue-500 to-blue-300" },
-    { id: "late", label: "Atrasados", color: "text-red-700", headerFrom: "from-red-100", strip: "from-red-500 to-red-300" },
-    { id: "cancelled", label: "Cancelados", color: "text-gray-500", headerFrom: "from-gray-100", strip: "from-gray-400 to-gray-300" },
+    { id: "open", label: "Abertos", color: "text-emerald-700", headerFrom: "from-emerald-100", strip: "from-emerald-500 to-emerald-300", borderColor: "border-emerald-200" },
+    { id: "ongoing", label: "Em Andamento", color: "text-amber-700", headerFrom: "from-amber-100", strip: "from-amber-500 to-amber-300", borderColor: "border-amber-300" },
+    { id: "shipped", label: "Enviados", color: "text-blue-700", headerFrom: "from-blue-100", strip: "from-blue-500 to-blue-300", borderColor: "border-blue-100" },
+    { id: "late", label: "Atrasados", color: "text-red-700", headerFrom: "from-red-100", strip: "from-red-500 to-red-300", borderColor: "border-red-200" },
+    { id: "cancelled", label: "Cancelados", color: "text-gray-500", headerFrom: "from-gray-100", strip: "from-gray-400 to-gray-300", borderColor: "border-gray-200" },
 ];
 
 export function Pedidos() {
@@ -35,7 +35,7 @@ export function Pedidos() {
                     <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">Pedidos</h1>
                     <p className="text-gray-400 m-0">Gerencie aqui todos os seus pedidos</p>
                 </div>
-                <button onClick={() => setDrawer({ open: true, order: null })} className="bg-[#896D95] text-white px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95">
+                <button onClick={() => setDrawer({ open: true, order: null })} className="bg-[#896D95] text-white px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95 cursor-pointer">
                     + Novo Pedido
                 </button>
             </header>
@@ -52,7 +52,7 @@ export function Pedidos() {
                         }}
                         className={`w-80 shrink-0 bg-white/60 rounded-3xl border flex flex-col overflow-hidden transition-all duration-200 ${dragOverCol === b.id ? "border-[#896D95] scale-[1.02] bg-[#f3eaf8]" : "border-purple-100"}`}
                     >
-                        <div className={`p-5 border-b bg-linear-to-b ${b.headerFrom} to-white flex justify-between items-center`}>
+                        <div className={`p-5 border-b ${b.borderColor} bg-linear-to-b ${b.headerFrom} to-white flex justify-between items-center`}>
                             <span className={`font-bold text-sm ${b.color} font-title`}>{b.label}</span>
                             <span className="text-[10px] bg-white/80 px-2 py-0.5 rounded-full font-bold text-gray-500">
                                 {orders.filter(o => o.status === b.id).length}
@@ -62,7 +62,7 @@ export function Pedidos() {
                         <div className="p-4 space-y-4 overflow-y-auto">
                             {orders.filter(o => o.status === b.id).map(o => (
                                 <div key={o.id} draggable onDragStart={(e) => e.dataTransfer.setData("orderId", o.id)} onClick={() => setDrawer({ open: true, order: o })}
-                                    className="bg-white p-4 rounded-2xl border border-purple-50 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow relative overflow-hidden group"
+                                    className="bg-white p-4 rounded-2xl border border-red cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow relative overflow-hidden group"
                                 >
                                     <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${b.strip}`} />
                                     <div className="font-bold text-[#3D2B4F] mb-1 font-title">{o.title || "Sem título"}</div>

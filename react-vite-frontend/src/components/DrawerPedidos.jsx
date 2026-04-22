@@ -52,16 +52,15 @@ export default function DrawerPedidos(props) {
                         </div>
                         <button
                             onClick={props.onClose}
-                            className="text-[#3D2B4F] text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 hover:bg-white cursor-pointer transition-colors"
+                            className="text-[#3D2B4F] text-2xl border pt-1 w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer"
                         >
-                            ×
-                        </button>
+                            × </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         {/* Título do Pedido */}
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-bold mb-2 text-sm font-title">Título do Pedido</label>
+                            <label className="font-medium mb-2 font-title">Título do Pedido</label>
                             <input
                                 placeholder="Ex: Pedido Corporativo"
                                 value={form.title}
@@ -73,7 +72,7 @@ export default function DrawerPedidos(props) {
                         {/* Nome e Telefone */}
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col text-[#3D2B4F]">
-                                <label className="font-bold mb-2 text-sm font-title">Nome do Comprador</label>
+                                <label className="font-medium mb-2 font-title">Nome do Comprador</label>
                                 <input
 
                                     placeholder="Ex: Maria Silva"
@@ -83,7 +82,7 @@ export default function DrawerPedidos(props) {
                                 />
                             </div>
                             <div className="flex flex-col text-[#3D2B4F]">
-                                <label className="font-bold mb-2 text-sm font-title">Telefone</label>
+                                <label className="font-medium mb-2 font-title">Telefone</label>
                                 <input
                                     placeholder="(00) 00000-0000"
                                     value={form.phone}
@@ -95,7 +94,7 @@ export default function DrawerPedidos(props) {
 
                         {/* Endereço de Entrega */}
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-bold mb-2 text-sm font-title">Endereço de Entrega</label>
+                            <label className="font-medium mb-2 font-title">Endereço de Entrega</label>
                             <input
                                 placeholder="Rua, número, bairro e cidade"
                                 value={form.deliveryAddress}
@@ -107,7 +106,7 @@ export default function DrawerPedidos(props) {
                         {/* Status e Data */}
                         <div className="flex gap-4 text-[#3D2B4F]">
                             <div>
-                                <label className="font-bold mb-2 text-sm font-title">Status do Pedido</label>
+                                <label className="font-medium mb-2 font-title">Status do Pedido</label>
                                 <select
                                     value={form.status}
                                     onChange={e => setForm({ ...form, status: e.target.value })}
@@ -118,7 +117,7 @@ export default function DrawerPedidos(props) {
 
                             </div>
                             <div>
-                                <label className="font-bold mb-2 text-sm font-title">Data de entrega</label>
+                                <label className="font-medium mb-2 font-title">Data de entrega</label>
                                 <input
                                     type="date"
                                     value={form.deliveryDate}
@@ -130,7 +129,7 @@ export default function DrawerPedidos(props) {
 
                         {/* Observações */}
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-bold mb-2 text-sm font-title">Observações</label>
+                            <label className="font-medium mb-2 font-title">Observações</label>
                             <input
                                 placeholder="Detalhes adicionais, cores, temas..."
                                 value={form.observations}
@@ -141,7 +140,7 @@ export default function DrawerPedidos(props) {
 
                         {/* Lista de Produtos */}
                         <div>
-                            <p className="font-bold mb-4 text-[#3D2B4F] font-title">Produtos</p>
+                            <p className="font-medium mb-2 font-title">Produtos</p>
                             <div className="flex flex-col gap-4">
                                 {props.produtosIniciais.map(p => (
                                     <CardProdutoPedido
@@ -177,9 +176,9 @@ export default function DrawerPedidos(props) {
                     <div className="p-8 border-t border-[#e8d8f0]">
                         <button
                             onClick={() => props.onSave(form)}
-                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-14 rounded-full font-bold shadow-lg transition-all active:scale-95 font-title"
+                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
                         >
-                            Salvar Pedido — R$ {totalOrcamento.toFixed(2).replace(".", ",")}
+                            Salvar Pedido
                         </button>
                     </div>
                 </div>

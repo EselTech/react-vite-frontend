@@ -15,14 +15,14 @@ export default function CardProdutoPedido(props) {
             >
                 <div className="w-1/12 text-3xl">{props.emoji}</div>
                 <div className="w-8/12 pl-6 flex flex-col justify-center">
-                    <p className="font-bold text-[#3D2B4F] font-title">
+                    <p className="font-medium mb-2 font-title">
                         {props.nome}
                     </p>
                     <p className="text-xs text-[#7a6688] font-text">
                         Unitário: R$ {props.preco.toFixed(2).replace(".", ",")}
                     </p>
                 </div>
-                <div className="w-3/12 text-right font-bold text-[#3D2B4F] text-lg font-title">
+                <div className="w-3/12 text-right font-bold text-[#695088] text-lg font-title">
                     R$ {props.preco.toFixed(2).replace(".", ",")}
                 </div>
             </div>
