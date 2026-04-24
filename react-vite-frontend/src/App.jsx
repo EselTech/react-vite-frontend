@@ -4,10 +4,11 @@ import { Login } from './pages/Login'
 import { Orcamentos } from './pages/Orcamentos'
 import { Chatbot } from './pages/Chatbot'
 import { Dashboard } from './pages/Dashboard'
-import { Estoque } from './pages/Estoque'
 import { Home } from './pages/Home'
 import { Pedidos } from './pages/Pedidos'
 import { Perfil } from './pages/Perfil'
+import { Produtos } from './pages/Produtos'
+import { Materiais } from './pages/Materiais'
 import { Nav } from './components/Nav'
 
 function App() {
@@ -42,6 +43,12 @@ function App() {
       break;
     case "Perfil":
       telaAtual = <Perfil tela={tela} setTela={setTela} />
+      break;
+    case "Produtos":
+      telaAtual = <Produtos tela={tela} setTela={setTela} />
+      break;
+    case "Materiais":
+      telaAtual = <Materiais tela={tela} setTela={setTela} />
       break;
   }
 
