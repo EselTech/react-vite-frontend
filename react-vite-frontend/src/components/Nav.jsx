@@ -22,7 +22,13 @@ export function Nav(props) {
                 <BotaoNav imagem="pedidos" descricao="Pedidos" ativo={props.tela == "Pedidos"} aoClicar={() => props.setTela("Pedidos")} />
 
                 {/* Botão Estoque */}
-                <BotaoNav imagem="estoque" descricao="Estoque" ativo={props.tela == "Estoque"} aoClicar={() => props.setTela("Estoque")} />
+                {/* <BotaoNav imagem="estoque" descricao="Estoque" ativo={props.tela == "Estoque"} aoClicar={() => props.setTela("Estoque")} /> */}
+
+                {/* Botão Materiais */}
+                <BotaoNav imagem="estoque" descricao="Materiais" ativo={props.tela == "Materiais"} aoClicar={() => props.setTela("Materiais")} />
+                
+                {/* Botão Produtos */}
+                <BotaoNav imagem="estoque" descricao="Produtos" ativo={props.tela == "Produtos"} aoClicar={() => props.setTela("Produtos")} />
 
                 {/* Botão Orçamentos */}
                 <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => props.setTela("Orcamentos")} />

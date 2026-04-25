@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardOrcamento } from "../components/CardOrcamento";
 import { DrawerOrcamento } from "../components/DrawerOrcamento";
 import { DrawerDetalhes } from "../components/DrawerDetalhes";
@@ -65,9 +65,10 @@ export function Orcamentos() {
                         <div className="w-30 h-30 rounded-full flex justify-center items-center text-7xl bg-[#ede0f0] animate-bounce">
                             🧾
                         </div>
-                        <h1 className="font-title text-6xl font-bold text-[#695088]">Nenhum orçamento criado ainda</h1>
+                        <h1 className="font-title text-5xl font-bold text-[#695088]">Nenhum orçamento criado ainda</h1>
+                        <p className="text-gray-400 mt-4 font-text">Combine materiais e defina seus lucros de forma automatizada.</p>
                         <button
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-16"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12"
                             onClick={() => setDrawerIsOpen(true)}
                         >
                             Criar Primeiro Orçamento
