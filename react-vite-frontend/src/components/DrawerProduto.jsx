@@ -28,12 +28,12 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
             .filter(([_, qtd]) => qtd > 0)
             .map(([id, qtd]) => ({
                 materialId: Number(id),
-                qtdUsada: Number(qtd) 
+                qtdUsada: Number(qtd)
             }));
 
         const novoProduto = {
             empresaId: 1,
-            nome,
+            nome: nome || "Material não nomeado", 
             descricao,
             custo: custoTotal,
             preco: precoSugerido,
@@ -53,30 +53,32 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                 <div className={`w-full md:w-112.5 h-screen bg-[#fcfaff] shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`} onClick={e => e.stopPropagation()}>
 
                     {/* Header */}
-                    <div className="bg-white p-8 border-b border-[#e8d8f0]">
-                        <h2 className="text-[#695088] font-black text-2xl font-title uppercase tracking-tighter">Novo Produto</h2>
-                        <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Composição e Precificação</p>
+                    <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between text-[#3D2B4F]">
+                        <div>
+                            <h2 className="text-[#3D2B4F] font-semibold text-xl font-title">Novo Produto</h2>
+                            <p className="text-[#3D2B4F] text-sm font-text">Composição e Precificação</p>
+                        </div>
                     </div>
 
                     <div className="p-6 overflow-y-auto h-[calc(100vh-180px)] custom-scrollbar">
-                        {/* Informações Básicas */}
-                        <div className="space-y-4 mb-8">
+                        {/* Corpo */}
+                        <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-6 text-[#3D2B4F]">
                             <div className="flex flex-col">
-                                <label className="text-[10px] font-black text-[#896D95] mb-1 uppercase ml-1">Identificação</label>
+                                <label className="font-medium mb-2 font-title">Identificação</label>
                                 <input
                                     placeholder="Ex: Sacola Temática Luxo"
-                                    className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
+                                    className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                     value={nome} onChange={e => setNome(e.target.value)}
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex flex-col">
-                                    <label className="text-[10px] font-black text-[#896D95] mb-1 uppercase ml-1">Mão de Obra (R$)</label>
+                                    <label className="font-medium mb-2 font-title">Mão de Obra (R$)</label>
                                     <input type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={custoMaoDeObra} onChange={e => setCustoMaoDeObra(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col">
-                                    <label className="text-[10px] font-black text-[#896D95] mb-1 uppercase ml-1">Lucro (%)</label>
+                                    <label className="font-medium mb-2 font-title">Lucro (%)</label>
                                     <input type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
                                 </div>
                             </div>
@@ -84,8 +86,8 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
 
                         {/* Listagem de Materiais */}
                         <div className="mb-4 flex items-center justify-between">
-                            <label className="text-[10px] font-black text-[#896D95] uppercase tracking-widest ml-1 text-center">Selecionar Materiais</label>
-                            <span className="text-[10px] bg-[#896D95] text-white px-2 py-0.5 rounded-full">{materiaisDisponiveis.length} disponíveis</span>
+                            <label className="font-medium mb-4 mt-4 px-2 text-[#3D2B4F] font-title">Escolha os Materiais Usados</label>
+                            <span className="text-[12px] font-title bg-[#896D95] text-white px-2 py-0.5 rounded-full">{materiaisDisponiveis.length} disponíveis</span>
                         </div>
 
                         <div className="pb-20">
@@ -103,13 +105,12 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                     {/* Footer Fixo */}
                     <div className="h-28 border-t border-[#e8d8f0] p-6 bg-white absolute bottom-0 w-full flex items-center justify-between shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
                         <div>
-                            <p className="text-[10px] text-gray-400 uppercase font-black tracking-tighter text-center">Preço de Venda</p>
-                            <p className="text-3xl font-black text-[#695088]">R$ {precoSugerido.toFixed(2)}</p>
+                            <p className="text-[10px] text-gray-400 uppercase font-black font-title tracking-wider text-center">Preço de Venda</p>
+                            <p className="text-3xl font-black font-title text-[#695088]">R$ {precoSugerido.toFixed(2)}</p>
                         </div>
                         <button
                             onClick={handleSalvar}
-                            disabled={!nome || precoSugerido <= 0}
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 rounded-2xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 rounded-2xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 text-title"
                         >
                             Finalizar Produto
                         </button>

@@ -34,10 +34,10 @@ export function Produtos() {
             <div className="w-11/12 mt-8">
                 <div className="h-16 flex justify-between w-full items-center mb-12">
                     <div>
-                        <h1 className="text-[#695088] font-title font-semibold text-5xl self-start">
-                            Meus Produtos
+                        <h1 className={`text-[#695088] font-title font-semibold text-5xl self-start ${listaProdutos.length < 1 ? "hidden" : "block"}`}>
+                            Estoque de Produtos
                         </h1>
-                        <p className="text-gray-400 m-0">
+                        <p className={`text-gray-400 m-0 ${listaProdutos.length < 1 ? "hidden" : "block"}`}>
                             Gerencie produtos, composições e margens de lucro
                         </p>
                     </div>
@@ -57,6 +57,7 @@ export function Produtos() {
                                     <th className="p-5 font-title text-[#695088] font-bold">Produto</th>
                                     <th className="p-5 font-title text-[#695088] font-bold">Custo Total</th>
                                     <th className="p-5 font-title text-[#695088] font-bold text-center">Margem (%)</th>
+                                    <th className="p-5 font-title text-[#695088] font-bold text-right">Quantidade em Estoque</th>
                                     <th className="p-5 font-title text-[#695088] font-bold text-right">Preço de Venda</th>
                                     <th className="p-5 font-title text-[#695088] font-bold text-center">Ações</th>
                                 </tr>
@@ -71,7 +72,6 @@ export function Produtos() {
                                         <td className="p-5">
                                             <div className="flex flex-col">
                                                 <span className="font-bold text-[#3D2B4F] text-sm tracking-tight">{prod.nome}</span>
-                                                <span className="text-[10px] text-gray-400 line-clamp-1">{prod.descricao}</span>
                                             </div>
                                         </td>
                                         <td className="p-5">
@@ -82,6 +82,11 @@ export function Produtos() {
                                         <td className="p-5 text-center">
                                             <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-[#ede0f0] text-[#7a6688]">
                                                 {prod.margemLucroPercentual}%
+                                            </span>
+                                        </td>
+                                        <td className="p-5 text-center">
+                                            <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-[#ede0f0] text-[#7a6688]">
+                                                {prod.qtdEstoque}
                                             </span>
                                         </td>
                                         <td className="p-5 text-right">
@@ -100,17 +105,17 @@ export function Produtos() {
                         </table>
                     </div>
                 ) : (
-                    <div className="w-2/4 text-center mx-auto mt-32 flex flex-col items-center">
+                    <div className="w-2/4 text-center mx-auto mt-16 flex flex-col items-center">
                         <div className="w-30 h-30 rounded-full flex justify-center items-center text-7xl bg-[#ede0f0] animate-bounce">
                             📦
                         </div>
                         <h1 className="font-title text-5xl font-bold text-[#695088]">Crie seu primeiro produto</h1>
-                        <p className="text-gray-400 mt-4 font-text">Combine materiais e defina seus lucros de forma automatizada</p>
+                        <p className="text-gray-400 mt-4 font-text">Combine materiais e defina seus lucros de forma automatizada.</p>
                         <button
                             className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md hover:scale-105 transition-transform"
                             onClick={() => setDrawerIsOpen(true)}
                         >
-                            Começar Agora
+                            Cadastrar Produto
                         </button>
                     </div>
                 )}

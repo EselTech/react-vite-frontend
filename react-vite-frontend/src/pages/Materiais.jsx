@@ -33,10 +33,10 @@ export function Materiais() {
             <div className="w-11/12 mt-8">
                 <div className="h-16 flex justify-between w-full items-center mb-12">
                     <div>
-                        <h1 className="text-[#695088] font-title font-semibold text-5xl self-start">
-                            Meus Materiais
+                        <h1 className={`text-[#695088] font-title font-semibold text-5xl self-start ${listaMateriais.length < 1 ? "hidden" : "block"}`}>
+                            Estoque de Materiais
                         </h1>
-                        <p className="text-gray-400 m-0 font-text">
+                        <p className={`text-gray-400 m-0 font-text ${listaMateriais.length < 1 ? "hidden" : "block"}`}>
                             Controle seus insumos e matéria-prima
                         </p>
                     </div>
@@ -62,8 +62,8 @@ export function Materiais() {
                             </thead>
                             <tbody>
                                 {listaMateriais.map((mat) => (
-                                    <tr 
-                                        key={mat.id} 
+                                    <tr
+                                        key={mat.id}
                                         className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
                                         onClick={() => abrirDetalhes(mat)}
                                     >
@@ -97,11 +97,11 @@ export function Materiais() {
                         </table>
                     </div>
                 ) : (
-                    <div className="w-2/4 text-center mx-auto mt-32 flex flex-col items-center">
+                    <div className="w-2/4 text-center mx-auto mt-16 flex flex-col items-center">
                         <div className="w-30 h-30 rounded-full flex justify-center items-center text-7xl bg-[#ede0f0] animate-bounce">
-                            🎨
+                            📦
                         </div>
-                        <h1 className="font-title text-5xl font-bold text-[#695088]">Sua despensa está vazia</h1>
+                        <h1 className="font-title text-5xl font-bold text-[#695088]">Adicione seu primeiro material</h1>
                         <p className="text-gray-400 mt-4 font-text">Cadastre seus papéis, fitas e colas para começar a criar produtos.</p>
                         <button
                             className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md"
