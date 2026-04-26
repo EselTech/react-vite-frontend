@@ -35,7 +35,7 @@ export function CampoLogin(props) {
                     <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} />
                     <p className="text-[#896D95] font-text text-left self-start ml-5 text-sm -m-5 font-semibold mb-12">Esqueci minha senha</p>
                 </div>
-                <BotaoEntrar onClick={entrar}/>
+                <BotaoEntrar tela={props.tela} setTela={props.setTela}/>
             </div>
         </>
     )

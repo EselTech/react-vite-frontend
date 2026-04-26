@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { BotaoEntrar } from "./BotaoEntrar";
 import { InputCadastro } from "./InputCadastro";
 import { MenuCadastroLogin } from "./MenuCadastroLogin";
+import { api } from "../provider/api";
 
 export function CampoCadastro(props) {
 

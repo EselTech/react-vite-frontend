@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { DrawerProduto } from "../components/DrawerProduto";
 import { DrawerDetalhesProduto } from "../components/DrawerDetalhesProduto";
+import { api } from "../provider/api";
 
 export function Produtos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);

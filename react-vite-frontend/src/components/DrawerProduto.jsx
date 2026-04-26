@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardMaterialSelecao } from "./CardMaterialSelecao";
 import axios from "axios";
+import { api } from "../provider/api";
 
 export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisponiveis = [] }) {
     const [nome, setNome] = useState("");
@@ -29,7 +30,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
             .filter(([_, qtd]) => qtd > 0)
             .map(([id, qtd]) => ({
                 materialId: Number(id),
-                qtdUsada: Number(qtd)
+                quantidade: Number(qtd)
             }));
 
         const novoProduto = {
@@ -41,7 +42,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
             custoMaoDeObra: Number(custoMaoDeObra),
             margemLucroPercentual: Number(margemLucro),
             qtdEstoque: 0,
-            materiaisUsados: materiaisFormatados
+            materiais: materiaisFormatados
         };
 
         try {
