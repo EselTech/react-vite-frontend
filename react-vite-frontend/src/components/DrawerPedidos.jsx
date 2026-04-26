@@ -35,6 +35,16 @@ export default function DrawerPedidos(props) {
 
     const totalOrcamento = form.items.reduce((acc, i) => acc + (i.qty * i.preco), 0);
 
+    async function salvar() {
+        try {
+            const response = await api.post("/pedidos", form);
+            console.log("Pedido salvo:", response.data);
+            props.onSave(form);
+        } catch (error) {
+            console.error("Erro ao salvar pedido:", error.response?.data || error.message);
+        }
+    }
+
     return (
         <div
             className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 ${props.open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
@@ -175,7 +185,7 @@ export default function DrawerPedidos(props) {
 
                     <div className="p-8 border-t border-[#e8d8f0]">
                         <button
-                            onClick={() => props.onSave(form)}
+                            onClick={salvar}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
                         >
                             Salvar Pedido

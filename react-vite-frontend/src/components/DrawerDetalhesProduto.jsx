@@ -13,10 +13,16 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar 
         setEditProd(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleSalvar = () => {
-        onAtualizar(editProd);
-        setIsOpen(false);
-    };
+    async function handleSalvar() {
+        try {
+            const response = await api.put(`/produtos/${editProd.id}`, editProd);
+            console.log("Produto atualizado:", response.data);
+            onAtualizar(editProd);
+            setIsOpen(false);
+        } catch (error) {
+            console.error("Erro ao atualizar:", error.response?.data || error.message);
+        }
+    }
 
     return (
         <div

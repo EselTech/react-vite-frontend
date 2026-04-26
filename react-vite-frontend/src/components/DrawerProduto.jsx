@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CardMaterialSelecao } from "./CardMaterialSelecao";
+import axios from "axios";
 
 export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisponiveis = [] }) {
     const [nome, setNome] = useState("");
@@ -23,7 +24,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
         }));
     };
 
-    const handleSalvar = () => {
+    async function handleSalvar() {
         const materiaisFormatados = Object.entries(quantidades)
             .filter(([_, qtd]) => qtd > 0)
             .map(([id, qtd]) => ({
@@ -33,7 +34,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
 
         const novoProduto = {
             empresaId: 1,
-            nome: nome || "Material não nomeado", 
+            nome: nome || "Material não nomeado",
             descricao,
             custo: custoTotal,
             preco: precoSugerido,
@@ -43,9 +44,15 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
             materiaisUsados: materiaisFormatados
         };
 
-        onSalvar(novoProduto);
-        setDrawerIsOpen(false);
-    };
+        try {
+            const response = await api.post("/produtos", novoProduto);
+            console.log("Produto salvo:", response.data);
+            onSalvar(novoProduto);
+            setDrawerIsOpen(false);
+        } catch (error) {
+            console.error("Erro ao salvar produto:", error.response?.data || error.message);
+        }
+    }
 
     return (
         <div className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-all ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`} onClick={() => setDrawerIsOpen(false)}>
