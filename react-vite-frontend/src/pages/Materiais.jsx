@@ -136,6 +136,7 @@ export function Materiais() {
                 setIsOpen={setDrawerDetalhesOpen}
                 material={materialSelecionado}
                 onAtualizar={atualizarMaterial}
+                carregarMateriais={carregarMateriais}
             />
         </div>
     );

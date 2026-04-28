@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../provider/api";
 
-export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualizar }) {
+export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualizar, carregarMateriais }) {
     const [editMaterial, setEditMaterial] = useState(null);
 
     // Sincroniza o estado interno quando o material ou a abertura da drawer muda
@@ -30,6 +30,18 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
             setIsOpen(false);
         } catch (error) {
             console.error("Erro ao atualizar:", error.response?.data || error.message);
+        }
+    }
+
+    async function handleExcluir() {
+        try {
+            console.log(editMaterial);
+            
+            const response = await api.delete(`/materiais/${editMaterial.id}`);
+            setIsOpen(false);
+            carregarMateriais()
+        } catch (error) {
+            console.error("Erro ao excluir:", error.response?.data || error.message);
         }
     }
 
@@ -112,18 +124,19 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         </div>
                     </div>
 
-                    {/* Footer com o novo total visual (opcional) e botão de Salvar */}
                     <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 bg-white">
-                        <div className="w-full flex justify-between items-center">
-                            <div className="flex flex-col">
-                                <span className="text-[#7a6688] font-bold font-text uppercase text-[10px]">Valor do Insumo</span>
-                                <span className="text-3xl font-black text-[#695088]">R$ {Number(editMaterial.preco).toFixed(2)}</span>
-                            </div>
+                        <div className="w-full flex justify-between items-center gap-4">
                             <button
                                 onClick={handleSalvar}
-                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all uppercase text-xs tracking-widest cursor-pointer"
+                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
                             >
                                 Salvar Alterações
+                            </button>
+                            <button
+                                onClick={handleExcluir}
+                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                            >
+                                Exlcuir
                             </button>
                         </div>
                     </div>
