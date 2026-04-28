@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { DrawerMaterial } from "../components/DrawerMaterial";
 import { DrawerDetalhesMaterial } from "../components/DrawerDetalhesMaterial";
+import axios from "axios";
+import { api } from "../provider/api";
 
 export function Materiais() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -15,18 +17,28 @@ export function Materiais() {
     };
 
     const abrirDetalhes = (material) => {
+        
         setMaterialSelecionado(material);
         setDrawerDetalhesOpen(true);
     };
 
     const atualizarMaterial = (materialEditado) => {
-        setListaMateriais((prev) =>
-            prev.map((mat) =>
-                mat.id === materialSelecionado.id ? materialEditado : mat
-            )
-        );
-        setMaterialSelecionado(materialEditado);
+        // setListaMateriais((prev) =>
+        //     prev.map((mat) =>
+        //         mat.id === materialSelecionado.id ? materialEditado : mat
+        //     )
+        // );
+        // setMaterialSelecionado(materialEditado);
+        carregarMateriais()
     };
+
+    function carregarMateriais() {
+        api.get("/materiais").then(resposta => setListaMateriais(resposta.data))
+    }
+
+    useEffect(() => { 
+        carregarMateriais()
+    }, [])
 
     return (
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">

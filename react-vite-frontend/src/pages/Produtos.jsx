@@ -11,8 +11,6 @@ export function Produtos() {
     const [listaMateriais, setListaMateriais] = useState([]);
 
     const salvarNovoProduto = (novo) => {
-        const produtoComId = { ...novo, id: Date.now() };
-        setListaProdutos((prev) => [produtoComId, ...prev]);
         setDrawerIsOpen(false);
     };
 
@@ -29,6 +27,25 @@ export function Produtos() {
         );
         setProdutoSelecionado(produtoEditado);
     };
+
+    function carregarMateriais() {
+        api.get("/materiais").then(resposta => setListaMateriais(resposta.data))
+    }
+
+    function carregarProdutos() {
+        api.get("/produtos")
+            .then(resposta => {
+                setListaProdutos(resposta.data || []);
+            })
+            .catch(erro => {
+                setListaProdutos([]);
+            });
+    }
+
+    useEffect(() => {
+        carregarMateriais()
+        carregarProdutos()
+    }, [])
 
     return (
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
@@ -127,6 +144,7 @@ export function Produtos() {
                 setDrawerIsOpen={setDrawerIsOpen}
                 onSalvar={salvarNovoProduto}
                 materiaisDisponiveis={listaMateriais}
+                carregarProdutos={carregarProdutos}
             />
 
             <DrawerDetalhesProduto
@@ -135,6 +153,7 @@ export function Produtos() {
                 produto={produtoSelecionado}
                 onAtualizar={atualizarProduto}
                 materiaisDisponiveis={listaMateriais}
+                carregarProdutos={carregarProdutos}
             />
         </div>
     );

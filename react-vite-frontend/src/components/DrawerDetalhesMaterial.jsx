@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { api } from "../provider/api";
 
 export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualizar }) {
     const [editMaterial, setEditMaterial] = useState(null);
@@ -19,7 +20,11 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
 
     async function handleSalvar() {
         try {
-            const response = await api.put(`/materiais/${editMaterial.id}`, editMaterial);
+            // Tratando o material que será enviado para seguir as definições da request
+            const { empresa, ...materialSemEmpresa } = editMaterial
+            const materialFinal = { ...materialSemEmpresa, empresaId: 1 }
+
+            const response = await api.put(`/materiais/${editMaterial.id}`, materialFinal);
             console.log("Material atualizado:", response.data);
             onAtualizar(editMaterial);
             setIsOpen(false);
