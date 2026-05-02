@@ -91,7 +91,7 @@ export function Materiais() {
                                     >
                                         <td className="p-5">
                                             <div className="flex flex-col">
-                                                <span className="font-bold text-[#3D2B4F] text-sm uppercase">{mat.nome}</span>
+                                                <span className="font-bold text-[#3D2B4F] text-sm">{mat.nome}</span>
                                                 <span className="text-[10px] text-gray-400 line-clamp-1">{mat.descricao}</span>
                                             </div>
                                         </td>
