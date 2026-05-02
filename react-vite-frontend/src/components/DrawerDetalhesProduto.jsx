@@ -30,7 +30,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
             const produtoFinal = { materiais: listaMateriaisFormatados, empresaId: 1, ...produtoSemMateriais }
 
             console.log(produtoFinal);
-            
+
 
             const response = await api.put(`/produtos/${editProd.id}`, produtoFinal);
             console.log("Produto atualizado:", response.data);
@@ -99,15 +99,6 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                             />
                         </div>
 
-                        <div className="p-4 rounded-2xl border border-[#e8d8f0] bg-white shadow-sm flex justify-between items-center">
-                            <span className="text-[#7a6688] font-bold">Quantidade em Estoque</span>
-                            <div className="flex items-center gap-3">
-                                {/* Ajustado de .estoque para .qtdEstoque conforme o JSON */}
-                                <button onClick={() => handleChange("qtdEstoque", Math.max(0, (editProd.qtdEstoque || 0) - 1))} className="w-8 h-8 bg-[#ede0f0] rounded-full font-bold text-[#896D95]">-</button>
-                                <span className="font-bold text-[#3D2B4F] text-lg">{editProd.qtdEstoque || 0}</span>
-                                <button onClick={() => handleChange("qtdEstoque", (editProd.qtdEstoque || 0) + 1)} className="w-8 h-8 bg-[#ede0f0] rounded-full font-bold text-[#896D95]">+</button>
-                            </div>
-                        </div>
                     </div>
 
                     <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 gap-4 bg-white">
@@ -118,7 +109,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                             Salvar Alterações
                         </button>
                         <button
-                            onClick={handleExcluir} 
+                            onClick={handleExcluir}
                             className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
                         >
                             Excluir

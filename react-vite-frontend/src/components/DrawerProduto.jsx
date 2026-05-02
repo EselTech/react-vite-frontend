@@ -8,7 +8,6 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
     const [descricao, setDescricao] = useState("");
     const [custoMaoDeObra, setCustoMaoDeObra] = useState(0);
     const [margemLucro, setMargemLucro] = useState(0);
-    const [qtdEstoque, setQtdEstoque] = useState(0);
     const [quantidades, setQuantidades] = useState({});
 
     const custoMateriais = materiaisDisponiveis.reduce((acc, mat) => {
@@ -42,7 +41,6 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
             preco: precoSugerido,
             custoMaoDeObra: Number(custoMaoDeObra),
             margemLucroPercentual: Number(margemLucro),
-            qtdEstoque: qtdEstoque,
             materiais: materiaisFormatados
         };
 
@@ -89,14 +87,6 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                                     <label className="font-medium mb-2 font-title">Lucro (%)</label>
                                     <input type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
                                 </div>
-                            </div>
-                            <div className="flex flex-col">
-                                <label className="font-medium mb-2 font-title">Quantidade em Estoque</label>
-                                <input
-                                    placeholder="0"
-                                    className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
-                                    value={qtdEstoque} onChange={e => setQtdEstoque(e.target.value)}
-                                />
                             </div>
                         </div>
 

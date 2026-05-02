@@ -45,6 +45,8 @@ export function Produtos() {
     function carregarProdutos() {
         api.get("/produtos")
             .then(resposta => {
+                console.log(resposta.data);
+
                 setListaProdutos(resposta.data);
             })
             .catch(erro => {
@@ -88,43 +90,33 @@ export function Produtos() {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
-                                    <th className="p-5 font-title text-[#695088] font-bold">Produto</th>
-                                    <th className="p-5 font-title text-[#695088] font-bold">Custo Total</th>
-                                    <th className="p-5 font-title text-[#695088] font-bold text-center">Margem (%)</th>
-                                    <th className="p-5 font-title text-[#695088] font-bold text-right">Quantidade em Estoque</th>
-                                    <th className="p-5 font-title text-[#695088] font-bold text-right">Preço de Venda</th>
+                                    <th className="p-5 font-title text-[#695088] font-bold text-center">Produto</th>
+                                    <th className="p-5 font-title text-[#695088] font-bold text-center">Custo Total</th>
+                                    <th className="p-5 font-title text-[#695088] font-bold text-center">Preço de Venda</th>
                                     <th className="p-5 font-title text-[#695088] font-bold text-center">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {listaProdutos.map((prod) => (
+                                    console.log(prod),
+
                                     <tr
                                         key={prod.id}
                                         className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer"
                                         onClick={() => abrirDetalhes(prod)}
                                     >
-                                        <td className="p-5">
+                                        <td className="p-5 text-center">
                                             <div className="flex flex-col">
-                                                <span className="font-bold text-[#3D2B4F] text-sm tracking-tight">{prod.nome}</span>
+                                                <span className="font-bold text-[#3D2B4F] text-sm">{prod.nome}</span>
                                             </div>
                                         </td>
-                                        <td className="p-5">
-                                            <span className="text-sm text-[#7a6688] font-text">
+                                        <td className="p-5 text-center">
+                                            <span className="p-5 font-title text-[#695088] font-bold text-right">
                                                 R$ {Number(prod.custo).toFixed(2)}
                                             </span>
                                         </td>
                                         <td className="p-5 text-center">
-                                            <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-[#ede0f0] text-[#7a6688]">
-                                                {prod.margemLucroPercentual}%
-                                            </span>
-                                        </td>
-                                        <td className="p-5 text-center">
-                                            <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-[#ede0f0] text-[#7a6688]">
-                                                {prod.qtdEstoque}
-                                            </span>
-                                        </td>
-                                        <td className="p-5 text-right">
-                                            <span className="font-title text-[#695088] font-bold">
+                                            <span className="p-5 font-title text-[#695088] font-bold text-right">
                                                 R$ {Number(prod.preco).toFixed(2)}
                                             </span>
                                         </td>
