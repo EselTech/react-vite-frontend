@@ -29,16 +29,32 @@ export function Produtos() {
     };
 
     function carregarMateriais() {
-        api.get("/materiais").then(resposta => setListaMateriais(resposta.data))
+        api.get("/materiais")
+            .then(resposta => {
+                setListaMateriais(resposta.data);
+            })
+            .catch(erro => {
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum material cadastrado");
+                } else {
+                    console.log("Ocorreu um erro inesperado:", erro.message);
+                }
+            });
     }
 
     function carregarProdutos() {
         api.get("/produtos")
             .then(resposta => {
-                setListaProdutos(resposta.data || []);
+                setListaProdutos(resposta.data);
             })
             .catch(erro => {
                 setListaProdutos([]);
+
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum material cadastrado");
+                } else {
+                    console.log("Erro ao carregar produtos:", erro.message);
+                }
             });
     }
 

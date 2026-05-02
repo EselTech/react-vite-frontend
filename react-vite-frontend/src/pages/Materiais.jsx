@@ -17,7 +17,7 @@ export function Materiais() {
     };
 
     const abrirDetalhes = (material) => {
-        
+
         setMaterialSelecionado(material);
         setDrawerDetalhesOpen(true);
     };
@@ -33,10 +33,20 @@ export function Materiais() {
     };
 
     function carregarMateriais() {
-        api.get("/materiais").then(resposta => setListaMateriais(resposta.data))
+        api.get("/materiais")
+            .then(resposta => {
+                setListaMateriais(resposta.data);
+            })
+            .catch(erro => {
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum material cadastrado");
+                } else {
+                    console.log("Ocorreu um erro inesperado:", erro.message);
+                }
+            });
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         carregarMateriais()
     }, [])
 
