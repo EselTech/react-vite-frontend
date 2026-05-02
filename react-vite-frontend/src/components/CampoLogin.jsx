@@ -4,9 +4,24 @@ import { MenuCadastroLogin } from "./MenuCadastroLogin";
 
 export function CampoLogin(props) {
 
-    function logar() {
+    async function entrar() {
 
-        props.setTela("Home")
+        const [email, setEmail] = useState("");
+        const [senha, setSenha] = useState("");
+
+        try {
+            const response = await api.post("/login", {
+                email,
+                senha,
+            });
+            const token = response.data.token;
+            localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            props.setTela("Home");
+        } catch (error) {
+            console.error("Erro ao logar:", error.response?.data || error.message);
+        }
+
 
     }
 
@@ -20,7 +35,7 @@ export function CampoLogin(props) {
                     <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} />
                     <p className="text-[#896D95] font-text text-left self-start ml-5 text-sm -m-5 font-semibold mb-12">Esqueci minha senha</p>
                 </div>
-                <BotaoEntrar legenda={"Ainda não possui uma conta? Cadastrar"} tela={props.tela} setTela = {props.setTela}/>
+                <BotaoEntrar tela={props.tela} setTela={props.setTela}/>
             </div>
         </>
     )

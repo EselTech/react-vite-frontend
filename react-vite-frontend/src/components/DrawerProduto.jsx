@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardMaterialSelecao } from "./CardMaterialSelecao";
+import axios from "axios";
+import { api } from "../provider/api";
 
-export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisponiveis = [] }) {
+export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisponiveis = [], carregarProdutos }) {
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [custoMaoDeObra, setCustoMaoDeObra] = useState(0);
     const [margemLucro, setMargemLucro] = useState(0);
+    const [qtdEstoque, setQtdEstoque] = useState(0);
     const [quantidades, setQuantidades] = useState({});
 
     const custoMateriais = materiaisDisponiveis.reduce((acc, mat) => {
@@ -23,29 +26,34 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
         }));
     };
 
-    const handleSalvar = () => {
+    async function handleSalvar() {
         const materiaisFormatados = Object.entries(quantidades)
             .filter(([_, qtd]) => qtd > 0)
             .map(([id, qtd]) => ({
                 materialId: Number(id),
-                qtdUsada: Number(qtd)
+                quantidade: Number(qtd)
             }));
 
         const novoProduto = {
             empresaId: 1,
-            nome: nome || "Material não nomeado", 
+            nome: nome || "Material não nomeado",
             descricao,
             custo: custoTotal,
             preco: precoSugerido,
             custoMaoDeObra: Number(custoMaoDeObra),
             margemLucroPercentual: Number(margemLucro),
-            qtdEstoque: 0,
-            materiaisUsados: materiaisFormatados
+            qtdEstoque: qtdEstoque,
+            materiais: materiaisFormatados
         };
 
-        onSalvar(novoProduto);
-        setDrawerIsOpen(false);
-    };
+        try {
+            const response = await api.post("/produtos", novoProduto);
+            carregarProdutos()
+            setDrawerIsOpen(false);
+        } catch (error) {
+            console.error("Erro ao salvar produto:", error.response?.data || error.message);
+        }
+    }
 
     return (
         <div className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-all ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`} onClick={() => setDrawerIsOpen(false)}>
@@ -64,7 +72,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                         {/* Corpo */}
                         <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-6 text-[#3D2B4F]">
                             <div className="flex flex-col">
-                                <label className="font-medium mb-2 font-title">Identificação</label>
+                                <label className="font-medium mb-2 font-title">Nome</label>
                                 <input
                                     placeholder="Ex: Sacola Temática Luxo"
                                     className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
@@ -81,6 +89,14 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                                     <label className="font-medium mb-2 font-title">Lucro (%)</label>
                                     <input type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
                                 </div>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="font-medium mb-2 font-title">Quantidade em Estoque</label>
+                                <input
+                                    placeholder="0"
+                                    className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
+                                    value={qtdEstoque} onChange={e => setQtdEstoque(e.target.value)}
+                                />
                             </div>
                         </div>
 
@@ -112,7 +128,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, onSalvar, materiaisDisp
                             onClick={handleSalvar}
                             className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 rounded-2xl font-bold shadow-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 text-title"
                         >
-                            Finalizar Produto
+                            Salvar Produto
                         </button>
                     </div>
                 </div>

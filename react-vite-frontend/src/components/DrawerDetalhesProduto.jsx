@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { api } from "../provider/api";
 
-export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar }) {
+export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar, carregarProdutos }) {
     const [editProd, setEditProd] = useState(null);
 
     useEffect(() => {
@@ -13,10 +14,42 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar 
         setEditProd(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleSalvar = () => {
-        onAtualizar(editProd);
-        setIsOpen(false);
-    };
+    async function handleSalvar() {
+        try {
+
+            // Tratando o produto que será enviado para seguir as definições da request
+            const { empresa, ...produtoSemEmpresa } = editProd
+            const listaMateriaisFormatados = produtoSemEmpresa.listaMateriais.map((material) => {
+                return {
+                    materialId: material.material.id,
+                    quantidade: material.quantidade
+                };
+            });
+
+            const { listaMateriais, ...produtoSemMateriais } = produtoSemEmpresa
+            const produtoFinal = { materiais: listaMateriaisFormatados, empresaId: 1, ...produtoSemMateriais }
+
+            console.log(produtoFinal);
+            
+
+            const response = await api.put(`/produtos/${editProd.id}`, produtoFinal);
+            console.log("Produto atualizado:", response.data);
+            onAtualizar(editProd);
+            setIsOpen(false);
+        } catch (error) {
+            console.error("Erro ao atualizar:", error.response?.data || error.message);
+        }
+    }
+
+    async function handleExcluir() {
+        try {
+            const response = await api.delete(`/produtos/${editProd.id}`);
+            setIsOpen(false);
+            carregarProdutos()
+        } catch (error) {
+            console.error("Erro ao excluir:", error.response?.data || error.message);
+        }
+    }
 
     return (
         <div
@@ -77,12 +110,18 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar 
                         </div>
                     </div>
 
-                    <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 bg-white">
+                    <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 gap-4 bg-white">
                         <button
                             onClick={handleSalvar}
-                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                            className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
                         >
                             Salvar Alterações
+                        </button>
+                        <button
+                            onClick={handleExcluir} 
+                            className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                        >
+                            Excluir
                         </button>
                     </div>
                 </div>

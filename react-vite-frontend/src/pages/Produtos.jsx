@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { DrawerProduto } from "../components/DrawerProduto";
 import { DrawerDetalhesProduto } from "../components/DrawerDetalhesProduto";
+import { api } from "../provider/api";
 
 export function Produtos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -10,8 +11,6 @@ export function Produtos() {
     const [listaMateriais, setListaMateriais] = useState([]);
 
     const salvarNovoProduto = (novo) => {
-        const produtoComId = { ...novo, id: Date.now() };
-        setListaProdutos((prev) => [produtoComId, ...prev]);
         setDrawerIsOpen(false);
     };
 
@@ -28,6 +27,41 @@ export function Produtos() {
         );
         setProdutoSelecionado(produtoEditado);
     };
+
+    function carregarMateriais() {
+        api.get("/materiais")
+            .then(resposta => {
+                setListaMateriais(resposta.data);
+            })
+            .catch(erro => {
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum material cadastrado");
+                } else {
+                    console.log("Ocorreu um erro inesperado:", erro.message);
+                }
+            });
+    }
+
+    function carregarProdutos() {
+        api.get("/produtos")
+            .then(resposta => {
+                setListaProdutos(resposta.data);
+            })
+            .catch(erro => {
+                setListaProdutos([]);
+
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum material cadastrado");
+                } else {
+                    console.log("Erro ao carregar produtos:", erro.message);
+                }
+            });
+    }
+
+    useEffect(() => {
+        carregarMateriais()
+        carregarProdutos()
+    }, [])
 
     return (
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
@@ -126,6 +160,7 @@ export function Produtos() {
                 setDrawerIsOpen={setDrawerIsOpen}
                 onSalvar={salvarNovoProduto}
                 materiaisDisponiveis={listaMateriais}
+                carregarProdutos={carregarProdutos}
             />
 
             <DrawerDetalhesProduto
@@ -134,6 +169,7 @@ export function Produtos() {
                 produto={produtoSelecionado}
                 onAtualizar={atualizarProduto}
                 materiaisDisponiveis={listaMateriais}
+                carregarProdutos={carregarProdutos}
             />
         </div>
     );
