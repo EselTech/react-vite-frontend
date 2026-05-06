@@ -12,15 +12,10 @@ export function CampoLogin(props) {
 
     function entrar() {
 
-        setMensagemErro("")
-
         const credenciais = {
             username,
             senha
         }
-
-        console.log(credenciais);
-
 
         api.post("/auth/login", credenciais)
             .then(resposta => {
@@ -43,7 +38,7 @@ export function CampoLogin(props) {
                 <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
                 <h2 className="mt-[16%] text-4xl font-semibold font-title text-gray-900">Bem-vindo!</h2>
                 <div className="flex flex-col space-y-8 items-center justify-center mt-8">
-                    <InputCadastro nome={"Username"} placeholder={"Digite seu username"} aoMudar={setUsername} />
+                    <InputCadastro nome={"Nome de Usuário"} placeholder={"Digite seu nome de usuário"} aoMudar={setUsername} />
                     <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} aoMudar={setSenha} />
                     <p className="text-[#896D95] font-text text-left self-start text-sm -mt-4 font-semibold mb-12 cursor-pointer">Esqueci minha senha</p>
                 </div>

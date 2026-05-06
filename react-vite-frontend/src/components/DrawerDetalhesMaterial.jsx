@@ -136,7 +136,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                 onClick={handleExcluir}
                                 className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
                             >
-                                Exlcuir
+                                Excluir
                             </button>
                         </div>
                     </div>

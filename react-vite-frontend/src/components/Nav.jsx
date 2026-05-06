@@ -30,11 +30,11 @@ export function Nav(props) {
                 {/* Botão Produtos */}
                 <BotaoNav imagem="estoque" descricao="Produtos" ativo={props.tela == "Produtos"} aoClicar={() => props.setTela("Produtos")} />
 
-                {/* Botão Orçamentos */}
-                <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => props.setTela("Orcamentos")} />
-
                 {/* Botão Dashboard */}
                 <BotaoNav imagem="dashboard" descricao="Dashboard" ativo={props.tela == "Dashboard"} aoClicar={() => props.setTela("Dashboard")} />
+                    
+                {/* Botão Orçamentos */}
+                <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => props.setTela("Orcamentos")} />
 
                 {/* Botão Chatbot */}
                 <BotaoNav imagem="chatbot" descricao="Chatbot" ativo={props.tela == "Chatbot"} aoClicar={() => props.setTela("Chatbot")} />

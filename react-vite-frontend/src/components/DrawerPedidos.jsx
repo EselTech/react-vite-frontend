@@ -3,11 +3,11 @@ import CardProdutoPedido from "./CardProdutoPedido";
 
 export default function DrawerPedidos(props) {
     const [form, setForm] = useState({
-        title: "",
-        customer: "",
-        phone: "",
-        deliveryAddress: "",
-        observations: "",
+        title: "Pedido de Sacolas",
+        customer: "Roberta",
+        phone: "11 9876-5432",
+        deliveryAddress: "Rua Irmãos Indios, 2",
+        observations: "Azul",
         status: "open",
         items: [],
         deliveryDate: ""
@@ -19,11 +19,11 @@ export default function DrawerPedidos(props) {
         } else {
             setForm({
                 id: "PED-" + String(Date.now()).slice(-6),
-                title: "",
-                customer: "",
-                phone: "",
-                deliveryAddress: "",
-                observations: "",
+                title: "Pedido de Sacolas",
+                customer: "Roberta",
+                phone: "11 9876-5432",
+                deliveryAddress: "Rua Irmãos Indios, 2",
+                observations: "Azul",
                 status: "open",
                 items: [],
                 deliveryDate: ""
@@ -35,15 +35,17 @@ export default function DrawerPedidos(props) {
 
     const totalOrcamento = form.items.reduce((acc, i) => acc + (i.qty * i.preco), 0);
 
-    async function salvar() {
-        try {
-            const response = await api.post("/pedidos", form);
-            console.log("Pedido salvo:", response.data);
-            props.onSave(form);
-        } catch (error) {
-            console.error("Erro ao salvar pedido:", error.response?.data || error.message);
-        }
-    }
+    // async function salvar() {
+    //     try {
+    //         const response = await api.post("/pedidos", form);
+    //         console.log("Pedido salvo:", response.data);
+    //         props.onSave(form);
+    //     } catch (error) {
+    //         console.error("Erro ao salvar pedido:", error.response?.data || error.message);
+    //     }
+    // }
+
+
 
     return (
         <div
@@ -185,7 +187,7 @@ export default function DrawerPedidos(props) {
 
                     <div className="p-8 border-t border-[#e8d8f0]">
                         <button
-                            onClick={salvar}
+                            onClick={() => props.onSave(form)}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
                         >
                             Salvar Pedido

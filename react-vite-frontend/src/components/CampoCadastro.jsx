@@ -8,17 +8,21 @@ export function CampoCadastro(props) {
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [telefone, setTelefone] = useState("");
+    const [username, setUsername] = useState("");
     const [senha, setSenha] = useState("");
 
     async function cadastrar() {
         try {
-            const response = await api.post("/cadastro", {
+            const credenciais = {
                 nome,
                 email,
-                telefone,
+                username,
                 senha,
-            });
+                role: "USER"
+            }
+            console.log(credenciais);
+
+            const response = await api.post("/auth/registrar", credenciais);
             console.log("Cadastro realizado:", response.data);
         } catch (error) {
             console.error("Erro ao cadastrar:", error.response?.data || error.message);
@@ -31,12 +35,17 @@ export function CampoCadastro(props) {
                 <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
                 <h2 className="mt-[8%] text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
                 <div className="flex flex-col space-y-4 items-center justify-center mt-8 mb-10">
-                    <InputCadastro nome={"Nome"} placeholder={"Digite seu nome"} />
-                    <InputCadastro nome={"Email"} placeholder={"Digite seu email"} />
-                    <InputCadastro nome={"Telefone"} placeholder={"Digite seu telefone (somente números)"} />
-                    <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} />
+                    <InputCadastro nome={"Nome"} placeholder={"Digite seu nome completo"} aoMudar={setNome} />
+                    <InputCadastro nome={"Email"} placeholder={"Digite seu email"} aoMudar={setEmail} />
+                    <InputCadastro nome={"Nome de Usuário"} placeholder={"Digite seu nome de usuário"} aoMudar={setUsername} />
+                    <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} aoMudar={setSenha} />
                 </div>
-                <BotaoEntrar onClick={cadastrar}/>
+                <button
+                    className="bg-[#896D95] w-96 h-12 rounded-4xl text-white font-semibold font-title cursor-pointer"
+                    onClick={() => cadastrar()}
+                >
+                    Cadastrar
+                </button>
             </div>
         </>
     )
