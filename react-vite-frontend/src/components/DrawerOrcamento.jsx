@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { CardProdutoOrcamento } from "./CardProdutoOrcamento";
 import axios from "axios";
+import { api } from "../provider/api";
 
 export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
-    const [titulo, setTitulo] = useState("");
-    const [comprador, setComprador] = useState("");
+    const [titulo, setTitulo] = useState("Orçamento das Sacolas");
+    const [comprador, setComprador] = useState("Roberta");
 
     const [carrinho, setCarrinho] = useState({});
 
@@ -18,7 +19,45 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
         setCarrinho(prev => ({ ...prev, [nome]: qtd }));
     };
 
-    async function handleCalcular() {
+    // async function handleCalcular() {
+    //     const agora = new Date();
+
+    //     const selecionados = produtosDisponiveis
+    //         .filter(p => carrinho[p.nome] > 0)
+    //         .map(p => ({
+    //             nome: p.nome,
+    //             qtd: carrinho[p.nome],
+    //             precoUnitario: p.preco
+    //         }));
+
+    //     const total = produtosDisponiveis.reduce((acc, p) => {
+    //         return acc + (p.preco * (carrinho[p.nome] || 0));
+    //     }, 0);
+
+    //     const novoOrcamento = {
+    //         titulo: titulo || "Orçamento sem título",
+    //         comprador: comprador || "Cliente",
+    //         dia: agora.getDate().toString().padStart(2, '0'),
+    //         mes: agora.toLocaleString('pt-BR', { month: 'short' }).replace('.', ''),
+    //         ano: agora.getFullYear().toString(),
+    //         hora: agora.getHours() + ":" + agora.getMinutes().toString().padStart(2, '0'),
+    //         produtos: selecionados,
+    //         precoTotal: total
+    //     };
+
+    //     try {
+    //         const response = await api.post("/orcamentos", novoOrcamento);
+    //         console.log("Orçamento salvo:", response.data);
+    //         onSalvar(novoOrcamento);
+    //         setTitulo("");
+    //         setComprador("");
+    //         setCarrinho({});
+    //     } catch (error) {
+    //         console.error("Erro ao salvar orçamento:", error.response?.data || error.message);
+    //     }
+    // }
+
+    const handleCalcular = () => {
         const agora = new Date();
 
         const selecionados = produtosDisponiveis
@@ -44,17 +83,12 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
             precoTotal: total
         };
 
-        try {
-            const response = await api.post("/orcamentos", novoOrcamento);
-            console.log("Orçamento salvo:", response.data);
-            onSalvar(novoOrcamento);
-            setTitulo("");
-            setComprador("");
-            setCarrinho({});
-        } catch (error) {
-            console.error("Erro ao salvar orçamento:", error.response?.data || error.message);
-        }
-    }
+        onSalvar(novoOrcamento);
+
+        setTitulo("");
+        setComprador("");
+        setCarrinho({});
+    };
 
     return (
         <div

@@ -6,10 +6,10 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, onSalvar }) {
     const [form, setForm] = useState({
         empresaId: 1,
         categoria: "INTEIRO",
-        nome: "",
-        descricao: "",
-        qtdEstoque: 0,
-        preco: 0
+        nome: "Folha A4",
+        descricao: "Folha Sulfite A4",
+        qtdEstoque: 10,
+        preco: 5.00
     });
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITROS", "GRAMA"];

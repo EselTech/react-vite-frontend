@@ -1,43 +1,114 @@
-import { useState } from "react";
-import { BotaoEntrar } from "./BotaoEntrar";
-import { InputCadastro } from "./InputCadastro";
-import { MenuCadastroLogin } from "./MenuCadastroLogin";
+import { useState, useEffect } from "react";
 import { api } from "../provider/api";
+import { MenuCadastroLogin } from "./MenuCadastroLogin";
+import { InputCadastro } from "./InputCadastro";
+import toast, { Toaster } from "react-hot-toast";
+import { BotaoEntrar } from "./BotaoEntrar";
 
 export function CampoCadastro(props) {
-
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [telefone, setTelefone] = useState("");
+    const [username, setUsername] = useState("");
     const [senha, setSenha] = useState("");
 
+    const [inputsBloqueados, setInputsBloqueados] = useState(false)
+
+    const [erros, setErros] = useState({});
+
+    useEffect(() => {
+        let novosErros = {};
+
+        if (nome && nome.length <= 4) {
+            novosErros.nome = "Digite seu nome completo.";
+        }
+
+        if (email && (!email.includes("@") || !email.includes("."))) {
+            novosErros.email = "Digite um e-mail válido.";
+        }
+
+        if (username) {
+            if (username.includes(" ")) {
+                novosErros.username = "O nome de usuário não deve possuir espaços.";
+            } else if (username.length < 5) {
+                novosErros.username = "Seu nome de usuário deve possuir ao menos 5 caracteres.";
+            }
+        }
+
+        if (senha && senha.length < 8) {
+            novosErros.senha = "A senha deve possuir ao menos 8 caracteres.";
+        }
+
+        setErros(novosErros);
+    }, [nome, email, username, senha]);
+
     async function cadastrar() {
+        const temCamposVazios = !nome || !email || !username || !senha;
+        const temErros = Object.keys(erros).length > 0;
+
+        if (temErros || temCamposVazios) {
+            toast("Por favor, preencha todos os campos corretamente", {
+                icon: "⚠️"
+            })
+            return
+        }
+
         try {
-            const response = await api.post("/cadastro", {
-                nome,
-                email,
-                telefone,
-                senha,
-            });
-            console.log("Cadastro realizado:", response.data);
+            const credenciais = { nome, email, username, senha, role: "USER" };
+            const response = await api.post("/auth/registrar", credenciais);
+            toast.success("Cadastro realizado com sucesso!")
+            setInputsBloqueados(true)
+            setTimeout(() => {
+                props.setTela("Login")
+            }, 2000)
         } catch (error) {
             console.error("Erro ao cadastrar:", error.response?.data || error.message);
         }
     }
 
     return (
-        <>
-            <div className="p-[6%] w-1/2 h-1/1 rounded-l-3xl bg-[#FAF7FB] text-center" aria-label="Area com os campos de entrada do usuario para realizar o cadastro">
-                <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
-                <h2 className="mt-[8%] text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
-                <div className="flex flex-col space-y-4 items-center justify-center mt-8 mb-10">
-                    <InputCadastro nome={"Nome"} placeholder={"Digite seu nome"} />
-                    <InputCadastro nome={"Email"} placeholder={"Digite seu email"} />
-                    <InputCadastro nome={"Telefone"} placeholder={"Digite seu telefone (somente números)"} />
-                    <InputCadastro nome={"Senha"} placeholder={"Digite sua senha"} />
-                </div>
-                <BotaoEntrar onClick={cadastrar}/>
+        <div className="p-[6%] w-1/2 h-1/1 rounded-l-3xl bg-[#FAF7FB] text-center">
+            <Toaster />
+            <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
+
+            <h2 className="mt-8 text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
+
+            <div className="flex flex-col space-y-3 items-center justify-center mt-8 ">
+                <InputCadastro
+                    nome={"Nome"}
+                    placeholder={"Digite seu nome completo"}
+                    aoMudar={setNome}
+                    erro={erros.nome}
+                    inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/user-icon.svg"}
+                />
+                <InputCadastro
+                    nome={"Email"}
+                    placeholder={"Digite seu email"}
+                    aoMudar={setEmail}
+                    erro={erros.email}
+                    inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/email-icon.svg"}
+                />
+                <InputCadastro
+                    nome={"Nome de Usuário"}
+                    placeholder={"Digite seu nome de usuário"}
+                    aoMudar={setUsername}
+                    erro={erros.username}
+                    inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/user-icon.svg"}
+                />
+                <InputCadastro
+                    type="password"
+                    nome={"Senha"}
+                    placeholder={"Digite sua senha"}
+                    aoMudar={setSenha}
+                    erro={erros.senha}
+                    inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/password-icon.svg"}
+                />
             </div>
-        </>
-    )
+
+            <BotaoEntrar aoClicar={cadastrar} texto={"Cadastrar"} />
+        </div>
+    );
 }
