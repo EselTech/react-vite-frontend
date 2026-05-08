@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualizar, carregarMateriais }) {
     const [editMaterial, setEditMaterial] = useState(null);
@@ -25,21 +26,24 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
             const materialFinal = { ...materialSemEmpresa, empresaId: 1 }
 
             const response = await api.put(`/materiais/${editMaterial.id}`, materialFinal);
-            console.log("Material atualizado:", response.data);
+            toast.success("Alterações salvas com sucesso")
             onAtualizar(editMaterial);
             setIsOpen(false);
         } catch (error) {
             console.error("Erro ao atualizar:", error.response?.data || error.message);
+            toast.error("Erro ao atualizar material")
         }
     }
 
     async function handleExcluir() {
         try {
             const response = await api.delete(`/materiais/${editMaterial.id}`);
+            toast.success("Material excluído com sucesso")
             setIsOpen(false);
             carregarMateriais()
         } catch (error) {
             console.error("Erro ao excluir:", error.response?.data || error.message);
+            toast.error("Erro ao exlcuir material")
         }
     }
 

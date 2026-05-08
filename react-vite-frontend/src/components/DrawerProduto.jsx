@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardMaterialSelecao } from "./CardMaterialSelecao";
 import axios from "axios";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = [], carregarProdutos }) {
     const [nome, setNome] = useState("");
@@ -35,7 +36,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
 
         const novoProduto = {
             empresaId: 1,
-            nome: nome || "Material não nomeado",
+            nome: nome,
             descricao,
             custo: custoTotal,
             preco: precoSugerido,
@@ -48,11 +49,19 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
 
 
         try {
+            if (!novoProduto.nome) {
+                toast.error('Por favor, preencha os campos corretamente', {
+                    icon: "⚠️"
+                })
+                return
+            }
             const response = await api.post("/produtos", novoProduto);
+            toast.success("Produto cadastrado com sucesso")
             carregarProdutos()
             setDrawerIsOpen(false);
         } catch (error) {
             console.error("Erro ao salvar produto:", error.response?.data || error.message);
+            toast.error("Erro ao cadastrar produto")
         }
     }
 

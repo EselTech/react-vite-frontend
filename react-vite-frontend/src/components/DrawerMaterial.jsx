@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
     const [form, setForm] = useState({
@@ -14,17 +15,25 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITROS", "GRAMA"];
 
-    
+
     async function handleSalvar() {
-    try {
-        const response = await api.post("/materiais", form);
-        carregarMateriais()
-        setDrawerIsOpen(false); 
-        setForm({ empresaId: 1, categoria: "INTEIRO", nome: "", descricao: "", qtdEstoque: 0, preco: 0 });
-    } catch (error) {
-        console.error("Erro ao salvar:", error.response?.data || error.message);
+        if (!form.nome) {
+            toast.error('Por favor, preencha os campos corretamente', {
+                icon: "⚠️"
+            })
+            return
+        }
+        try {
+            const response = await api.post("/materiais", form);
+            toast.success('Material cadastrado com sucesso')
+            carregarMateriais()
+            setDrawerIsOpen(false);
+            setForm({ empresaId: 1, categoria: "INTEIRO", nome: "", descricao: "", qtdEstoque: 0, preco: 0 });
+        } catch (error) {
+            toast.error('Erro ao cadastrar material')
+            console.error("Erro ao salvar:", error.response?.data || error.message);
+        }
     }
-}
 
     return (
         <div
@@ -108,7 +117,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
 
                     {/* Footer fixo idêntico ao de Orçamento */}
                     <div className="h-24 border-t border-[#e8d8f0] flex items-center px-8 bg-white">
-                        <button 
+                        <button
                             onClick={handleSalvar}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
                         >
