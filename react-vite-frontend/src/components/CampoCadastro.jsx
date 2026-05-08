@@ -3,6 +3,7 @@ import { api } from "../provider/api";
 import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import { InputCadastro } from "./InputCadastro";
 import toast, { Toaster } from "react-hot-toast";
+import { BotaoEntrar } from "./BotaoEntrar";
 
 export function CampoCadastro(props) {
     const [nome, setNome] = useState("");
@@ -69,13 +70,16 @@ export function CampoCadastro(props) {
             <Toaster />
             <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
 
-            <div className="flex flex-col space-y-3 items-center justify-center mt-8 mb-10">
+            <h2 className="mt-8 text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
+
+            <div className="flex flex-col space-y-3 items-center justify-center mt-8 ">
                 <InputCadastro
                     nome={"Nome"}
                     placeholder={"Digite seu nome completo"}
                     aoMudar={setNome}
                     erro={erros.nome}
                     inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Email"}
@@ -83,6 +87,7 @@ export function CampoCadastro(props) {
                     aoMudar={setEmail}
                     erro={erros.email}
                     inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/email-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Nome de Usuário"}
@@ -90,23 +95,20 @@ export function CampoCadastro(props) {
                     aoMudar={setUsername}
                     erro={erros.username}
                     inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
-                    nome={"Senha"}
                     type="password"
+                    nome={"Senha"}
                     placeholder={"Digite sua senha"}
                     aoMudar={setSenha}
                     erro={erros.senha}
                     inputsBloqueados={inputsBloqueados}
+                    // imagem={"../public/password-icon.svg"}
                 />
             </div>
 
-            <button
-                className={`w-88 h-12 -mt-12 rounded-4xl text-white font-semibold font-title transition-all duration-300 bg-[#896D95] cursor-pointer hover:brightness-110`}
-                onClick={cadastrar}
-            >
-                Cadastrar
-            </button>
+            <BotaoEntrar aoClicar={cadastrar} texto={"Cadastrar"} />
         </div>
     );
 }
