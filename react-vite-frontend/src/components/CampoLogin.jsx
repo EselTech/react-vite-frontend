@@ -15,6 +15,13 @@ export function CampoLogin(props) {
 
     async function entrar() {
 
+        if (!username || !senha) {
+            toast("Por favor, preencha todos os campos corretamente", {
+                icon: "⚠️"
+            })
+            return
+        }
+
         try {
             const credenciais = {
                 username,
@@ -31,7 +38,7 @@ export function CampoLogin(props) {
             if (erro.response && erro.response.status === 400) {
                 // setMensagemErro("Usuário não encontrado, confira suas credênciais!")
                 console.log("Usuário não encontrado");
-                toast.error("Credenciais incorretas")
+                toast.error("Credenciais inválidas")
             } else {
                 // setMensagemErro("Erro ao realizar login")
                 console.error("Erro no login:", erro.message);

@@ -45,8 +45,10 @@ export function CampoCadastro(props) {
         const temErros = Object.keys(erros).length > 0;
 
         if (temErros || temCamposVazios) {
-            alert("Por favor, preencha todos os campos corretamente.");
-            return;
+            toast("Por favor, preencha todos os campos corretamente", {
+                icon: "⚠️"
+            })
+            return
         }
 
         try {
