@@ -52,8 +52,8 @@ export function CampoLogin(props) {
             <Toaster />
             <div className="p-[6%] w-1/2 h-1/1 rounded-r-3xl bg-[#FAF7FB] text-center" aria-label="Area com os campos de entrada do usuario para realizar o cadastro">
                 <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
-                <h2 className="mt-8 text-4xl font-semibold font-title text-gray-900">Bem-vindo!</h2>
-                <div className="flex flex-col space-y-8 items-center justify-center mt-24">
+                <h2 className="mt-14 text-4xl font-semibold font-title text-gray-900">Bem-vindo!</h2>
+                <div className="flex flex-col space-y-8 items-center justify-center mt-18">
                     <InputCadastro
                         nome={"Nome de Usuário"}
                         placeholder={"Digite seu nome de usuário"}
