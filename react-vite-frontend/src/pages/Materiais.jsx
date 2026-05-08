@@ -10,12 +10,6 @@ export function Materiais() {
     const [materialSelecionado, setMaterialSelecionado] = useState(null);
     const [listaMateriais, setListaMateriais] = useState([]);
 
-    const salvarNovoMaterial = (novo) => {
-        const materialComId = { ...novo, id: Date.now() };
-        setListaMateriais((prev) => [materialComId, ...prev]);
-        setDrawerIsOpen(false);
-    };
-
     const abrirDetalhes = (material) => {
 
         setMaterialSelecionado(material);
@@ -38,6 +32,7 @@ export function Materiais() {
                 setListaMateriais(resposta.data);
             })
             .catch(erro => {
+                setListaMateriais([])
                 if (erro.response && erro.response.status == 404) {
                     console.log("Nenhum material cadastrado");
                 } else {
@@ -138,7 +133,7 @@ export function Materiais() {
             <DrawerMaterial
                 isOpen={drawerIsOpen}
                 setDrawerIsOpen={setDrawerIsOpen}
-                onSalvar={salvarNovoMaterial}
+                carregarMateriais={carregarMateriais}
             />
 
             <DrawerDetalhesMaterial

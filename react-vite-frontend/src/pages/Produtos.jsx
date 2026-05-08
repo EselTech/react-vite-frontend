@@ -10,10 +10,6 @@ export function Produtos() {
     const [listaProdutos, setListaProdutos] = useState([]);
     const [listaMateriais, setListaMateriais] = useState([]);
 
-    const salvarNovoProduto = (novo) => {
-        setDrawerIsOpen(false);
-    };
-
     const abrirDetalhes = (produto) => {
         setProdutoSelecionado(produto);
         setDrawerDetalhesOpen(true);
@@ -45,13 +41,10 @@ export function Produtos() {
     function carregarProdutos() {
         api.get("/produtos")
             .then(resposta => {
-                console.log(resposta.data);
-
                 setListaProdutos(resposta.data);
             })
             .catch(erro => {
                 setListaProdutos([]);
-
                 if (erro.response && erro.response.status == 404) {
                     console.log("Nenhum material cadastrado");
                 } else {
@@ -112,7 +105,6 @@ export function Produtos() {
                             </thead>
                             <tbody>
                                 {listaProdutos.map((prod) => (
-                                    console.log(prod),
 
                                     <tr
                                         key={prod.id}
@@ -171,7 +163,6 @@ export function Produtos() {
             <DrawerProduto
                 isOpen={drawerIsOpen}
                 setDrawerIsOpen={setDrawerIsOpen}
-                onSalvar={salvarNovoProduto}
                 materiaisDisponiveis={listaMateriais}
                 carregarProdutos={carregarProdutos}
             />

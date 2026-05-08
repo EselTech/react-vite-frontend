@@ -2,14 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import { api } from "../provider/api";
 
-export function DrawerMaterial({ isOpen, setDrawerIsOpen, onSalvar }) {
+export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
     const [form, setForm] = useState({
         empresaId: 1,
         categoria: "INTEIRO",
-        nome: "Folha A4",
-        descricao: "Folha Sulfite A4",
-        qtdEstoque: 10,
-        preco: 5.00
+        nome: "",
+        descricao: "",
+        qtdEstoque: 0,
+        preco: 0.00
     });
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITROS", "GRAMA"];
@@ -18,8 +18,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, onSalvar }) {
     async function handleSalvar() {
     try {
         const response = await api.post("/materiais", form);
-        console.log("Material salvo:", response.data);
-        onSalvar(form);
+        carregarMateriais()
+        setDrawerIsOpen(false); 
         setForm({ empresaId: 1, categoria: "INTEIRO", nome: "", descricao: "", qtdEstoque: 0, preco: 0 });
     } catch (error) {
         console.error("Erro ao salvar:", error.response?.data || error.message);

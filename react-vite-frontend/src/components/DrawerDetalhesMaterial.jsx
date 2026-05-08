@@ -35,8 +35,6 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
 
     async function handleExcluir() {
         try {
-            console.log(editMaterial);
-            
             const response = await api.delete(`/materiais/${editMaterial.id}`);
             setIsOpen(false);
             carregarMateriais()
