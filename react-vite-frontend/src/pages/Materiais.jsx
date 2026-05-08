@@ -3,6 +3,7 @@ import { DrawerMaterial } from "../components/DrawerMaterial";
 import { DrawerDetalhesMaterial } from "../components/DrawerDetalhesMaterial";
 import axios from "axios";
 import { api } from "../provider/api";
+import { Toaster } from "react-hot-toast";
 
 export function Materiais() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -10,25 +11,12 @@ export function Materiais() {
     const [materialSelecionado, setMaterialSelecionado] = useState(null);
     const [listaMateriais, setListaMateriais] = useState([]);
 
-    const salvarNovoMaterial = (novo) => {
-        const materialComId = { ...novo, id: Date.now() };
-        setListaMateriais((prev) => [materialComId, ...prev]);
-        setDrawerIsOpen(false);
-    };
-
     const abrirDetalhes = (material) => {
-
         setMaterialSelecionado(material);
         setDrawerDetalhesOpen(true);
     };
 
     const atualizarMaterial = (materialEditado) => {
-        // setListaMateriais((prev) =>
-        //     prev.map((mat) =>
-        //         mat.id === materialSelecionado.id ? materialEditado : mat
-        //     )
-        // );
-        // setMaterialSelecionado(materialEditado);
         carregarMateriais()
     };
 
@@ -38,6 +26,7 @@ export function Materiais() {
                 setListaMateriais(resposta.data);
             })
             .catch(erro => {
+                setListaMateriais([])
                 if (erro.response && erro.response.status == 404) {
                     console.log("Nenhum material cadastrado");
                 } else {
@@ -52,6 +41,10 @@ export function Materiais() {
 
     return (
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <div className="w-11/12 mt-8">
                 <div className="h-16 flex justify-between w-full items-center mb-12">
                     <div>
@@ -138,7 +131,7 @@ export function Materiais() {
             <DrawerMaterial
                 isOpen={drawerIsOpen}
                 setDrawerIsOpen={setDrawerIsOpen}
-                onSalvar={salvarNovoMaterial}
+                carregarMateriais={carregarMateriais}
             />
 
             <DrawerDetalhesMaterial

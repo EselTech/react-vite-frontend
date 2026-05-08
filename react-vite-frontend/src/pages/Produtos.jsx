@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { DrawerProduto } from "../components/DrawerProduto";
 import { DrawerDetalhesProduto } from "../components/DrawerDetalhesProduto";
 import { api } from "../provider/api";
+import { Toaster } from "react-hot-toast";
 
 export function Produtos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -9,10 +10,6 @@ export function Produtos() {
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [listaProdutos, setListaProdutos] = useState([]);
     const [listaMateriais, setListaMateriais] = useState([]);
-
-    const salvarNovoProduto = (novo) => {
-        setDrawerIsOpen(false);
-    };
 
     const abrirDetalhes = (produto) => {
         setProdutoSelecionado(produto);
@@ -45,13 +42,10 @@ export function Produtos() {
     function carregarProdutos() {
         api.get("/produtos")
             .then(resposta => {
-                console.log(resposta.data);
-
                 setListaProdutos(resposta.data);
             })
             .catch(erro => {
                 setListaProdutos([]);
-
                 if (erro.response && erro.response.status == 404) {
                     console.log("Nenhum material cadastrado");
                 } else {
@@ -75,6 +69,10 @@ export function Produtos() {
 
     return (
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <div className="w-11/12 mt-8">
                 <div className="h-16 flex justify-between w-full items-center mb-12">
                     <div>
@@ -112,7 +110,6 @@ export function Produtos() {
                             </thead>
                             <tbody>
                                 {listaProdutos.map((prod) => (
-                                    console.log(prod),
 
                                     <tr
                                         key={prod.id}
@@ -171,7 +168,6 @@ export function Produtos() {
             <DrawerProduto
                 isOpen={drawerIsOpen}
                 setDrawerIsOpen={setDrawerIsOpen}
-                onSalvar={salvarNovoProduto}
                 materiaisDisponiveis={listaMateriais}
                 carregarProdutos={carregarProdutos}
             />
