@@ -58,6 +58,7 @@ function App() {
       {tela != "Login" && tela != "Cadastro" && <Nav tela={tela} setTela={setTela} />}
       {telaAtual}
     </main>
+    
   )
 
 }
