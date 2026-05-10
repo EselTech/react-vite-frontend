@@ -15,36 +15,36 @@ export function CampoLogin(props) {
 
     async function entrar() {
 
-        if (!username || !senha) {
-            toast("Por favor, preencha todos os campos corretamente", {
-                icon: "⚠️"
-            })
-            return
-        }
+        // if (!username || !senha) {
+        //     toast("Por favor, preencha todos os campos corretamente", {
+        //         icon: "⚠️"
+        //     })
+        //     return
+        // }
 
-        try {
-            const credenciais = {
-                username,
-                senha
-            }
-            const response = await api.post("/auth/login", credenciais)
+        // try {
+        //     const credenciais = {
+        //         username,
+        //         senha
+        //     }
+        //     const response = await api.post("/auth/login", credenciais)
             toast.success("Login realizado com sucesso!")
             setInputsBloqueados(true)
             setTimeout(() => {
                 props.setTela("Home")
             }, 1500)
 
-        } catch (erro) {
-            if (erro.response && erro.response.status === 400) {
-                // setMensagemErro("Usuário não encontrado, confira suas credênciais!")
-                console.log("Usuário não encontrado");
-                toast.error("Credenciais inválidas")
-            } else {
-                // setMensagemErro("Erro ao realizar login")
-                console.error("Erro no login:", erro.message);
-                toast.error("Erro ao realizar login")
-            }
-        }
+        // } catch (erro) {
+        //     if (erro.response && erro.response.status === 400) {
+        //         // setMensagemErro("Usuário não encontrado, confira suas credênciais!")
+        //         console.log("Usuário não encontrado");
+        //         toast.error("Credenciais inválidas")
+        //     } else {
+        //         // setMensagemErro("Erro ao realizar login")
+        //         console.error("Erro no login:", erro.message);
+        //         toast.error("Erro ao realizar login")
+        //     }
+        // }
     }
 
     return (
