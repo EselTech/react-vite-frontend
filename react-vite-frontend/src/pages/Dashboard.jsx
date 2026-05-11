@@ -1,4 +1,5 @@
 import ReactECharts from "echarts-for-react";
+import { Nav } from "../components/Nav";
 
 export function Dashboard() {
   const chartOptions = {
@@ -50,6 +51,8 @@ export function Dashboard() {
   };
 
  return (
+  <div className="flex">
+    <Nav/>
     <main className="flex-1 h-full p-10 flex flex-col min-h-0 bg-white font-sans text-gray-800">
       
       <header className="mb-6 shrink-0">
@@ -88,5 +91,6 @@ export function Dashboard() {
       </section>
 
     </main>
+    </div>
   );
 }

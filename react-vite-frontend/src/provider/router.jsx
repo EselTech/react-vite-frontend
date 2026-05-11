@@ -9,6 +9,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { Chatbot } from "../pages/Chatbot";
 import { Perfil } from "../pages/Perfil";
 import { ErrorPage } from "../pages/ErrorPage";
+import { Cadastro } from "../pages/Cadastro";
 
 export const router = createBrowserRouter([
     {
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/cadastro",
-        element: <Login/>,
+        element: <Cadastro/>,
         errorElement: <ErrorPage/>
     },
     {
@@ -63,7 +64,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "*",
-        element: <div>Not Found</div>,
+        element: <ErrorPage/>,
         errorElement: <ErrorPage/>
     },
 ])

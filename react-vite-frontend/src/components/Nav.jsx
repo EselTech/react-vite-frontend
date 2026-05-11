@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { BotaoNav } from "./BotaoNav";
 
 export function Nav(props) {
+
+    const navigate = useNavigate()
 
     return (
 
@@ -16,36 +19,36 @@ export function Nav(props) {
             <div className="flex flex-col gap-4 ml-6 ">
 
                 {/* Botão Home */}
-                <BotaoNav imagem="home" descricao="Home" ativo={props.tela == "Home"} aoClicar={() => props.setTela("Home")} />
+                <BotaoNav imagem="home" descricao="Home" ativo={props.tela == "Home"} aoClicar={() => navigate("/home")} />
 
                 {/* Botão Pedidos */}
-                <BotaoNav imagem="pedidos" descricao="Pedidos" ativo={props.tela == "Pedidos"} aoClicar={() => props.setTela("Pedidos")} />
+                <BotaoNav imagem="pedidos" descricao="Pedidos" ativo={props.tela == "Pedidos"} aoClicar={() => navigate("/pedidos")} />
 
                 {/* Botão Estoque */}
                 {/* <BotaoNav imagem="estoque" descricao="Estoque" ativo={props.tela == "Estoque"} aoClicar={() => props.setTela("Estoque")} /> */}
 
                 {/* Botão Materiais */}
-                <BotaoNav imagem="estoque" descricao="Materiais" ativo={props.tela == "Materiais"} aoClicar={() => props.setTela("Materiais")} />
+                <BotaoNav imagem="estoque" descricao="Materiais" ativo={props.tela == "Materiais"} aoClicar={() => navigate("/materiais")} />
                 
                 {/* Botão Produtos */}
-                <BotaoNav imagem="estoque" descricao="Produtos" ativo={props.tela == "Produtos"} aoClicar={() => props.setTela("Produtos")} />
+                <BotaoNav imagem="estoque" descricao="Produtos" ativo={props.tela == "Produtos"} aoClicar={() => navigate("/produtos")} />
 
                 {/* Botão Dashboard */}
-                <BotaoNav imagem="dashboard" descricao="Dashboard" ativo={props.tela == "Dashboard"} aoClicar={() => props.setTela("Dashboard")} />
+                <BotaoNav imagem="dashboard" descricao="Dashboard" ativo={props.tela == "Dashboard"} aoClicar={() => navigate("/dashboard")} />
                     
                 {/* Botão Orçamentos */}
-                <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => props.setTela("Orcamentos")} />
+                <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => navigate("/orcamentos")} />
 
                 {/* Botão Chatbot */}
-                <BotaoNav imagem="chatbot" descricao="Chatbot" ativo={props.tela == "Chatbot"} aoClicar={() => props.setTela("Chatbot")} />
+                <BotaoNav imagem="chatbot" descricao="Chatbot" ativo={props.tela == "Chatbot"} aoClicar={() => navigate("/chatbot")} />
 
                 {/* Botão Perfil */}
-                <BotaoNav imagem="perfil" descricao="Perfil" ativo={props.tela == "Perfil"} aoClicar={() => props.setTela("Perfil")} />
+                <BotaoNav imagem="perfil" descricao="Perfil" ativo={props.tela == "Perfil"} aoClicar={() => navigate("/perfil")} />
 
             </div>
             <div className="flex gap-2 mt-auto mb-4 ml-4 " >
-                <img src="logoutIcon.svg" className="w-4 cursor-pointer" onClick={() => props.setTela("Login")} />
-                <p className="font-title cursor-pointer " onClick={() => props.setTela("Login")}>
+                <img src="logoutIcon.svg" className="w-4 cursor-pointer" onClick={() => navigate("/")} />
+               <p className="font-title cursor-pointer " onClick={() => navigate("/")}>
                     Sair
                 </p>
             </div>

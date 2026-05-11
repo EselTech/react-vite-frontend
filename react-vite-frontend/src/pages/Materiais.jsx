@@ -4,6 +4,7 @@ import { DrawerDetalhesMaterial } from "../components/DrawerDetalhesMaterial";
 import axios from "axios";
 import { api } from "../provider/api";
 import { Toaster } from "react-hot-toast";
+import { Nav } from "../components/Nav";
 
 export function Materiais() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -40,6 +41,8 @@ export function Materiais() {
     }, [])
 
     return (
+        <div className="flex">
+            <Nav/>
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
             <Toaster
                 position="top-center"
@@ -141,6 +144,7 @@ export function Materiais() {
                 onAtualizar={atualizarMaterial}
                 carregarMateriais={carregarMateriais}
             />
+        </div>
         </div>
     );
 }
