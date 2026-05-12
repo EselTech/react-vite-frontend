@@ -28,30 +28,21 @@ export function ErrorPage() {
             <circle cx="57" cy="88" r="2.5" fill="#b99ade" />
             <circle cx="83" cy="88" r="2.5" fill="#b99ade" />
             <path d="M62 98 Q70 93 78 98" fill="none" stroke="#b99ade" strokeWidth="2" strokeLinecap="round" />
-            <text x="70" y="32" textAnchor="middle" fontFamily="Nunito,sans-serif" fontSize="18" fontWeight="800" fill="#c4a8e8">?</text>
-            <g transform="translate(22,38) rotate(-20)">
-              <ellipse cx="0" cy="-7" rx="7" ry="5" fill="#d4b8f0" opacity="0.85" />
-              <ellipse cx="0" cy="7" rx="5" ry="4" fill="#c4a0e8" opacity="0.75" />
-            </g>
-            <g transform="translate(115,48) rotate(15)">
-              <ellipse cx="0" cy="-6" rx="6" ry="4.5" fill="#f0c8e8" opacity="0.85" />
-              <ellipse cx="0" cy="6" rx="4.5" ry="3.5" fill="#e8b0d8" opacity="0.75" />
-            </g>
+            
             <text x="108" y="36" textAnchor="middle" fontSize="12" fill="#c4a8e8">✦</text>
             <text x="30" y="100" textAnchor="middle" fontSize="9" fill="#d4b8f0">✦</text>
           </svg>
         </div>
 
-        <h1 className="font-text text-8xl font-extrabold leading-none tracking-tight mb-1"
-          style={{ color: "#7c5cbf" }}>
+        <h1 className="font-text text-8xl font-extrabold leading-none tracking-tight mb-1 text-[#5b376b]">
           404
         </h1>
 
-        <h2 className="font-text text-xl font-bold mb-2" style={{ color: "#4a3670" }}>
+        <h2 className="font-text text-2xl font-bold mb-2 text-[#5b376b]">
           Página não encontrada
         </h2>
 
-        <p className="font-text text-sm leading-relaxed mb-8" style={{ color: "#9e8ab8" }}>
+        <p className="font-text text-lg leading-relaxed mb-8 text-[#9e8ab8]">
           A página que você tentou acessar não existe ou foi removida.<br />
           Verifique o endereço ou volte para continuar navegando.
         </p>
@@ -59,12 +50,10 @@ export function ErrorPage() {
 
         <button
           onClick={() => window.location.href = "/"}
-          className="btn-voltar font-text w-full text-white font-bold text-base rounded-full py-3.5 transition-all duration-200 cursor-pointer border-none"
-          style={{ background: "#7c5cbf" }}
-        >
+          className="btn-voltar font-text w-full text-white font-bold text-base rounded-full py-3.5 transition-all duration-200 cursor-pointer border-none bg-[#7c5cbf]"
+          >
           Voltar ao início
         </button>
-
       </div>
     </div>
   );
