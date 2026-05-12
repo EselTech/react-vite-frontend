@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DrawerPedidos from "../components/DrawerPedidos";
+import { Nav } from "../components/Nav";
 
 const produtosIniciais = [
     { id: "p1", nome: "Sacola de Papel", preco: 45.00, emoji: "🛍️" },
@@ -28,6 +29,8 @@ export function Pedidos() {
     };
 
     return (
+        <div className="flex">
+            <Nav tela="Pedidos"/>
         <div className="h-screen overflow-y-auto flex flex-col w-10/12 bg-[#FAF7FB] font-text p-10">
 
             <header className="h-20 flex items-center justify-between mb-6 shrink-0">
@@ -90,6 +93,7 @@ export function Pedidos() {
                 onClose={() => setDrawer({ open: false, order: null })}
                 onSave={handleSave}
             />
+        </div>
         </div>
     );
 }

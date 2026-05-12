@@ -52,7 +52,7 @@ export function Dashboard() {
 
  return (
   <div className="flex">
-    <Nav/>
+    <Nav tela="Dashboard"/>
     <main className="flex-1 h-full p-10 flex flex-col min-h-0 bg-white font-sans text-gray-800">
       
       <header className="mb-6 shrink-0">

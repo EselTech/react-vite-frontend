@@ -5,7 +5,7 @@ export function Chatbot() {
 
     return (
         <div className="flex">
-            <Nav/>
+            <Nav tela="Chatbot"/>
         <div className="w-10/12 flex flex-col justify-around items-center">
 
             <div className="self-start pl-[9vw] w-max">

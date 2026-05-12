@@ -3,6 +3,7 @@ import { DrawerProduto } from "../components/DrawerProduto";
 import { DrawerDetalhesProduto } from "../components/DrawerDetalhesProduto";
 import { api } from "../provider/api";
 import { Toaster } from "react-hot-toast";
+import { Nav } from "../components/Nav";
 
 export function Produtos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -68,6 +69,8 @@ export function Produtos() {
     }, [])
 
     return (
+        <div className="flex">
+            <Nav tela="Produtos"/>
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
             <Toaster
                 position="top-center"
@@ -180,6 +183,7 @@ export function Produtos() {
                 materiaisDisponiveis={listaMateriais}
                 carregarProdutos={carregarProdutos}
             />
+        </div>
         </div>
     );
 }

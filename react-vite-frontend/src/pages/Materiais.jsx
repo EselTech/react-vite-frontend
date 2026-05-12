@@ -42,7 +42,7 @@ export function Materiais() {
 
     return (
         <div className="flex">
-            <Nav/>
+            <Nav tela="Materiais"/>
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
             <Toaster
                 position="top-center"
