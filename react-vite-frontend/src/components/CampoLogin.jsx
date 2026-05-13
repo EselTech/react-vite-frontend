@@ -32,7 +32,12 @@ export function CampoLogin(props) {
             toast.success("Login realizado com sucesso!")
             setInputsBloqueados(true)
             setTimeout(() => {
-                navigate("/home")
+                navigate("/home", {
+                    state:{
+                        username: username,
+                        senha: senha
+                    }
+                })
             }, 1500)
 
         // } catch (erro) {
