@@ -38,8 +38,13 @@ export function Pedidos() {
             });
     }
 
+    function carregarPedidos() {
+        const listaPedidos = api.get("/pedidos").then(response => console.log(response.data))
+    }
+
     useEffect(() => {
         carregarListaProdutos()
+        carregarPedidos()
     }, [])
 
     return (
