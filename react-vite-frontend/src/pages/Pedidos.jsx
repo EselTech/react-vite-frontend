@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DrawerPedidos from "../components/DrawerPedidos";
+import { api } from "../provider/api";
 
-const produtosIniciais = [
-    { id: "p1", nome: "Sacola de Papel", preco: 45.00, emoji: "🛍️" },
-    { id: "p2", nome: "Agenda Personalizada", preco: 32.50, emoji: "📒" },
-    { id: "p3", nome: "Caneta Laser", preco: 15.00, emoji: "🖊️" },
-    { id: "p4", nome: "Kit Corporativo", preco: 89.90, emoji: "📦" },
-];
 
-const colunas = [
-    { id: "open", label: "Abertos", color: "text-emerald-700", headerFrom: "from-emerald-100", strip: "from-emerald-500 to-emerald-300", borderColor: "border-emerald-200" },
-    { id: "ongoing", label: "Em Andamento", color: "text-amber-700", headerFrom: "from-amber-100", strip: "from-amber-500 to-amber-300", borderColor: "border-amber-300" },
-    { id: "shipped", label: "Enviados", color: "text-blue-700", headerFrom: "from-blue-100", strip: "from-blue-500 to-blue-300", borderColor: "border-blue-100" },
-    { id: "late", label: "Atrasados", color: "text-red-700", headerFrom: "from-red-100", strip: "from-red-500 to-red-300", borderColor: "border-red-200" },
-    { id: "cancelled", label: "Cancelados", color: "text-gray-500", headerFrom: "from-gray-100", strip: "from-gray-400 to-gray-300", borderColor: "border-gray-200" },
-];
 
 export function Pedidos() {
+    const [listaProdutos, setListaProdutos] = useState()
     const [orders, setOrders] = useState([]);
     const [drawer, setDrawer] = useState({ open: false, order: null });
     const [dragOverCol, setDragOverCol] = useState(null);
@@ -26,6 +15,32 @@ export function Pedidos() {
         else setOrders([form, ...orders]);
         setDrawer({ open: false, order: null });
     };
+    const colunas = [
+        { id: "open", label: "Abertos", color: "text-emerald-700", headerFrom: "from-emerald-100", strip: "from-emerald-500 to-emerald-300", borderColor: "border-emerald-200" },
+        { id: "ongoing", label: "Em Andamento", color: "text-amber-700", headerFrom: "from-amber-100", strip: "from-amber-500 to-amber-300", borderColor: "border-amber-300" },
+        { id: "shipped", label: "Enviados", color: "text-blue-700", headerFrom: "from-blue-100", strip: "from-blue-500 to-blue-300", borderColor: "border-blue-100" },
+        { id: "late", label: "Atrasados", color: "text-red-700", headerFrom: "from-red-100", strip: "from-red-500 to-red-300", borderColor: "border-red-200" },
+        { id: "cancelled", label: "Cancelados", color: "text-gray-500", headerFrom: "from-gray-100", strip: "from-gray-400 to-gray-300", borderColor: "border-gray-200" },
+    ];
+
+    function carregarListaProdutos() {
+        api.get("/produtos")
+            .then(resposta => {
+                setListaProdutos(resposta.data);
+            })
+            .catch(erro => {
+                setListaProdutos([]);
+                if (erro.response && erro.response.status == 404) {
+                    console.log("Nenhum produto cadastrado");
+                } else {
+                    console.log("Erro ao carregar produtos:", erro.message);
+                }
+            });
+    }
+
+    useEffect(() => {
+        carregarListaProdutos()
+    }, [])
 
     return (
         <div className="h-screen overflow-y-auto flex flex-col w-10/12 bg-[#FAF7FB] font-text p-10">
@@ -65,15 +80,15 @@ export function Pedidos() {
                                     className="bg-white p-4 rounded-2xl border border-red cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow relative overflow-hidden group"
                                 >
                                     <div className={`absolute top-0 left-0 right-0 h-1 bg-linear-to-r ${b.strip}`} />
-                                    <div className="font-bold text-[#3D2B4F] mb-1 font-title">{o.title || "Sem título"}</div>
-                                    <div className="text-xs text-gray-400">{o.customer || "Cliente"}</div>
+                                    <div className="font-bold text-[#3D2B4F] mb-1 font-title">{o.nome || "Cliente"}</div>
+                                    <div className="text-xs text-gray-400">{o.descricao || "Sem descrição"}</div>
                                     <div className="flex justify-between mt-4 items-center">
                                         <span className="text-[10px] font-bold text-[#896D95] bg-purple-50 px-2 py-0.5 rounded">
-                                            {o.deliveryDate ? new Date(o.deliveryDate).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }) : "—"}
+                                            {o.prazo ? new Date(o.prazo).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }) : "—"}
                                         </span>
-                                        <span className="font-bold text-[#3D2B4F] text-xs">
+                                        {/* <span className="font-bold text-[#3D2B4F] text-xs">
                                             R$ {o.items.reduce((acc, i) => acc + (i.qty * i.preco), 0).toFixed(2).replace(".", ",")}
-                                        </span>
+                                        </span> */}
                                     </div>
                                 </div>
                             ))}
@@ -85,10 +100,10 @@ export function Pedidos() {
             <DrawerPedidos
                 open={drawer.open}
                 order={drawer.order}
-                produtosIniciais={produtosIniciais}
                 colunas={colunas}
                 onClose={() => setDrawer({ open: false, order: null })}
                 onSave={handleSave}
+                produtosDisponiveis={listaProdutos}
             />
         </div>
     );
