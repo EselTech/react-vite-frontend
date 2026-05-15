@@ -27,13 +27,14 @@ export default function DrawerPedidos(props) {
         };
 
         console.log(payload);
-        
 
         api.post("/pedidos", payload)
             .then(() => {
-                props.onClose();
+                props.onClose()
+                props.carregarPedidos()
             })
             .catch(erro => console.error("Erro ao salvar pedido:", erro));
+        
     }
 
     useEffect(() => {
