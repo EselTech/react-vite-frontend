@@ -3,6 +3,7 @@ import { DrawerProduto } from "../components/DrawerProduto";
 import { DrawerDetalhesProduto } from "../components/DrawerDetalhesProduto";
 import { api } from "../provider/api";
 import { Toaster } from "react-hot-toast";
+import { Nav } from "../components/Nav";
 
 export function Produtos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -68,6 +69,8 @@ export function Produtos() {
     }, [])
 
     return (
+        <div className="flex">
+            <Nav tela="Produtos"/>
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
             <Toaster
                 position="top-center"
@@ -83,12 +86,12 @@ export function Produtos() {
                             Gerencie produtos, composições e margens de lucro
                         </p>
                     </div>
-                    <button
+                    {/* <button
                         className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-58 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 ${listaProdutos.length > 0 ? "block" : "hidden"}`}
                         onClick={carregarProdutosShopee}
                     >
                         Carregar Produtos Shopee
-                    </button>
+                    </button> */}
                     <button
                         className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-48 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 ${listaProdutos.length > 0 ? "block" : "hidden"}`}
                         onClick={() => setDrawerIsOpen(true)}
@@ -154,12 +157,12 @@ export function Produtos() {
                         >
                             Cadastrar Produto
                         </button>
-                        <button
+                        {/* <button
                             className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-4 shadow-md hover:scale-105 transition-transform"
                             onClick={carregarProdutosShopee}
                         >
                             Carregar Produtos Shopee
-                        </button>
+                        </button> */}
 
                     </div>
                 )}
@@ -180,6 +183,7 @@ export function Produtos() {
                 materiaisDisponiveis={listaMateriais}
                 carregarProdutos={carregarProdutos}
             />
+        </div>
         </div>
     );
 }

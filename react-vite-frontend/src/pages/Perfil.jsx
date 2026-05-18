@@ -1,9 +1,11 @@
 import { InputPerfil } from "../components/InputPerfil";
+import { Nav } from "../components/Nav";
 
 export function Perfil() {
 
     return (
-
+        <div className="flex">
+            <Nav tela="Perfil"/>
         <div className="w-10/12 bg-white pl-28 pt-[4vh] flex">
 
             <div className="w-1/2">
@@ -31,7 +33,7 @@ export function Perfil() {
             </div>
 
         </div>
-
+        </div>
     )
 
 }

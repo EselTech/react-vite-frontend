@@ -4,16 +4,16 @@ import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import { InputCadastro } from "./InputCadastro";
 import toast, { Toaster } from "react-hot-toast";
 import { BotaoEntrar } from "./BotaoEntrar";
+import { useNavigate } from "react-router-dom";
 
 export function CampoCadastro(props) {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [senha, setSenha] = useState("");
-
     const [inputsBloqueados, setInputsBloqueados] = useState(false)
-
     const [erros, setErros] = useState({});
+    const navigate = useNavigate()
 
     useEffect(() => {
         let novosErros = {};
@@ -58,7 +58,7 @@ export function CampoCadastro(props) {
             toast.success("Cadastro realizado com sucesso!")
             setInputsBloqueados(true)
             setTimeout(() => {
-                props.setTela("Login")
+                navigate("/")
             }, 2000)
         } catch (error) {
             console.error("Erro ao cadastrar:", error.response?.data || error.message);
