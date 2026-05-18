@@ -53,10 +53,8 @@ export function Home() {
   const kpis = [
     { title: "RECEITA", value: "1.284" },
     { title: "DESPESA", value: "1.284" },
-    { title: "RESULTADO", value: "1.284" },
-    { title: "MARGEM", value: "1.284" },
+    { title: "RESULTADOS", value: "1.284" },
     { title: "A RECEBER", value: "1.284" },
-    { title: "A PAGAR", value: "1.284" },
   ];
 
   return (
@@ -76,7 +74,7 @@ export function Home() {
         {/*kpi e alertas*/}
         <section className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-4 shrink-0">
 
-          <div className="xl:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2  gap-6">
             {kpis.map((kpi, index) => (
               <div key={index} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-4 shadow-sm flex flex-col justify-center">
                 <p className="text-gray-400 text-xs font-semibold tracking-wider uppercase mb-1">
@@ -94,8 +92,8 @@ export function Home() {
             ))}
           </div>
 
-          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 shadow-sm flex flex-col">
-            <h2 className="text-xl font-bold text-[#332A47] mb-4">Alertas</h2>
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 shadow-sm flex flex-col col-span-2">
+            <h2 className="text-xl font-bold text-[#634C89] mb-4">Alertas</h2>
 
             <ul className="flex flex-col gap-3 flex-1 overflow-hidden">
               <li className="flex items-start border-b border-[#EFEFEF] pb-3 last:border-0 last:pb-0">
@@ -105,9 +103,18 @@ export function Home() {
                     <p className="text-xs md:text-sm text-gray-600 font-medium leading-tight pr-2">
                       Caneta personalizada com estoque crítico (5 un.)
                     </p>
-                    <button className="text-xs text-[#896D95] hover:underline font-medium shrink-0">
-                      Ver
-                    </button>
+                  </div>
+                  <span className="text-[10px] text-gray-400">agora</span>
+                </div>
+              </li>
+
+              <li className="flex items-start border-b border-[#EFEFEF] pb-3 last:border-0 last:pb-0">
+                <div className="w-2 h-2 rounded-full bg-[#FF8A65] mt-1.5 mr-3 shrink-0"></div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-start mb-1">
+                    <p className="text-xs md:text-sm text-gray-600 font-medium leading-tight pr-2">
+                      Caneta personalizada com estoque crítico (5 un.)
+                    </p>
                   </div>
                   <span className="text-[10px] text-gray-400">agora</span>
                 </div>
@@ -119,10 +126,7 @@ export function Home() {
                   <div className="flex justify-between items-start mb-1">
                     <p className="text-xs md:text-sm text-gray-600 font-medium leading-tight pr-2">
                       Agenda com apenas 12 unidades restantes
-                    </p>
-                    <button className="text-xs text-[#896D95] hover:underline font-medium shrink-0">
-                      Ver
-                    </button>
+                    </p>  
                   </div>
                   <span className="text-[10px] text-gray-400">há 3 horas</span>
                 </div>
