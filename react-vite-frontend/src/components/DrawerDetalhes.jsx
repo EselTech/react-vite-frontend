@@ -86,7 +86,7 @@ export function DrawerDetalhes({ isOpen, setIsOpen, orcamento, onAtualizar }) {
                                         <div className="flex items-center gap-3">
                                             <div className="flex items-center bg-[#f8f4f9] rounded-lg border border-[#e8d8f0] px-2 py-1">
                                                 <button onClick={() => handleUpdateQtd(i, p.qtd - 1)} className="px-2 text-[#896D95] font-bold">-</button>
-                                                <span className="px-2 font-bold text-[#3D2B4F] min-w-[20px] text-center">{p.qtd}</span>
+                                                <span className="px-2 font-bold text-[#3D2B4F] min0-w-[20px] text-center">{p.qtd}</span>
                                                 <button onClick={() => handleUpdateQtd(i, p.qtd + 1)} className="px-2 text-[#896D95] font-bold">+</button>
                                             </div>
                                             <span className="text-[#695088] font-bold text-sm min-w-[70px] text-right">

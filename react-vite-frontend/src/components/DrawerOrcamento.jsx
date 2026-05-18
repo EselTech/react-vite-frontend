@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { CardProdutoOrcamento } from "./CardProdutoOrcamento";
+import axios from "axios";
+import { api } from "../provider/api";
 
 export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
-    const [titulo, setTitulo] = useState("");
-    const [comprador, setComprador] = useState("");
+    const [titulo, setTitulo] = useState("Orçamento das Sacolas");
+    const [comprador, setComprador] = useState("Roberta");
 
     const [carrinho, setCarrinho] = useState({});
 
@@ -16,6 +18,44 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
     const atualizarQtd = (nome, qtd) => {
         setCarrinho(prev => ({ ...prev, [nome]: qtd }));
     };
+
+    // async function handleCalcular() {
+    //     const agora = new Date();
+
+    //     const selecionados = produtosDisponiveis
+    //         .filter(p => carrinho[p.nome] > 0)
+    //         .map(p => ({
+    //             nome: p.nome,
+    //             qtd: carrinho[p.nome],
+    //             precoUnitario: p.preco
+    //         }));
+
+    //     const total = produtosDisponiveis.reduce((acc, p) => {
+    //         return acc + (p.preco * (carrinho[p.nome] || 0));
+    //     }, 0);
+
+    //     const novoOrcamento = {
+    //         titulo: titulo || "Orçamento sem título",
+    //         comprador: comprador || "Cliente",
+    //         dia: agora.getDate().toString().padStart(2, '0'),
+    //         mes: agora.toLocaleString('pt-BR', { month: 'short' }).replace('.', ''),
+    //         ano: agora.getFullYear().toString(),
+    //         hora: agora.getHours() + ":" + agora.getMinutes().toString().padStart(2, '0'),
+    //         produtos: selecionados,
+    //         precoTotal: total
+    //     };
+
+    //     try {
+    //         const response = await api.post("/orcamentos", novoOrcamento);
+    //         console.log("Orçamento salvo:", response.data);
+    //         onSalvar(novoOrcamento);
+    //         setTitulo("");
+    //         setComprador("");
+    //         setCarrinho({});
+    //     } catch (error) {
+    //         console.error("Erro ao salvar orçamento:", error.response?.data || error.message);
+    //     }
+    // }
 
     const handleCalcular = () => {
         const agora = new Date();
@@ -44,7 +84,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
         };
 
         onSalvar(novoOrcamento);
-        
+
         setTitulo("");
         setComprador("");
         setCarrinho({});
@@ -74,23 +114,23 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title">Título do Orçamento</label>
-                            <input 
-                                placeholder="Ex: Festa de 15 anos da Maria" 
-                                type="text" 
-                                value={titulo} 
-                                onChange={(e) => setTitulo(e.target.value)} 
-                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]" 
+                            <input
+                                placeholder="Ex: Festa de 15 anos da Maria"
+                                type="text"
+                                value={titulo}
+                                onChange={(e) => setTitulo(e.target.value)}
+                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                             />
                         </div>
 
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title">Nome do Comprador</label>
-                            <input 
-                                placeholder="Ex: Ana Claudia Silva" 
-                                type="text" 
-                                value={comprador} 
-                                onChange={(e) => setComprador(e.target.value)} 
-                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]" 
+                            <input
+                                placeholder="Ex: Ana Claudia Silva"
+                                type="text"
+                                value={comprador}
+                                onChange={(e) => setComprador(e.target.value)}
+                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                             />
                         </div>
 
@@ -98,12 +138,12 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                             <p className="font-medium mb-4 text-[#3D2B4F] font-title">Escolha os Produtos</p>
                             <div className="flex flex-col gap-4">
                                 {produtosDisponiveis.map(p => (
-                                    <CardProdutoOrcamento 
-                                        key={p.id} 
-                                        nome={p.nome} 
-                                        preco={p.preco} 
-                                        qtd={carrinho[p.nome] || 0} 
-                                        onUpdate={(qtd) => atualizarQtd(p.nome, qtd)} 
+                                    <CardProdutoOrcamento
+                                        key={p.id}
+                                        nome={p.nome}
+                                        preco={p.preco}
+                                        qtd={carrinho[p.nome] || 0}
+                                        onUpdate={(qtd) => atualizarQtd(p.nome, qtd)}
                                     />
                                 ))}
                             </div>
@@ -114,8 +154,8 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                         <button
                             onClick={handleCalcular}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
-                        > 
-                            Calcular Orçamento 
+                        >
+                            Calcular Orçamento
                         </button>
                     </div>
                 </div>
