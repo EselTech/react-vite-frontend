@@ -37,6 +37,14 @@ export function CampoCadastro(props) {
         if (senha && senha.length < 8) {
             novosErros.senha = "A senha deve possuir ao menos 8 caracteres.";
         }
+        
+        if (senha.toLowerCase() == senha) {
+            novosErros.senha = "A senha deve possuir ao menos uma letra maiúscula.";
+        }
+
+        if (senha.toUpperCase() == senha) {
+            novosErros.senha = "A senha deve possuir ao menos uma letra minúscula.";
+        }
 
         setErros(novosErros);
     }, [nome, email, username, senha]);
