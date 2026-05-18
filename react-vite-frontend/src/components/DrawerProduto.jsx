@@ -45,11 +45,8 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
             materiais: materiaisFormatados
         };
 
-        console.log(novoProduto);
-
-
         try {
-            if (!novoProduto.nome) {
+            if (!novoProduto.nome || materiaisFormatados.length <= 0) {
                 toast.error('Por favor, preencha os campos corretamente', {
                     icon: "⚠️"
                 })
