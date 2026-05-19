@@ -54,8 +54,11 @@ export function CampoCadastro(props) {
 
         try {
             const credenciais = { nome, email, username, senha, role: "USER" };
+            console.log("Passou 1")
             const response = await api.post("/auth/registrar", credenciais);
+            console.log("Passou Axios")
             toast.success("Cadastro realizado com sucesso!")
+            console.log("Passou tudo")
             setInputsBloqueados(true)
             setTimeout(() => {
                 navigate("/")
