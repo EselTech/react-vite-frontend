@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CardProdutoPedido from "./CardProdutoPedido";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export default function DrawerPedidos(props) {
     const produtosDisponiveis = props.produtosDisponiveis || [];
@@ -26,15 +27,26 @@ export default function DrawerPedidos(props) {
             valor: valorTotalCalculado
         };
 
-        console.log(payload);
+        try {
+            if (payload.valor <= 0 || !payload.nome || !payload.prazo) {
+                toast.error('Por favor, preencha os campos corretamente', {
+                    icon: "⚠️"
+                })
+                return
+            }
+            api.post("/pedidos", payload)
+                .then(() => {
+                    props.onClose()
+                    props.carregarPedidos()
+                })
+                .catch(erro => console.error("Erro ao salvar pedido:", erro));
+            toast.success("Pedido salvo com sucesso")
+        } catch (error) {
+            console.error("Erro ao salvar pedido:", error.response?.data || error.message);
+            toast.error("Erro ao salvar pedido")
+        }
 
-        api.post("/pedidos", payload)
-            .then(() => {
-                props.onClose()
-                props.carregarPedidos()
-            })
-            .catch(erro => console.error("Erro ao salvar pedido:", erro));
-        
+
     }
 
     useEffect(() => {
