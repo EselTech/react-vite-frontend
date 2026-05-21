@@ -103,6 +103,29 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                             />
                         </div>
 
+                        <div className="flex flex-col text-[#3D2B4F]">
+                            <label className="text-[#7a6688] font-bold text-xs uppercase mb-2">Produtos deste Pedido</label>
+                            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                                {editPedido.listaProdutos && editPedido.listaProdutos.length > 0 ? (
+                                    editPedido.listaProdutos.map((item) => (
+                                        <div 
+                                            key={item.id} 
+                                            className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl"
+                                        >
+                                            <span className="font-semibold text-sm">
+                                                {item.produto?.nome || "Produto não identificado"}
+                                            </span>
+                                            <span className="bg-[#ede0f0] text-[#3D2B4F] font-bold text-xs px-3 py-1 rounded-full border border-[#896D9522]">
+                                                Qtd: {item.qtdProduto}
+                                            </span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-gray-400 italic">Nenhum produto adicionado a este pedido.</p>
+                                )}
+                            </div>
+                        </div>
+
                         <div className="flex flex-col">
                             <label className="text-[#7a6688] font-bold text-xs uppercase mb-1">Preço (R$)</label>
                             <input
