@@ -4,6 +4,7 @@ import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import { InputCadastro } from "./InputCadastro";
 import toast, { Toaster } from "react-hot-toast";
 import { BotaoEntrar } from "./BotaoEntrar";
+import { useNavigate } from "react-router-dom";
 
 export function CampoCadastro(props) {
     const caracteresEspeciais = [".", ",", "!", "?", "@", "#", "$"]
@@ -12,10 +13,9 @@ export function CampoCadastro(props) {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [senha, setSenha] = useState("");
-
     const [inputsBloqueados, setInputsBloqueados] = useState(false)
-
     const [erros, setErros] = useState({});
+    const navigate = useNavigate()
 
     useEffect(() => {
         let novosErros = {};
@@ -75,11 +75,14 @@ export function CampoCadastro(props) {
 
         try {
             const credenciais = { nome, email, username, senha, role: "USER" };
+            console.log("Passou 1")
             const response = await api.post("/auth/registrar", credenciais);
+            console.log("Passou Axios")
             toast.success("Cadastro realizado com sucesso!")
+            console.log("Passou tudo")
             setInputsBloqueados(true)
             setTimeout(() => {
-                props.setTela("Login")
+                navigate("/")
             }, 2000)
         } catch (error) {
             console.error("Erro ao cadastrar:", error.response?.data || error.message);

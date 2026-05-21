@@ -1,66 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardProdutoOrcamento } from "./CardProdutoOrcamento";
 import axios from "axios";
 import { api } from "../provider/api";
 
 export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
-    const [titulo, setTitulo] = useState("Orçamento das Sacolas");
-    const [comprador, setComprador] = useState("Roberta");
+    const [titulo, setTitulo] = useState("");
+    const [comprador, setComprador] = useState("");
 
     const [carrinho, setCarrinho] = useState({});
-
-    const produtosDisponiveis = [
-        { id: 1, nome: "Sacola Kraft", preco: 2.50 },
-        { id: 2, nome: "Caixa Presente", preco: 15.00 },
-        { id: 3, nome: "Fita Cetim", preco: 0.80 }
-    ];
+    const [listaProdutos, setListaProdutos] = useState([])
 
     const atualizarQtd = (nome, qtd) => {
         setCarrinho(prev => ({ ...prev, [nome]: qtd }));
     };
 
-    // async function handleCalcular() {
-    //     const agora = new Date();
-
-    //     const selecionados = produtosDisponiveis
-    //         .filter(p => carrinho[p.nome] > 0)
-    //         .map(p => ({
-    //             nome: p.nome,
-    //             qtd: carrinho[p.nome],
-    //             precoUnitario: p.preco
-    //         }));
-
-    //     const total = produtosDisponiveis.reduce((acc, p) => {
-    //         return acc + (p.preco * (carrinho[p.nome] || 0));
-    //     }, 0);
-
-    //     const novoOrcamento = {
-    //         titulo: titulo || "Orçamento sem título",
-    //         comprador: comprador || "Cliente",
-    //         dia: agora.getDate().toString().padStart(2, '0'),
-    //         mes: agora.toLocaleString('pt-BR', { month: 'short' }).replace('.', ''),
-    //         ano: agora.getFullYear().toString(),
-    //         hora: agora.getHours() + ":" + agora.getMinutes().toString().padStart(2, '0'),
-    //         produtos: selecionados,
-    //         precoTotal: total
-    //     };
-
-    //     try {
-    //         const response = await api.post("/orcamentos", novoOrcamento);
-    //         console.log("Orçamento salvo:", response.data);
-    //         onSalvar(novoOrcamento);
-    //         setTitulo("");
-    //         setComprador("");
-    //         setCarrinho({});
-    //     } catch (error) {
-    //         console.error("Erro ao salvar orçamento:", error.response?.data || error.message);
-    //     }
-    // }
 
     const handleCalcular = () => {
         const agora = new Date();
 
-        const selecionados = produtosDisponiveis
+        const selecionados = listaProdutos
             .filter(p => carrinho[p.nome] > 0)
             .map(p => ({
                 nome: p.nome,
@@ -68,19 +26,15 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                 precoUnitario: p.preco
             }));
 
-        const total = produtosDisponiveis.reduce((acc, p) => {
+        const total = listaProdutos.reduce((acc, p) => {
             return acc + (p.preco * (carrinho[p.nome] || 0));
         }, 0);
 
         const novoOrcamento = {
+            empresaId: 1,
             titulo: titulo || "Orçamento sem título",
-            comprador: comprador || "Cliente",
-            dia: agora.getDate().toString().padStart(2, '0'),
-            mes: agora.toLocaleString('pt-BR', { month: 'short' }).replace('.', ''),
-            ano: agora.getFullYear().toString(),
-            hora: agora.getHours() + ":" + agora.getMinutes().toString().padStart(2, '0'),
-            produtos: selecionados,
-            precoTotal: total
+            cliente: comprador || "Cliente",
+            valor: total
         };
 
         onSalvar(novoOrcamento);
@@ -89,6 +43,16 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
         setComprador("");
         setCarrinho({});
     };
+
+    function carregarListaProdutos() {
+        api.get("/produtos")
+            .then(resposta => setListaProdutos(resposta.data))
+            .catch(() => setListaProdutos([]));
+    }
+
+    useEffect(() => {
+        carregarListaProdutos();
+    }, [])
 
     return (
         <div
@@ -137,7 +101,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                         <div>
                             <p className="font-medium mb-4 text-[#3D2B4F] font-title">Escolha os Produtos</p>
                             <div className="flex flex-col gap-4">
-                                {produtosDisponiveis.map(p => (
+                                {listaProdutos.map(p => (
                                     <CardProdutoOrcamento
                                         key={p.id}
                                         nome={p.nome}

@@ -1,9 +1,11 @@
 import { MensagemChatbot } from "../components/MensagemChatbot";
+import { Nav } from "../components/Nav";
 
 export function Chatbot() {
 
     return (
-
+        <div className="flex">
+            <Nav tela="Chatbot"/>
         <div className="w-10/12 flex flex-col justify-around items-center">
 
             <div className="self-start pl-[9vw] w-max">
@@ -23,7 +25,7 @@ export function Chatbot() {
             </div>
 
         </div>
-
+        </div>
     )
 
 }

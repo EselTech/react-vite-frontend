@@ -1,9 +1,11 @@
 import { InputPerfil } from "../components/InputPerfil";
+import { Nav } from "../components/Nav";
 
 export function Perfil() {
 
     return (
-
+        <div className="flex">
+            <Nav tela="Perfil"/>
         <div className="w-10/12 bg-white pl-28 pt-[4vh] flex">
 
             <div className="w-1/2">
@@ -22,16 +24,9 @@ export function Perfil() {
                     <button className="border border-[#E07A5F] text-[#E07A5F] font-text rounded-3xl w-40 h-12 cursor-pointer">Deletar Conta</button>
                 </div>
             </div>
-            <div className="w-1/2 ml-40">
-
-                <div className="flex flex-col items-center justify-self-start">
-                    <img src="cibilleFotoCartoon.svg" className="w-28 border-[3px] border-[#896D95] rounded-full mb-2.5" />
-                    <p className="font-text text-[#896D95]">Alterar Foto</p>
-                </div>
-            </div>
 
         </div>
-
+        </div>
     )
 
 }
