@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregarOrcamentos }) {
     const [editOrcamento, setEditOrcamento] = useState(null);
@@ -44,8 +45,10 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
             await api.delete(`/orcamentos/${editOrcamento.id}`);
             carregarOrcamentos(); 
             setIsOpen(false);     
+            toast.success("Orçamento excluído com sucesso")
         } catch (error) {
             console.error("Erro ao excluir orçamento:", error.message);
+            toast.error("Erro ao excluir orçamento")
         }
     }
 
