@@ -1,45 +1,18 @@
 export function EmptyState({ onNew }) {
   return (
-    <div style={{
-      display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-      minHeight:'calc(100vh - 66px)', textAlign:'center', padding:'40px 24px',
-    }}>
-      {/* Badge */}
-      <div className="font-quicksand" style={{
-        fontSize:11, fontWeight:700, letterSpacing:.8, textTransform:'uppercase',
-        color:'#896D95', background:'#EDE0F0', borderRadius:999, padding:'6px 18px', marginBottom:28,
-      }}>
-        Gerenciador de Estoque
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-175 text-center gap-8">
 
-      {/* Ícone flutuante */}
-      <div className="hero-float" style={{
-        width:170, height:170, borderRadius:'50%', margin:'0 auto 28px',
-        background:'linear-gradient(135deg,#EDE0F0,#f5eaff)',
-        display:'flex', alignItems:'center', justifyContent:'center', fontSize:72,
-        boxShadow:'0 8px 40px rgba(137,109,149,.15)',
-      }}>🗃️</div>
+      <div className="hero-float w-42.5 h-42.5 rounded-full mx-auto mb-7 bg-linear-to-br from-[#EDE0F0] to-[#f5eaff] flex items-center justify-center text-[72px] shadow-[0_8px_40px_rgba(137,109,149,0.15)]" >🗃️</div>
 
-      <h1 className="font-fredoka" style={{
-        fontSize:'clamp(1.9rem,4vw,2.8rem)', color:'#3D2B4F',
-        fontWeight:600, lineHeight:1.15, marginBottom:12,
-      }}>
+      <h1 className="font-fredoka text-[clamp(1.9rem,4vw,2.8rem)] text-[#3D2B4F] font-semibold leading-[1.15]">
         Nenhum produto<br/>cadastrado ainda
       </h1>
 
-      <p className="font-quicksand" style={{ fontSize:15, color:'#7a6688', maxWidth:400, lineHeight:1.7, fontWeight:500, marginBottom:32 }}>
-        Cadastre seus produtos para visualizar e controlar seu estoque de forma fácil e organizada.
-      </p>
-
-      <button onClick={onNew} className="btn-grad font-quicksand"
-        style={{
-          border:'none', borderRadius:999, cursor:'pointer', fontWeight:700, fontSize:16,
-          padding:'14px 36px', background:'linear-gradient(135deg,#896D95,#C8A0C0)', color:'#fff',
-          boxShadow:'0 6px 24px rgba(137,109,149,.3)', transition:'all .2s',
-          display:'inline-flex', alignItems:'center', gap:8,
-        }}>
+      <button onClick={onNew} className="font-quicksand border-none rounded-3xl cursor-pointer font-bold w-60 h-8 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white shadow-[0_6px_24px_rgba(137,109,149,0.3)] transition-all duration-200 items-center">
         Cadastrar Primeiro Produto
       </button>
     </div>
   );
 }
+
+
