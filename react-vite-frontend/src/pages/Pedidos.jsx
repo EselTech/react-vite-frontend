@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DrawerPedidos from "../components/DrawerPedidos";
 import { DrawerDetalhesPedido } from "../components/DrawerDetalhesPedido";
 import { api } from "../provider/api";
+import { Nav } from "../components/Nav";
 
 export function Pedidos() {
     const [listaProdutos, setListaProdutos] = useState([]);
