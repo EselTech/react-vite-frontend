@@ -24,13 +24,13 @@ export function CampoLogin(props) {
         // }
 
         // try {
-        //     const credenciais = {
-        //         username,
-        //         senha
-        //     }
-        //     const response = await api.post("/auth/login", credenciais)
+            // const credenciais = {
+            //     username,
+            //     senha
+            // }
+            // const response = await api.post("/auth/login", credenciais)
             toast.success("Login realizado com sucesso!")
-            setInputsBloqueados(true)
+            // setInputsBloqueados(true)
             setTimeout(() => {
                 navigate("/home", {
                     state:{
