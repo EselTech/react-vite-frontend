@@ -87,7 +87,7 @@ export default function DrawerPedidos(props) {
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-medium mb-2 font-title">Nome do Comprador</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Comprador</label>
                             <input
                                 placeholder="Ex: Maria Silva"
                                 value={form.nome}
@@ -98,7 +98,7 @@ export default function DrawerPedidos(props) {
 
                         <div className="flex gap-4 text-[#3D2B4F]">
                             <div className="flex-1">
-                                <label className="font-medium mb-2 font-title text-sm block">Status</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F] text-sm block">Status</label>
                                 <select
                                     value={form.status}
                                     onChange={e => setForm({ ...form, status: e.target.value })}
@@ -108,7 +108,7 @@ export default function DrawerPedidos(props) {
                                 </select>
                             </div>
                             <div className="flex-1">
-                                <label className="font-medium mb-2 font-title text-sm block">Data de entrega</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F] text-sm block">Data de entrega</label>
                                 <input
                                     type="date"
                                     value={form.prazo}
@@ -119,7 +119,7 @@ export default function DrawerPedidos(props) {
                         </div>
 
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-medium mb-2 font-title">Observações</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Observações</label>
                             <input
                                 placeholder="Detalhes adicionais..."
                                 value={form.descricao}
@@ -129,7 +129,7 @@ export default function DrawerPedidos(props) {
                         </div>
 
                         <div>
-                            <p className="font-medium mb-2 font-title">Produtos</p>
+                            <p className="font-medium mb-2 font-title text-[#3D2B4F]">Produtos</p>
                             <div className="flex flex-col gap-1">
                                 {produtosDisponiveis.map(produto => (
                                     <CardProdutoPedido

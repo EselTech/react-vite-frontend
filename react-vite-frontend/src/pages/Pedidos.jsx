@@ -99,7 +99,7 @@ export function Pedidos() {
                     </div>
                     <button
                         onClick={() => setIsNovoOpen(true)}
-                        className="bg-[#896D95] text-white px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95 cursor-pointer"
+                        className="bg-[#896D95] text-white px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95 cursor-pointer font-title tracking-wider"
                     >
                         + Novo Pedido
                     </button>
@@ -123,7 +123,6 @@ export function Pedidos() {
                             </div>
 
                             <div className="p-4 space-y-4 overflow-y-auto min-h-75">
-                                {/* FILTRO CORRIGIDO: Normaliza strings para evitar erro de comparação */}
                                 {pedidos
                                     .filter(pedido => String(pedido.status).trim().toLowerCase() === String(coluna.id).trim().toLowerCase())
                                     .map(pedido => (
