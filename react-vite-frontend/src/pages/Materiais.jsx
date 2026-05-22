@@ -59,7 +59,7 @@ export function Materiais() {
                         </p>
                     </div>
                     <button
-                        className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-48 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 ${listaMateriais.length > 0 ? "block" : "hidden"}`}
+                        className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider ${listaMateriais.length > 0 ? "block" : "hidden"}`}
                         onClick={() => setDrawerIsOpen(true)}
                     >
                         + Novo Material
@@ -122,7 +122,7 @@ export function Materiais() {
                         <h1 className="font-title text-5xl font-bold text-[#695088]">Adicione seu primeiro material</h1>
                         <p className="text-gray-400 mt-4 font-text">Cadastre seus papéis, fitas e colas para começar a criar produtos.</p>
                         <button
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md font-title tracking-wider"
                             onClick={() => setDrawerIsOpen(true)}
                         >
                             Cadastrar Material

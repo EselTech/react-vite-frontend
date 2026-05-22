@@ -62,7 +62,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title">Nome do Insumo</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Insumo</label>
                             <input
                                 placeholder="Fita, sacola, caixa..."
                                 className="font-text border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
@@ -72,7 +72,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title">Categoria de Medida</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Categoria de Medida</label>
                             <select
                                 className="font-text border border-[#e8d8f0] bg-white rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] appearance-none"
                                 value={form.categoria}
@@ -84,7 +84,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col">
-                                <label className="font-medium mb-2 font-title">Qtd. Estoque</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd. Estoque</label>
                                 <input
                                     type="number"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
@@ -93,7 +93,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label className="font-medium mb-2 font-title">Preço Un. (R$)</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço Un. (R$)</label>
                                 <input
                                     type="number"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
@@ -104,7 +104,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title">Descrição</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
                             <textarea
                                 placeholder="Folha de papel 3x4..."
                                 rows="3"
@@ -116,7 +116,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                     </div>
 
                     {/* Footer fixo idêntico ao de Orçamento */}
-                    <div className="h-24 border-t border-[#e8d8f0] flex items-center px-8 bg-white">
+                    <div className="h-24 border-t border-[#e8d8f0] flex items-center px-8 bg-[#FAFAFA]">
                         <button
                             onClick={handleSalvar}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"

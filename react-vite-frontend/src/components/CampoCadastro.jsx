@@ -7,6 +7,8 @@ import { BotaoEntrar } from "./BotaoEntrar";
 import { useNavigate } from "react-router-dom";
 
 export function CampoCadastro(props) {
+    const caracteresEspeciais = [".", ",", "!", "?", "@", "#", "$"]
+    let haveCaractere = false
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -36,6 +38,25 @@ export function CampoCadastro(props) {
 
         if (senha && senha.length < 8) {
             novosErros.senha = "A senha deve possuir ao menos 8 caracteres.";
+        }
+
+        if (senha.toLowerCase() == senha) {
+            novosErros.senha = "A senha deve possuir ao menos uma letra maiúscula.";
+        }
+
+        if (senha.toUpperCase() == senha) {
+            novosErros.senha = "A senha deve possuir ao menos uma letra minúscula.";
+        }
+
+        // Validar presença de caracteres especiais
+        caracteresEspeciais.map(caractere => {
+            if (senha.includes(caractere)) {
+                haveCaractere = true
+            }
+        })
+
+        if (!haveCaractere) {
+            novosErros.senha = "A senha deve possuir ao menos um caractere especial.";
         }
 
         setErros(novosErros);
@@ -82,7 +103,7 @@ export function CampoCadastro(props) {
                     aoMudar={setNome}
                     erro={erros.nome}
                     inputsBloqueados={inputsBloqueados}
-                    // imagem={"../public/user-icon.svg"}
+                // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Email"}
@@ -90,7 +111,7 @@ export function CampoCadastro(props) {
                     aoMudar={setEmail}
                     erro={erros.email}
                     inputsBloqueados={inputsBloqueados}
-                    // imagem={"../public/email-icon.svg"}
+                // imagem={"../public/email-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Nome de Usuário"}
@@ -98,7 +119,7 @@ export function CampoCadastro(props) {
                     aoMudar={setUsername}
                     erro={erros.username}
                     inputsBloqueados={inputsBloqueados}
-                    // imagem={"../public/user-icon.svg"}
+                // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
                     type="password"
@@ -107,7 +128,7 @@ export function CampoCadastro(props) {
                     aoMudar={setSenha}
                     erro={erros.senha}
                     inputsBloqueados={inputsBloqueados}
-                    // imagem={"../public/password-icon.svg"}
+                // imagem={"../public/password-icon.svg"}
                 />
             </div>
 

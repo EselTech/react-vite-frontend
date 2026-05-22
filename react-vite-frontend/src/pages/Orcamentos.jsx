@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardOrcamento } from "../components/CardOrcamento";
 import { DrawerOrcamento } from "../components/DrawerOrcamento";
 import { DrawerDetalhesOrcamento } from "../components/DrawerDetalhesOrcamento";
+import toast, { Toaster } from "react-hot-toast";
 import { Nav } from "../components/Nav";
 import { api } from "../provider/api";
 
@@ -10,12 +11,6 @@ export function Orcamentos() {
     const [drawerDetalhesOpen, setDrawerDetalhesOpen] = useState(false);
     const [orcamentoSelecionado, setOrcamentoSelecionado] = useState(null);
     const [listaOrcamentos, setListaOrcamentos] = useState([]);
-
-    const salvarNovoOrcamento = (novo) => {
-        api.post("/orcamentos", novo)
-        carregarOrcamentos()
-        setDrawerIsOpen(false);
-    };
 
     const abrirDetalhes = (orcamento) => {
         setOrcamentoSelecionado(orcamento);
@@ -33,17 +28,37 @@ export function Orcamentos() {
 
     function carregarOrcamentos() {
         api.get("/orcamentos").then(resposta => setListaOrcamentos(resposta.data))
-        console.log(listaOrcamentos);
     }
 
     useEffect(() => {
         carregarOrcamentos()
     }, [])
 
+    const salvarNovoOrcamento = (novo) => {
+        try {
+            if (novo.valor <= 0) {
+                toast.error('Por favor, selecione ao menos um produto', {
+                    icon: "⚠️"
+                })
+                return
+            }
+            api.post("/orcamentos", novo)
+            carregarOrcamentos()
+            toast.success("Orçamento finalizado com sucesso")
+        } catch {
+            console.error("Erro ao salvar produto:", error.response?.data || error.message);
+            toast.error("Erro ao realizar orçamento")
+        }
+        setDrawerIsOpen(false);
+    };
+
 
     return (
         <div className="flex">
-            <Nav tela="Orcamentos" />
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />            <Nav tela="Orcamentos" />
             <div className="w-10/12 bg-white pl-20 pt-[4vh]">
                 <div className="w-11/12 mt-8 flex flex-wrap gap-2">
                     {listaOrcamentos.length > 0 ? (
@@ -59,7 +74,7 @@ export function Orcamentos() {
 
                                 </div>
                                 <button
-                                    className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-40 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:hover:shadow-lg hover:brightness-110 active:scale-95"
+                                    className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider"
                                     onClick={() => setDrawerIsOpen(true)}
                                 >
                                     + Novo Orçamento

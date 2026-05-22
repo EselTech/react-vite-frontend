@@ -70,14 +70,14 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                             <p className="text-[#3D2B4F] text-sm font-text">Selecione produtos e personalize</p>
                         </div>
                         <button
-                            className="text-[#3D2B4F] text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533]"
                             onClick={() => setDrawerIsOpen(false)}
                         > × </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-medium mb-2 font-title">Título do Orçamento</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Título do Orçamento</label>
                             <input
                                 placeholder="Ex: Festa de 15 anos da Maria"
                                 type="text"
@@ -88,7 +88,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                         </div>
 
                         <div className="flex flex-col text-[#3D2B4F]">
-                            <label className="font-medium mb-2 font-title">Nome do Comprador</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Comprador</label>
                             <input
                                 placeholder="Ex: Ana Claudia Silva"
                                 type="text"
@@ -99,7 +99,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                         </div>
 
                         <div>
-                            <p className="font-medium mb-4 text-[#3D2B4F] font-title">Escolha os Produtos</p>
+                            <p className="font-medium mb-2 font-title text-[#3D2B4F]">Escolha os Produtos</p>
                             <div className="flex flex-col gap-4">
                                 {listaProdutos.map(p => (
                                     <CardProdutoOrcamento

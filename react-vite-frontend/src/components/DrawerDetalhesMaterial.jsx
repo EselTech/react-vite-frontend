@@ -75,7 +75,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 uppercase text-[10px] tracking-widest">Nome do Insumo</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Insumo</label>
                             <input
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] transition-colors"
                                 value={editMaterial.nome}
@@ -84,7 +84,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 uppercase text-[10px] tracking-widest">Categoria</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Categoria</label>
                             <select
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] appearance-none"
                                 value={editMaterial.categoria}
@@ -96,7 +96,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col">
-                                <label className="text-[#7a6688] font-bold font-text mb-1 uppercase text-[10px] tracking-widest">Qtd em Estoque</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd em Estoque</label>
                                 <input
                                     type="number"
                                     className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
@@ -105,7 +105,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label className="text-[#7a6688] font-bold font-text mb-1 uppercase text-[10px] tracking-widest">Preço Un. (R$)</label>
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço Un. (R$)</label>
                                 <input
                                     type="number"
                                     className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
@@ -116,7 +116,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 uppercase text-[10px] tracking-widest">Descrição</label>
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
                             <textarea
                                 rows="4"
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] resize-none"
@@ -130,13 +130,13 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         <div className="w-full flex justify-between items-center gap-4">
                             <button
                                 onClick={handleSalvar}
-                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
                             >
                                 Salvar Alterações
                             </button>
                             <button
                                 onClick={handleExcluir}
-                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
                             >
                                 Excluir
                             </button>
