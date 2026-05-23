@@ -47,7 +47,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
         }
     }
 
-    const categorias = ["UNIDADE", "CENTIMETRO", "MILILITROS", "GRAMA"];
+    const categorias = ["INTEIRO", "CENTIMETRO", "MILILITROS", "GRAMA"];
 
     return (
         <div
