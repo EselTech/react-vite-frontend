@@ -17,6 +17,8 @@ export function Chatbot() {
         api.get("/conversa/1").then(resposta => {
             const copia = [...resposta.data]
             setChat(copia)
+            console.log(copia);
+            
         })
     }
 
@@ -59,13 +61,17 @@ export function Chatbot() {
             api.post(`/ia?prompt=${pergunta}`).then(resposta => {
 
                 const respostaChat = {
-                    empresaId: 0,
+                    empresaId: 1,
                     mensagem: resposta.data,
                     emissor: 0,
                     dtHoraConversa: obterDataHoraAtual()
                 }
 
+                console.log(respostaChat);
+                
+
                 api.post("/conversa", respostaChat)
+                carregarConversa
             })
         } catch (error) {
             toast.error('Chatbot indisponível')
@@ -74,7 +80,6 @@ export function Chatbot() {
         }
 
         setPergunta("")
-        carregarConversa()
 
     }
 
@@ -95,7 +100,7 @@ export function Chatbot() {
 
                 <div className="w-5xl h-140 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
                     {chat.map(mensagem => {
-                        return <MensagemChatbot remetente={mensagem.emiissor} texto={mensagem.mensagem} />
+                        return <MensagemChatbot remetente={mensagem.emissor} texto={mensagem.mensagem} />
                     })}
                 </div>
 
