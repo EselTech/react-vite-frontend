@@ -21,51 +21,51 @@ function corAlerta(topico = "") {
 }
 
 export function Home() {
-  const [pedidos, setPedidos] = useState([]);
-  const [orcamentos, setOrcamentos] = useState([]);
+  // estado para armazenar os dados
+  const [dashboardData, setDashboardData] = useState(null);
   const [notificacoes, setNotificacoes] = useState([]);
 
   function carregarDados() {
+    const empresaId = 1; 
+
     Promise.allSettled([
-      api.get("/pedidos"),
-      api.get("/orcamentos"),
+      api.get(`/home/${empresaId}`),
       api.get("/notificacoes"),
-    ]).then(([resPedidos, resOrcamentos, resNotif]) => {
-      if (resPedidos.status === "fulfilled") setPedidos(resPedidos.value.data);
-      if (resOrcamentos.status === "fulfilled") setOrcamentos(resOrcamentos.value.data);
+    ]).then(([resHome, resNotif]) => {
+      if (resHome.status === "fulfilled") setDashboardData(resHome.value.data);
       if (resNotif.status === "fulfilled") setNotificacoes(resNotif.value.data);
     });
   }
 
   useEffect(() => { carregarDados(); }, []);
 
-  // kpi
-  const receita   = pedidos.filter((p) => p.status === "shipped").reduce((acc, p) => acc + Number(p.valor ?? 0), 0);
-  const despesa   = pedidos.filter((p) => p.status === "cancelled").reduce((acc, p) => acc + Number(p.valor ?? 0), 0);
-  const resultado = receita - despesa;
-  const aReceber  = orcamentos.reduce((acc, o) => acc + Number(o.valor ?? 0), 0);
+  // formatação moeda
+  const fmt = (v) => (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-  const fmt = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
+  // mapeamento kpi
   const kpis = [
-    { title: "RECEITA",    value: fmt(receita) },
-    { title: "DESPESA",    value: fmt(despesa) },
-    { title: "RESULTADOS", value: fmt(resultado) },
-    { title: "A RECEBER",  value: fmt(aReceber) },
+    { title: "RECEITA",    value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
+    { title: "DESPESA",    value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
+    { title: "RESULTADOS", value: fmt(dashboardData?.lucroKPIDTO?.lucro) },
+    { title: "A RECEBER",  value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
   ];
 
-  // Alertas
-  const alertas = [...notificacoes]
-    .sort((a, b) => new Date(b.dtEnvio) - new Date(a.dtEnvio));
+  // ordenação de Alertas
+  const alertas = [...notificacoes].sort((a, b) => new Date(b.dtEnvio) - new Date(a.dtEnvio));
 
-  // grafico 1 ´pedidos por status
+  // traduzindo dados banco
   const statusLabel = {
-    open: "Abertos", ongoing: "Em andamento", shipped: "Enviados",
-    late: "Atrasados", cancelled: "Cancelados",
+    open: "Abertos", 
+    ongoing: "Em andamento", 
+    shipped: "Enviados",
+    late: "Atrasados", 
+    cancelled: "Cancelados",
   };
 
+  // grafico 1 pedidos por status
+  const dadosPedidosStatus = dashboardData?.pedidosPorStatus ?? [];
   const optPedidos = {
-    color: ["#896D95", "#C8A0C0"],
+    color: ["#896D95"],
     tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
     legend: {
       data: ["Pedidos"],
@@ -75,7 +75,7 @@ export function Home() {
     grid: { left: "3%", right: "4%", bottom: "0%", top: "20%", containLabel: true },
     xAxis: {
       type: "category",
-      data: Object.values(statusLabel),
+      data: dadosPedidosStatus.map((p) => statusLabel[p.status] || p.status),
       axisLine: { show: false },
       axisTick: { show: false },
       axisLabel: { color: "#999" },
@@ -84,44 +84,48 @@ export function Home() {
     series: [{
       name: "Pedidos",
       type: "bar",
-      barGap: 0,
-      data: Object.keys(statusLabel).map((k) => pedidos.filter((p) => p.status === k).length),
+      data: dadosPedidosStatus.map((p) => p.total),
       itemStyle: { borderRadius: [4, 4, 0, 0] },
     }],
   };
 
-  // grafico 2 top 5 orçamentos por valor
-  const top5 = [...orcamentos].sort((a, b) => Number(b.valor) - Number(a.valor)).slice(0, 5);
+  // meses graf 2
+  const mesesNome = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-  const optOrcamentos = {
-    color: ["#896D95", "#C8A0C0"],
-    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+  // grafico 2 - receita anual
+  const dadosReceitaAnual = dashboardData?.receitaAnual ?? [];
+  const optReceitaAnual = {
+    color: ["#C8A0C0"],
+    tooltip: { 
+      trigger: "axis", 
+      axisPointer: { type: "shadow" },
+      formatter: (params) => `${params[0].name}: <b>${fmt(params[0].value)}</b>`
+    },
     legend: {
-      data: ["Valor"],
+      data: ["Faturamento"],
       right: 0, top: 0, icon: "circle",
       textStyle: { color: "#999", fontSize: 12 },
     },
     grid: { left: "3%", right: "4%", bottom: "0%", top: "20%", containLabel: true },
     xAxis: {
       type: "category",
-      data: top5.map((o) => o.titulo ?? o.cliente ?? "—"),
+      data: dadosReceitaAnual.map((r) => mesesNome[r.mes - 1] || `Mês ${r.mes}`),
       axisLine: { show: false },
       axisTick: { show: false },
       axisLabel: { color: "#999" },
     },
     yAxis: { type: "value", show: false },
     series: [{
-      name: "Valor",
+      name: "Faturamento",
       type: "bar",
-      barGap: 0,
-      data: top5.map((o) => Number(o.valor).toFixed(2)),
+      data: dadosReceitaAnual.map((r) => r.valor),
       itemStyle: { borderRadius: [4, 4, 0, 0] },
     }],
   };
 
   const graficos = [
-    { titulo: "Pedidos por Status",          opt: optPedidos },
-    { titulo: "Top 5 Orçamentos por Valor",  opt: optOrcamentos },
+    { titulo: "Pedidos por Status", opt: optPedidos },
+    { titulo: "Receita Anual",       opt: optReceitaAnual },
   ];
 
   return (
@@ -138,10 +142,10 @@ export function Home() {
           </p>
         </header>
 
-        {/*kpi e alertas*/}
+        {/* kpi e alertas */}
         <section className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-4 shrink-0">
 
-          <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2  gap-6">
+          <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {kpis.map((kpi, index) => (
               <div key={index} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-4 shadow-sm flex flex-col justify-center">
                 <p className="text-gray-400 text-xs font-semibold tracking-wider uppercase mb-1">
@@ -150,11 +154,6 @@ export function Home() {
                 <h2 className="text-4xl font-bold text-[#896D95] m-0 mb-2">
                   {kpi.value}
                 </h2>
-                <div>
-                  <span className="inline-block bg-[#E5F5E9] text-[#4CAF50] text-[10px] sm:text-xs font-semibold px-3 py-1 rounded-full">
-                    + 12 esta semana
-                  </span>
-                </div>
               </div>
             ))}
           </div>
@@ -186,7 +185,7 @@ export function Home() {
 
         </section>
 
-        {/*graficos*/}
+        {/* graficos */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-70">
           {graficos.map((g, i) => (
             <div key={i} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-full">
@@ -197,8 +196,8 @@ export function Home() {
               <div className="flex-1 w-full min-h-0">
                 <ReactECharts
                   option={g.opt}
-                  style={{ height: '100%', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  style={{ height: "100%", width: "100%" }}
+                  opts={{ renderer: "svg" }}
                 />
               </div>
             </div>
