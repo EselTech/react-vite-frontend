@@ -10,6 +10,7 @@ export function Perfil() {
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
     const [senha, setSenha] = useState("")
+    const [block, setBlock] = useState(true)
 
     function carregarUsuario() {
         api.get(`/usuario/find-by-id/${id}`).then(response => {
@@ -50,15 +51,15 @@ export function Perfil() {
                         Informações Pessoais
                     </h1>
                     <div className="w-xl flex flex-col gap-7">
-                        <InputPerfil valor={nome} setValor={setNome} legenda={"Nome"} />
-                        <InputPerfil valor={email} setValor={setEmail} legenda={"Email"} />
-                        <InputPerfil valor={userName} setValor={setUserName} legenda={"Nome de usuário"} />
-                        <InputPerfil valor={senha} setValor={setSenha} legenda={"Senha"} />
+                        <InputPerfil isBlocked={block} valor={nome} setValor={setNome} legenda={"Nome"} />
+                        <InputPerfil isBlocked={block} valor={email} setValor={setEmail} legenda={"Email"} />
+                        <InputPerfil isBlocked={block} valor={userName} setValor={setUserName} legenda={"Nome de usuário"} />
+                        <InputPerfil isBlocked={block} valor={senha} setValor={setSenha} legenda={"Senha"} />
                     </div>
-                    <div className="flex gap-4 mt-14">
-                        <button className="border border-[#896D95] text-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer">Editar</button>
-                        <button className="border border-[#896D95] text-white bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>
-                        <button className="border border-[#E07A5F] text-[#E07A5F] font-text rounded-3xl w-40 h-12 cursor-pointer">Deletar Conta</button>
+                    <div className="flex gap-8 mt-14">
+                        <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button>
+                        <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>
+                        <button className="bg-linear-to-br from-[#f34444] to-[#bb3737] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-text font-bold rounded-3xl w-40 h-12 cursor-pointer">Deletar Conta</button>
                     </div>
                 </div>
 
