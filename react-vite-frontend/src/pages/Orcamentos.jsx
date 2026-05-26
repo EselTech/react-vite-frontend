@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardOrcamento } from "../components/CardOrcamento";
 import { DrawerOrcamento } from "../components/DrawerOrcamento";
 import { DrawerDetalhes } from "../components/DrawerDetalhes";
+import { Nav } from "../components/Nav";
 
 export function Orcamentos() {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -30,6 +31,8 @@ export function Orcamentos() {
     }
 
     return (
+        <div className="flex">
+            <Nav tela="Orcamentos"/>
         <div className="w-10/12 bg-white pl-20 pt-[4vh]">
             <div className="w-11/12 mt-8 flex flex-wrap gap-2">
                 {listaOrcamentos.length > 0 ? (
@@ -89,6 +92,7 @@ export function Orcamentos() {
                 orcamento={orcamentoSelecionado}
                 onAtualizar={atualizarOrcamento}
             />
+        </div>
         </div>
     );
 }

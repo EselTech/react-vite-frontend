@@ -7,7 +7,7 @@ export function Login(props) {
                 <div className="w-1/2 flex justify-center items-center">
                     <img src="/atelie-logo.png" alt="" className="w-2l" />
                 </div>
-                <CampoLogin tela={props.tela} setTela={props.setTela} />
+                <CampoLogin tela={"Login"} />
             </div>
 
         </div>

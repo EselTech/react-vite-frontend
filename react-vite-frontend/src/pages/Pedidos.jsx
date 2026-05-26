@@ -66,6 +66,8 @@ export function Pedidos() {
     };
 
     return (
+        <div className="flex">
+            <Nav tela="Pedidos"/>
         <div className="h-screen overflow-y-auto flex flex-col w-10/12 bg-[#FAF7FB] font-text p-10">
             <header className="h-20 flex items-center justify-between mb-6 shrink-0">
                 <div>
@@ -142,6 +144,7 @@ export function Pedidos() {
                 colunas={colunas}
                 carregarPedidos={carregarPedidos}
             />
+        </div>
         </div>
     );
 }
