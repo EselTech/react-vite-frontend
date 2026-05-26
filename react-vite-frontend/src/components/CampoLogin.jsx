@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BotaoEntrar } from "./BotaoEntrar";
 import { InputCadastro } from "./InputCadastro";
 import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import { api } from "../provider/api";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function CampoLogin(props) {
 
@@ -13,6 +14,13 @@ export function CampoLogin(props) {
     const [mensagemErro, setMensagemErro] = useState("")
     const [inputsBloqueados, setInputsBloqueados] = useState(false)
     const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     api.post("/auth/login", {
+    //         "username": "luckas",
+    //         "senha": "12345678"
+    //     }).then(resposta => console.log(resposta.headers.userid))
+    // }, [])
 
     async function entrar() {
 
@@ -24,21 +32,21 @@ export function CampoLogin(props) {
         // }
 
         // try {
-            // const credenciais = {
-            //     username,
-            //     senha
-            // }
-            // const response = await api.post("/auth/login", credenciais)
-            toast.success("Login realizado com sucesso!")
-            // setInputsBloqueados(true)
-            setTimeout(() => {
-                navigate("/home", {
-                    state:{
-                        username: username,
-                        senha: senha
-                    }
-                })
-            }, 1500)
+        // const credenciais = {
+        //     username,
+        //     senha
+        // }
+        // const response = await api.post("/auth/login", credenciais)
+        toast.success("Login realizado com sucesso!")
+        // setInputsBloqueados(true)
+        setTimeout(() => {
+            navigate("/home", {
+                state: {
+                    username: username,
+                    senha: senha
+                }
+            })
+        }, 1500)
 
         // } catch (erro) {
         //     if (erro.response && erro.response.status === 400) {

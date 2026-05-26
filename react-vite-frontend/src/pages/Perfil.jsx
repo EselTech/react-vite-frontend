@@ -34,6 +34,10 @@ export function Perfil() {
         let copia = {}
         try {
             api.get(`/usuario/find-by-id/${id}`).then(response => {
+                if (response.data.nome == nome && response.data.email == email && response.data.username == userName && response.data.senha == senha) {
+                    setBlock(true)
+                    return
+                }
                 copia = {
                     ...response.data,
                     nome: nome,
