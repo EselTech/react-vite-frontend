@@ -71,7 +71,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 ">Nome</label>
+                            <label className="font-medium mb-2 font-title text-[#7a6688]">Nome</label>
                             <input
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
                                 value={editProd.nome}
@@ -80,7 +80,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 ">Preço (R$)</label>
+                            <label className="font-medium mb-2 font-title text-[#7a6688]">Preço (R$)</label>
                             <input
                                 type="number"
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
@@ -90,7 +90,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="text-[#7a6688] font-bold font-text mb-1 ">Descrição</label>
+                            <label className="font-medium mb-2 font-title text-[#7a6688]">Descrição</label>
                             <textarea
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] resize-none"
                                 rows="3"
@@ -104,13 +104,13 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                     <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 gap-4 bg-white">
                         <button
                             onClick={handleSalvar}
-                            className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                            className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
                         >
                             Salvar Alterações
                         </button>
                         <button
                             onClick={handleExcluir}
-                            className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all"
+                            className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
                         >
                             Excluir
                         </button>

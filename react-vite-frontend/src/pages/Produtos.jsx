@@ -93,7 +93,7 @@ export function Produtos() {
                         Carregar Produtos Shopee
                     </button> */}
                     <button
-                        className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-48 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 ${listaProdutos.length > 0 ? "block" : "hidden"}`}
+                        className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider ${listaProdutos.length > 0 ? "block" : "hidden"}`}
                         onClick={() => setDrawerIsOpen(true)}
                     >
                         + Novo Produto
@@ -152,7 +152,7 @@ export function Produtos() {
                         <h1 className="font-title text-5xl font-bold text-[#695088]">Crie seu primeiro produto</h1>
                         <p className="text-gray-400 mt-4 font-text">Combine materiais e defina seus lucros de forma automatizada.</p>
                         <button
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md hover:scale-105 transition-transform"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md hover:scale-105 transition-transform font-title tracking-wider"
                             onClick={() => setDrawerIsOpen(true)}
                         >
                             Cadastrar Produto
