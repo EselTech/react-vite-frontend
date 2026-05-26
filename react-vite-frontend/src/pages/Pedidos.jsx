@@ -14,8 +14,6 @@ export function Pedidos() {
     const [isDetalhesOpen, setIsDetalhesOpen] = useState(false);
     const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
 
-    // DICA: Certifique-se que esses IDs batem EXATAMENTE com o que está no banco.
-    // Se o banco salva "Em andamento", o ID deve ser "Em andamento".
     const colunas = [
         { id: "open", label: "Abertos", color: "text-emerald-700", headerFrom: "from-emerald-100", strip: "from-emerald-500 to-emerald-300", borderColor: "border-emerald-200" },
         { id: "ongoing", label: "Em Andamento", color: "text-amber-700", headerFrom: "from-amber-100", strip: "from-amber-500 to-amber-300", borderColor: "border-amber-300" },
@@ -55,7 +53,6 @@ export function Pedidos() {
         const pedidoOriginal = pedidos.find(p => String(p.id) === id);
         if (!pedidoOriginal || pedidoOriginal.status === statusDestino) return;
 
-        // Atualização otimista
         setPedidos(pedidos.map(p => String(p.id) === id ? { ...p, status: statusDestino } : p));
 
         try {
