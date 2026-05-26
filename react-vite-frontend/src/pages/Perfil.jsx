@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function Perfil() {
 
-    const id = 1
+    const id = sessionStorage.getItem("userid")
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
