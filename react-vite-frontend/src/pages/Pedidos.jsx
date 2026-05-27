@@ -53,7 +53,7 @@ export function Pedidos() {
         const pedidoOriginal = pedidos.find(p => String(p.id) === id);
         if (!pedidoOriginal || pedidoOriginal.status === status) return;
 
-        setPedidos(pedidos.map(p => String(p.id) === id ? { ...p, status: status } : p));
+        setPedidos(pedidos.map(p => String(p.id) === id ? { ...p, status: statusDestino } : p));
 
         try {
             await api.patch(`/pedidos/atualizar-status/${id}`, {}, {

@@ -3,6 +3,8 @@ import ReactECharts from "echarts-for-react";
 import { Nav } from "../components/Nav";
 import { api } from "../provider/api";
 
+const nomeUsuario = (await api.get(`/usuario/find-by-id/${sessionStorage.getItem("userid")}`)).data.nome
+
 function tempoRelativo(dtEnvio) {
   if (!dtEnvio) return "";
   const diffMin = Math.floor((new Date() - new Date(dtEnvio)) / 60000);
@@ -26,7 +28,7 @@ export function Home() {
   const [notificacoes, setNotificacoes] = useState([]);
 
   function carregarDados() {
-    const empresaId = 1; 
+    const empresaId = 1;
 
     Promise.allSettled([
       api.get(`/home/${empresaId}`),
@@ -37,17 +39,17 @@ export function Home() {
     });
   }
 
-  useEffect(() => { carregarDados(); }, []);
+  useEffect(() => { carregarDados() }, []);
 
   // formatação moeda
   const fmt = (v) => (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   // mapeamento kpi
   const kpis = [
-    { title: "RECEITA",    value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
-    { title: "DESPESA",    value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
+    { title: "RECEITA", value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
+    { title: "DESPESA", value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
     { title: "RESULTADOS", value: fmt(dashboardData?.lucroKPIDTO?.lucro) },
-    { title: "A RECEBER",  value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
+    { title: "A RECEBER", value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
   ];
 
   // ordenação de Alertas
@@ -55,10 +57,10 @@ export function Home() {
 
   // traduzindo dados banco
   const statusLabel = {
-    open: "Abertos", 
-    ongoing: "Em andamento", 
+    open: "Abertos",
+    ongoing: "Em andamento",
     shipped: "Enviados",
-    late: "Atrasados", 
+    late: "Atrasados",
     cancelled: "Cancelados",
   };
 
@@ -96,8 +98,8 @@ export function Home() {
   const dadosReceitaAnual = dashboardData?.receitaAnual ?? [];
   const optReceitaAnual = {
     color: ["#C8A0C0"],
-    tooltip: { 
-      trigger: "axis", 
+    tooltip: {
+      trigger: "axis",
       axisPointer: { type: "shadow" },
       formatter: (params) => `${params[0].name}: <b>${fmt(params[0].value)}</b>`
     },
@@ -125,7 +127,7 @@ export function Home() {
 
   const graficos = [
     { titulo: "Pedidos por Status", opt: optPedidos },
-    { titulo: "Receita Anual",       opt: optReceitaAnual },
+    { titulo: "Receita Anual", opt: optReceitaAnual },
   ];
 
   return (
@@ -135,10 +137,10 @@ export function Home() {
 
         <header className="mb-6 shrink-0">
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">
-            Bem-vinda de volta, Cibelle!
+            Bem-vinda de volta, {nomeUsuario}
           </h1>
           <p className="text-gray-400 m-0">
-            Aqui está um resumo do seu ateliê hoje 
+            Aqui está um resumo do seu ateliê hoje
           </p>
         </header>
 
