@@ -46,37 +46,24 @@ export function Pedidos() {
         setIsDetalhesOpen(true);
     };
 
-    const handleDrop = async (e, statusDestino) => {
+    const handleDrop = async (e, status) => {
         const id = e.dataTransfer.getData("orderId");
         setDragOverCol(null);
 
         const pedidoOriginal = pedidos.find(p => String(p.id) === id);
-        if (!pedidoOriginal || pedidoOriginal.status === statusDestino) return;
+        if (!pedidoOriginal || pedidoOriginal.status === status) return;
 
         setPedidos(pedidos.map(p => String(p.id) === id ? { ...p, status: statusDestino } : p));
 
         try {
-            const listaProdutosFormatada = (pedidoOriginal.listaProdutos || []).map(item => ({
-                pedidoId: Number(id),
-                produtoId: item.produtoId || item.produto?.id,
-                qtdProduto: item.qtdProduto
-            }));
-
-            const payload = {
-                empresaId: 1,
-                nome: pedidoOriginal.nome,
-                descricao: pedidoOriginal.descricao,
-                valor: pedidoOriginal.valor,
-                status: statusDestino,
-                prazo: pedidoOriginal.prazo,
-                listaProdutos: listaProdutosFormatada
-            };
-
-            await api.put(`/pedidos/${id}`, payload);
-        } catch (err) {
-            console.error("Erro ao atualizar status:", err);
+            await api.patch(`/pedidos/atualizar-status/${id}`, {}, {
+                params: {
+                    status: status
+                }
+            });
+        } catch (error) {
+            console.error("Erro ao atualizar status:", error);
             carregarPedidos();
-            alert("Erro ao salvar alteração.");
         }
     };
 
