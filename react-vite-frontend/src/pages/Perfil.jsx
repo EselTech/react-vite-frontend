@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function Perfil() {
 
-    const id = sessionStorage.getItem("userid")
+    const id = localStorage.getItem("userid")
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
@@ -22,7 +22,6 @@ export function Perfil() {
                     setEmail(response.data.email),
                     setUserName(response.data.username),
                     setSenha(response.data.senha)
-                console.log(response.data)
             })
         } catch (error) {
             toast.error("Erro ao carregar usuários")
@@ -45,7 +44,6 @@ export function Perfil() {
                     username: userName,
                     senha: senha
                 }
-                console.log(copia)
                 api.patch(`/usuario/atualizar/${id}`, copia).then(() => {
                     toast.success("Alterações salvas com sucesso")
                 })
