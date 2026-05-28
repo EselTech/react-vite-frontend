@@ -30,7 +30,11 @@ export function CampoLogin(props) {
                 username,
                 senha
             }
+<<<<<<< Updated upstream
             const response = await api.post("/auth/login", credenciais).then(resposta => {localStorage.setItem("userid", resposta.headers.userid)})
+=======
+            const response = await api.post("/auth/login", credenciais).then(resposta => {sessionStorage.setItem("userid", resposta.headers.userid)})
+>>>>>>> Stashed changes
             toast.success("Login realizado com sucesso!")
             setInputsBloqueados(true)
             setTimeout(() => {
