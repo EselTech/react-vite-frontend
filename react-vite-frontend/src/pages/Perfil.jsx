@@ -96,10 +96,10 @@ export function Perfil() {
                 </div>
             </div>
         ), {
-            id: "confirmar-exclusao-toast", // Evita que a mensagem se repita ao clicar várias vezes
+            id: "confirmar-exclusao-toast", 
             duration: Infinity,
             position: "top-center",
-            className: "min-w-[400px] max-w-lg p-5 rounded-2xl shadow-2xl border border-gray-100" // Aumenta o tamanho geral do toast
+            className: "min-w-[400px] max-w-lg p-5 rounded-2xl shadow-2xl border border-gray-100"
         });
     }
 

@@ -15,12 +15,6 @@ export function CampoLogin(props) {
     const [inputsBloqueados, setInputsBloqueados] = useState(false)
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     api.post("/auth/login", {
-    //         "username": "luckas",
-    //         "senha": "12345678"
-    //     }).then(resposta => console.log(resposta.headers.userid))
-    // }, [])
 
     async function entrar() {
 
@@ -36,7 +30,7 @@ export function CampoLogin(props) {
                 username,
                 senha
             }
-            const response = await api.post("/auth/login", credenciais).then(resposta => {sessionStorage.setItem("userid", resposta.headers.userid)})
+            const response = await api.post("/auth/login", credenciais).then(resposta => {localStorage.setItem("userid", resposta.headers.userid)})
             toast.success("Login realizado com sucesso!")
             setInputsBloqueados(true)
             setTimeout(() => {

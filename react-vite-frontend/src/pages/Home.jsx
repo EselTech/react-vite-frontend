@@ -3,8 +3,6 @@ import ReactECharts from "echarts-for-react";
 import { Nav } from "../components/Nav";
 import { api } from "../provider/api";
 
-const nomeUsuario = (await api.get(`/usuario/find-by-id/${sessionStorage.getItem("userid")}`)).data.nome
-
 function tempoRelativo(dtEnvio) {
   if (!dtEnvio) return "";
   const diffMin = Math.floor((new Date() - new Date(dtEnvio)) / 60000);
@@ -26,6 +24,13 @@ export function Home() {
   // estado para armazenar os dados
   const [dashboardData, setDashboardData] = useState(null);
   const [notificacoes, setNotificacoes] = useState([]);
+  const [nomeUsuario, setNomeUsuario] = useState("")
+
+
+  function carregarNomeUsuario() {
+    api.get(`/usuario/find-by-id/${localStorage.getItem("userid")}`).then(resposta => setNomeUsuario(resposta.data.nome))
+  }
+
 
   function carregarDados() {
     const empresaId = 1;
@@ -39,7 +44,10 @@ export function Home() {
     });
   }
 
-  useEffect(() => { carregarDados() }, []);
+  useEffect(() => {
+    carregarDados()
+    carregarNomeUsuario()
+  }, []);
 
   // formatação moeda
   const fmt = (v) => (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
