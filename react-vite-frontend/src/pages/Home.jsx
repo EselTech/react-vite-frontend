@@ -44,10 +44,10 @@ export function Home() {
 
   // mapeamento kpi
   const kpis = [
-    { title: "RECEITA",    value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
-    { title: "DESPESA",    value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
-    { title: "RESULTADOS", value: fmt(dashboardData?.lucroKPIDTO?.lucro) },
-    { title: "A RECEBER",  value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
+    { title: "RECEITA MENSAL",    value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
+    { title: "DESPESA MENSAL",    value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
+    { title: "LUCRO MENSAL", value: fmt(dashboardData?.lucroKPIDTO?.lucro) },
+    { title: "A RECEBER ESTE MÊS",  value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
   ];
 
   // ordenação de Alertas
@@ -124,8 +124,8 @@ export function Home() {
   };
 
   const graficos = [
-    { titulo: "Pedidos por Status", opt: optPedidos },
-    { titulo: "Receita Anual",       opt: optReceitaAnual },
+    { titulo: "Quantidade de Pedidos Mensal por Status", opt: optPedidos },
+    { titulo: "Receita Anual por Mês",       opt: optReceitaAnual },
   ];
 
   return (
