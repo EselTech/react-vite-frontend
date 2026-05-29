@@ -3,7 +3,7 @@ import ReactECharts from "echarts-for-react";
 import { Nav } from "../components/Nav";
 import { api } from "../provider/api";
 
-// Utilitário: retorna nome do mês atual em português
+// retorna nome do mes atual em portugues
 function getMesAtual() {
   return new Date().toLocaleString("pt-BR", { month: "long" });
 }
@@ -14,10 +14,11 @@ function getMesAnterior() {
   return d.toLocaleString("pt-BR", { month: "long" });
 }
 
-// Capitaliza primeira letra
 function cap(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+const MESES_ABREV = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
 export function Dashboard() {
   const [dados, setDados] = useState(null);
@@ -50,7 +51,7 @@ export function Dashboard() {
     carregarDashboard();
   }, []);
 
-  // Configuração base reutilizável para todos os gráficos
+  // base para os gráficos
   const baseGrid = { left: "2%", right: "2%", bottom: "8%", top: "12%", containLabel: true };
   const baseXAxis = (data) => ({
     type: "category",
@@ -59,37 +60,18 @@ export function Dashboard() {
     axisTick: { show: false },
     axisLabel: { color: "#aaa", fontSize: 11, interval: 0, overflow: "truncate", width: 80 },
   });
-  const baseYAxis = { type: "value", show: false };
+  const baseYAxis = {
+    type: "value",
+    show: true,
+    splitNumber: 4,
+    axisLabel: { show: true, color: "#bbb", fontSize: 10 },
+    splitLine: { lineStyle: { color: "#F0EAF7", type: "dashed" } },
+    axisLine: { show: false },
+    axisTick: { show: false },
+  };
   const baseTooltip = { trigger: "axis", axisPointer: { type: "shadow" } };
 
-  // Gráfico 1 - Materiais com menor margem de estoque
-  const opcoesGraficoMateriaisMargem = {
-    color: ["#896D95"],
-    tooltip: baseTooltip,
-    grid: baseGrid,
-    xAxis: baseXAxis(dados?.graficoMateriaisMargem?.map((m) => m.nome) ?? []),
-    yAxis: baseYAxis,
-    series: [
-      {
-        name: "Margem de Estoque (%)",
-        type: "bar",
-        data: dados?.graficoMateriaisMargem?.map((m) =>
-          Number(m.margemEstoquePercentual).toFixed(1)
-        ) ?? [],
-        itemStyle: { borderRadius: [6, 6, 0, 0] },
-        label: {
-          show: true,
-          position: "top",
-          color: "#896D95",
-          fontSize: 11,
-          fontWeight: "bold",
-          formatter: (p) => `${p.value}%`,
-        },
-      },
-    ],
-  };
-
-  // Gráfico 2 - Produtos com maior lucro
+  // grafico 1 - produtos com maior lucro
   const opcoesGraficoProdutosLucro = {
     color: ["#C8A0C0"],
     tooltip: baseTooltip,
@@ -110,13 +92,14 @@ export function Dashboard() {
           color: "#C8A0C0",
           fontSize: 11,
           fontWeight: "bold",
-          formatter: (p) => `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
+          formatter: (p) =>
+            `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
         },
       },
     ],
   };
 
-  // Gráfico 3 - Produtos com maior crescimento
+  // grafico 2 - produtos com maior crescimento
   const opcoesGraficoMaiorCrescimento = {
     color: ["#896D95"],
     tooltip: {
@@ -128,15 +111,17 @@ export function Dashboard() {
       },
     },
     grid: baseGrid,
-    xAxis: baseXAxis(dados?.graficoMaiorCrescimento?.map((p) => p.nome) ?? []),
+    xAxis: baseXAxis(
+      (dados?.graficoMaiorCrescimento ?? []).slice(0, 6).map((p) => p.nome)
+    ),
     yAxis: baseYAxis,
     series: [
       {
         name: "Crescimento",
         type: "bar",
-        data: dados?.graficoMaiorCrescimento?.map((p) =>
-          Number(p.taxaCrescimentoPercentual ?? 0)
-        ) ?? [],
+        data: (dados?.graficoMaiorCrescimento ?? [])
+          .slice(0, 6)
+          .map((p) => Number(p.taxaCrescimentoPercentual ?? 0)),
         itemStyle: { borderRadius: [6, 6, 0, 0] },
         label: {
           show: true,
@@ -150,41 +135,103 @@ export function Dashboard() {
     ],
   };
 
-  // Gráfico 4 - Produtos com menor crescimento
-  const opcoesGraficoMenorCrescimento = {
-    color: ["#C8A0C0"],
-    tooltip: {
-      trigger: "axis",
-      axisPointer: { type: "shadow" },
-      formatter: (params) => {
-        const p = params[0];
-        return `${p.name}<br/>${p.seriesName}: <b>${Number(p.value).toFixed(2)}%</b>`;
-      },
+  // grfico 3 - produtos vendidos por trimestre
+  const trimestre = dados?.produtosVendidosTrimestre;
+  const opcoesGraficoTrimestre = {
+    color: ["#896D95", "#C8A0C0", "#B08AC0", "#D4B8D8"],
+    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+    legend: {
+      data: ["T1", "T2", "T3", "T4"],
+      bottom: 0,
+      textStyle: { color: "#aaa", fontSize: 11 },
     },
-    grid: baseGrid,
-    xAxis: baseXAxis(dados?.graficoMenorCrescimento?.map((p) => p.nome) ?? []),
+    grid: { left: "2%", right: "2%", bottom: "18%", top: "12%", containLabel: true },
+    xAxis: {
+      type: "category",
+      data: ["T1 (Jan–Mar)", "T2 (Abr–Jun)", "T3 (Jul–Set)", "T4 (Out–Dez)"],
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: "#aaa", fontSize: 11 },
+    },
     yAxis: baseYAxis,
     series: [
       {
-        name: "Crescimento",
+        name: "T1",
         type: "bar",
-        data: dados?.graficoMenorCrescimento?.map((p) =>
-          Number(p.taxaCrescimentoPercentual ?? 0)
-        ) ?? [],
-        itemStyle: { borderRadius: [6, 6, 0, 0] },
-        label: {
-          show: true,
-          position: "top",
-          color: "#C8A0C0",
-          fontSize: 11,
-          fontWeight: "bold",
-          formatter: (p) => `${Number(p.value).toFixed(2)}%`,
-        },
+        data: [Number(trimestre?.trimestre1 ?? 0), null, null, null],
+        itemStyle: { borderRadius: [6, 6, 0, 0], color: "#896D95" },
+        label: { show: true, position: "top", color: "#896D95", fontSize: 11, fontWeight: "bold" },
+      },
+      {
+        name: "T2",
+        type: "bar",
+        data: [null, Number(trimestre?.trimestre2 ?? 0), null, null],
+        itemStyle: { borderRadius: [6, 6, 0, 0], color: "#C8A0C0" },
+        label: { show: true, position: "top", color: "#C8A0C0", fontSize: 11, fontWeight: "bold" },
+      },
+      {
+        name: "T3",
+        type: "bar",
+        data: [null, null, Number(trimestre?.trimestre3 ?? 0), null],
+        itemStyle: { borderRadius: [6, 6, 0, 0], color: "#B08AC0" },
+        label: { show: true, position: "top", color: "#B08AC0", fontSize: 11, fontWeight: "bold" },
+      },
+      {
+        name: "T4",
+        type: "bar",
+        data: [null, null, null, Number(trimestre?.trimestre4 ?? 0)],
+        itemStyle: { borderRadius: [6, 6, 0, 0], color: "#D4B8D8" },
+        label: { show: true, position: "top", color: "#D4B8D8", fontSize: 11, fontWeight: "bold" },
       },
     ],
   };
 
-  // KPIs — todos com o mês atual no label
+  // grafico 4 - receita anual por mes 
+  const receitaAnualValores = dados?.receitaAnual?.map((r) => Number(r.valor ?? 0)) ?? [];
+  const opcoesGraficoReceitaAnual = {
+    color: ["#896D95"],
+    tooltip: {
+      trigger: "axis",
+      formatter: (params) => {
+        const p = params[0];
+        return `${p.name}<br/>Receita: <b>R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</b>`;
+      },
+    },
+    grid: { left: "2%", right: "2%", bottom: "8%", top: "12%", containLabel: true },
+    xAxis: {
+      type: "category",
+      data: MESES_ABREV,
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: "#aaa", fontSize: 11 },
+    },
+    yAxis: baseYAxis,
+    series: [
+      {
+        name: "Receita",
+        type: "line",
+        data: receitaAnualValores,
+        smooth: false,
+        symbol: "circle",
+        symbolSize: 7,
+        lineStyle: { color: "#896D95", width: 2.5 },
+        itemStyle: { color: "#896D95", borderColor: "#fff", borderWidth: 2 },
+        areaStyle: {
+          color: {
+            type: "linear",
+            x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: "rgba(137, 109, 149, 0.25)" },
+              { offset: 1, color: "rgba(137, 109, 149, 0)" },
+            ],
+          },
+        },
+        label: { show: false },
+      },
+    ],
+  };
+
+  // kpis — todos com o mes atual no label
   const kpis = [
     {
       label: `Material Mais Utilizado em ${mesAtual}`,
@@ -220,27 +267,27 @@ export function Dashboard() {
     },
   ];
 
-  // Gráficos — títulos com o mês atual
+  // graficos
   const graficos = [
-    {
-      titulo: "Materiais com Menor Margem de Estoque",
-      subtitulo: mesAtual,
-      opcoes: opcoesGraficoMateriaisMargem,
-    },
     {
       titulo: "Produtos com Maior Lucro",
       subtitulo: mesAtual,
       opcoes: opcoesGraficoProdutosLucro,
     },
     {
-      titulo: "Produtos com Maior Crescimento",
+      titulo: "Produtos com Maior Crescimento de Demanda",
       subtitulo: `${mesAnterior} → ${mesAtual}`,
       opcoes: opcoesGraficoMaiorCrescimento,
     },
     {
-      titulo: "Produtos com Menor Crescimento",
-      subtitulo: `${mesAnterior} → ${mesAtual}`,
-      opcoes: opcoesGraficoMenorCrescimento,
+      titulo: "Produtos Vendidos por Trimestre",
+      subtitulo: new Date().getFullYear().toString(),
+      opcoes: opcoesGraficoTrimestre,
+    },
+    {
+      titulo: "Receita Anual por Mês",
+      subtitulo: new Date().getFullYear().toString(),
+      opcoes: opcoesGraficoReceitaAnual,
     },
   ];
 
@@ -250,12 +297,13 @@ export function Dashboard() {
 
       <main className="flex-1 flex flex-col p-8 gap-6 overflow-auto font-sans text-gray-800">
 
-        {/* Cabeçalho */}
+        {/* cabecalho */}
         <header className="flex items-end justify-between">
           <div>
             <h1 className="text-3xl font-bold text-[#634C89] leading-tight">Dashboard</h1>
             <p className="text-gray-400 text-sm mt-1">
-              Visão geral dos seus produtos e materiais — <span className="font-medium text-[#896D95]">{mesAtual}</span>
+              Visão geral dos seus produtos e materiais —{" "}
+              <span className="font-medium text-[#896D95]">{mesAtual}</span>
             </p>
           </div>
         </header>
@@ -266,7 +314,7 @@ export function Dashboard() {
           </div>
         ) : (
           <>
-            {/* KPIs */}
+            {/* kpis */}
             <section className="grid grid-cols-2 xl:grid-cols-4 gap-4">
               {kpis.map((kpi, index) => (
                 <div
@@ -284,7 +332,7 @@ export function Dashboard() {
               ))}
             </section>
 
-            {/* Gráficos */}
+            {/* grficos */}
             <section className="grid grid-cols-1 xl:grid-cols-2 gap-5 flex-1">
               {graficos.map((grafico, index) => (
                 <div
@@ -299,7 +347,7 @@ export function Dashboard() {
                     </span>
                   </div>
 
-                  {/* Gráfico */}
+                  {/* grafico */}
                   <div className="flex-1 w-full" style={{ minHeight: "220px" }}>
                     <ReactECharts
                       option={grafico.opcoes}
