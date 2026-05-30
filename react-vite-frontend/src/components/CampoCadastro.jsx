@@ -103,7 +103,6 @@ export function CampoCadastro(props) {
                     aoMudar={setNome}
                     erro={erros.nome}
                     inputsBloqueados={inputsBloqueados}
-                // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Email"}
@@ -111,7 +110,6 @@ export function CampoCadastro(props) {
                     aoMudar={setEmail}
                     erro={erros.email}
                     inputsBloqueados={inputsBloqueados}
-                // imagem={"../public/email-icon.svg"}
                 />
                 <InputCadastro
                     nome={"Nome de Usuário"}
@@ -119,7 +117,6 @@ export function CampoCadastro(props) {
                     aoMudar={setUsername}
                     erro={erros.username}
                     inputsBloqueados={inputsBloqueados}
-                // imagem={"../public/user-icon.svg"}
                 />
                 <InputCadastro
                     type="password"
@@ -128,7 +125,6 @@ export function CampoCadastro(props) {
                     aoMudar={setSenha}
                     erro={erros.senha}
                     inputsBloqueados={inputsBloqueados}
-                // imagem={"../public/password-icon.svg"}
                 />
             </div>
 

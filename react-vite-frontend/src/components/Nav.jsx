@@ -7,7 +7,7 @@ export function Nav(props) {
 
     return (
 
-        <nav className="w-2/12 h-screen bg-[#E6D5FE] flex flex-col gap-8">
+        <nav className="w-2/12 h-screen bg-[#E6D5FE] flex flex-col gap-8 ">
 
             <div className="mt-8 w-full flex ">
                 <img className="ml-[0.75vw]" src="logo.svg" />

@@ -26,7 +26,7 @@ export function Home() {
   const [notificacoes, setNotificacoes] = useState([]);
 
   function carregarDados() {
-    const empresaId = 1; 
+    const empresaId = 1;
 
     Promise.allSettled([
       api.get(`/home/${empresaId}`),
@@ -34,7 +34,7 @@ export function Home() {
     ]).then(([resHome, resNotif]) => {
       if (resHome.status === "fulfilled") setDashboardData(resHome.value.data);
       if (resNotif.status === "fulfilled") setNotificacoes(resNotif.value.data);
-    });
+    })
   }
 
   useEffect(() => { carregarDados(); }, []);
@@ -44,10 +44,10 @@ export function Home() {
 
   // mapeamento kpi
   const kpis = [
-    { title: "RECEITA MENSAL",    value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
-    { title: "DESPESA MENSAL",    value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
+    { title: "RECEITA MENSAL", value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
+    { title: "DESPESA MENSAL", value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
     { title: "LUCRO MENSAL", value: fmt(dashboardData?.lucroKPIDTO?.lucro) },
-    { title: "A RECEBER ESTE MÊS",  value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
+    { title: "A RECEBER ESTE MÊS", value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
   ];
 
   // ordenação de Alertas
@@ -55,10 +55,10 @@ export function Home() {
 
   // traduzindo dados banco
   const statusLabel = {
-    open: "Abertos", 
-    ongoing: "Em andamento", 
+    open: "Abertos",
+    ongoing: "Em andamento",
     shipped: "Enviados",
-    late: "Atrasados", 
+    late: "Atrasados",
     cancelled: "Cancelados",
   };
 
@@ -86,6 +86,7 @@ export function Home() {
       type: "bar",
       data: dadosPedidosStatus.map((p) => p.total),
       itemStyle: { borderRadius: [4, 4, 0, 0] },
+      barWidth: 50
     }],
   };
 
@@ -96,8 +97,8 @@ export function Home() {
   const dadosReceitaAnual = dashboardData?.receitaAnual ?? [];
   const optReceitaAnual = {
     color: ["#C8A0C0"],
-    tooltip: { 
-      trigger: "axis", 
+    tooltip: {
+      trigger: "axis",
       axisPointer: { type: "shadow" },
       formatter: (params) => `${params[0].name}: <b>${fmt(params[0].value)}</b>`
     },
@@ -123,22 +124,59 @@ export function Home() {
     }],
   };
 
+  // grafico 3 - Materiais Mais Saídos
+  const [categoriaMaterial, setCategoriaMaterial] = useState("INTEIRO")
+  const dadosMateriaisCategoria = dashboardData?.materiaisPorCategoria ?? []
+  const optMateriaisCategoria = {
+    color: ["#C8A0C0"],
+    legend: {
+      data: ["Quantidade"],
+      right: 0, top: 0, icon: "circle",
+      textStyle: { color: "#999", fontSize: 12 },
+    },
+    // CORREÇÃO: Aumentado o bottom de 0% para 25% para abrir espaço para o texto inclinado
+    grid: { left: "2%", right: "2%", },
+    xAxis: {
+      type: "category",
+      data: (dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.nome),
+      axisLine: { show: false },
+      axisTick: { show: false },
+      // CORREÇÃO: Rotacionando as legendas e forçando a exibição de todas
+      axisLabel: {
+        color: "#999",
+        // rotate: 45,    // Inclina o texto em 45 graus
+        interval: 0    // Força a exibição de 100% dos nomes dos materiais
+      },
+    },
+    yAxis: { type: "value", show: false },
+    series: [{
+      name: "Quantidade",
+      type: "bar",
+      data: (dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.valorTotal),
+      itemStyle: { borderRadius: [4, 4, 0, 0] },
+      barWidth: 50
+    }],
+  }
+
+  console.log((dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.valorTotal));
+
+
   const graficos = [
     { titulo: "Quantidade de Pedidos Mensal por Status", opt: optPedidos },
-    { titulo: "Receita Anual por Mês",       opt: optReceitaAnual },
+    { titulo: "Receita Anual por Mês", opt: optReceitaAnual },
   ];
 
   return (
-    <div className="flex">
+    <div className="flex w-full h-screen overflow-hidden">
       <Nav tela="Home" />
-      <main className="flex-1 h-full p-6 flex flex-col bg-white font-sans text-gray-800 overflow-hidden">
+      <main className="flex-1 h-screen p-6 flex flex-col bg-white font-sans text-gray-800 overflow-y-auto">
 
         <header className="mb-6 shrink-0">
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">
             Bem-vinda de volta, Cibelle!
           </h1>
           <p className="text-gray-400 m-0">
-            Aqui está um resumo do seu ateliê hoje 
+            Aqui está um resumo do seu ateliê hoje
           </p>
         </header>
 
@@ -188,7 +226,7 @@ export function Home() {
         {/* graficos */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-70">
           {graficos.map((g, i) => (
-            <div key={i} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-full">
+            <div key={i} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-gray-400 text-sm font-semibold">{g.titulo}</h3>
               </div>
@@ -202,6 +240,32 @@ export function Home() {
               </div>
             </div>
           ))}
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80 col-span-2">
+
+            <div className="flex gap-10 items-center mb-4">
+              <h3 className="text-gray-400 text-sm font-semibold">Materiais Mais Utilizados em Produtos por Categoria</h3>
+
+              <select
+                className=" text-sm font-semibold font-text border border-[#eadeef] rounded-md px-2 outline-none focus:border-[#896D95] text-gray-400"
+                onChange={e => {
+                  setCategoriaMaterial(e.target.value)
+                }}>
+                <option value="INTEIRO">Unidade</option>
+                <option value="MILILITRO">Mililitros</option>
+                <option value="GRAMA">Gramas</option>
+                <option value="CENTIMETRO">Centímetro</option>
+              </select>
+            </div>
+
+
+            <div className="flex-1 w-full min-h-0">
+              <ReactECharts
+                option={optMateriaisCategoria}
+                style={{ height: "100%", width: "100%" }}
+                opts={{ renderer: "svg" }}
+              />
+            </div>
+          </div>
         </section>
       </main>
     </div>

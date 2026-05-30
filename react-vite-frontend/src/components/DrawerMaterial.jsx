@@ -13,7 +13,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
         preco: 0.00
     });
 
-    const categorias = ["INTEIRO", "CENTIMETRO", "MILILITROS", "GRAMA"];
+    const categorias = ["INTEIRO", "CENTIMETRO", "MILILITRO", "GRAMA"];
 
 
     async function handleSalvar() {
