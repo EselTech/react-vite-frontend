@@ -188,7 +188,6 @@ export function Home() {
 
   const graficos = [
     { titulo: "Pedidos por Status", opt: optPedidos },
-    { titulo: "Receita Anual", opt: optReceitaAnual },
   ];
 
   return (
