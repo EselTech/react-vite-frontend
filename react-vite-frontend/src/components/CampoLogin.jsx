@@ -15,50 +15,42 @@ export function CampoLogin(props) {
     const [inputsBloqueados, setInputsBloqueados] = useState(false)
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     api.post("/auth/login", {
-    //         "username": "luckas",
-    //         "senha": "12345678"
-    //     }).then(resposta => console.log(resposta.headers.userid))
-    // }, [])
 
     async function entrar() {
 
-        // if (!username || !senha) {
-        //     toast("Por favor, preencha todos os campos corretamente", {
-        //         icon: "⚠️"
-        //     })
-        //     return
-        // }
-
-        // try {
-        // const credenciais = {
-        //     username,
-        //     senha
-        // }
-        // const response = await api.post("/auth/login", credenciais)
-        toast.success("Login realizado com sucesso!")
-        // setInputsBloqueados(true)
-        setTimeout(() => {
-            navigate("/home", {
-                state: {
-                    username: username,
-                    senha: senha
-                }
+        if (!username || !senha) {
+            toast("Por favor, preencha todos os campos corretamente", {
+                icon: "⚠️"
             })
-        }, 1500)
+            return
+        }
 
-        // } catch (erro) {
-        //     if (erro.response && erro.response.status === 400) {
-        //         // setMensagemErro("Usuário não encontrado, confira suas credênciais!")
-        //         console.log("Usuário não encontrado");
-        //         toast.error("Credenciais inválidas")
-        //     } else {
-        //         // setMensagemErro("Erro ao realizar login")
-        //         console.error("Erro no login:", erro.message);
-        //         toast.error("Erro ao realizar login")
-        //     }
-        // }
+        try {
+            const credenciais = {
+                username,
+                senha
+            }
+            const response = await api.post("/auth/login", credenciais).then(resposta => {localStorage.setItem("userid", resposta.headers.userid)})
+            toast.success("Login realizado com sucesso!")
+            setInputsBloqueados(true)
+            setTimeout(() => {
+                navigate("/home", {
+                    state:{
+                        username: username,
+                        senha: senha
+                    }
+                })
+            }, 1500)
+
+        } catch (erro) {
+            if (erro.response && erro.response.status === 400) {
+                console.log("Usuário não encontrado");
+                toast.error("Credenciais inválidas")
+            } else {
+                console.error("Erro no login:", erro.message);
+                toast.error("Erro ao realizar login")
+            }
+        }
     }
 
     return (

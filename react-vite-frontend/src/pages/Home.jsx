@@ -24,6 +24,13 @@ export function Home() {
   const [dashboardData, setDashboardData] = useState(null);
   const [notificacoes, setNotificacoes] = useState([]);
   const [produtosMaisVendidos, setProdutosMaisVendidos] = useState([]);
+  const [nomeUsuario, setNomeUsuario] = useState("")
+
+
+  function carregarNomeUsuario() {
+    api.get(`/usuario/find-by-id/${localStorage.getItem("userid")}`).then(resposta => setNomeUsuario(resposta.data.nome))
+  }
+
 
   function carregarDados() {
     const empresaId = 1;
@@ -57,7 +64,10 @@ export function Home() {
     });
   }
 
-  useEffect(() => { carregarDados(); }, []);
+  useEffect(() => {
+    carregarDados()
+    carregarNomeUsuario()
+  }, []);
 
   const fmt = (v) => (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -144,7 +154,11 @@ export function Home() {
   const dadosMateriaisCategoria = dashboardData?.materiaisPorCategoria ?? [];
   const optMateriaisCategoria = {
     color: ["#C8A0C0"],
-    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: { type: "shadow" },
+      formatter: (params) => `${params[0].name}: <b>${fmt(params[0].value)}</b>`
+    },
     legend: {
       data: ["Quantidade"],
       right: 0, top: 0, icon: "circle",
@@ -172,6 +186,11 @@ export function Home() {
     }],
   };
 
+  const graficos = [
+    { titulo: "Pedidos por Status", opt: optPedidos },
+    { titulo: "Receita Anual", opt: optReceitaAnual },
+  ];
+
   return (
     <div className="flex w-full h-screen overflow-hidden">
       <Nav tela="Home" />
@@ -179,7 +198,7 @@ export function Home() {
 
         <header className="mb-6 shrink-0">
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">
-            Bem-vinda de volta, Cibelle!
+            Bem-vinda de volta, {nomeUsuario}
           </h1>
           <p className="text-gray-400 m-0">
             Aqui está um resumo do seu ateliê hoje

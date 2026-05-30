@@ -1,14 +1,37 @@
 import { useNavigate } from "react-router-dom";
 import { BotaoNav } from "./BotaoNav";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export function Nav(props) {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!localStorage.getItem("userid")) {
+            voltarParaLogin()
+        }
+    }, [])
+
+    function voltarParaLogin() {
+        toast("Realize o login antes de cotinuar", {
+            icon: "⚠️"
+        })
+        setTimeout(() => { navigate("/") }, 2000)
+    }
+
+    function logout() {
+        localStorage.setItem("userid", "")
+        navigate("/")
+    }
+
     return (
 
-        <nav className="w-2/12 h-screen bg-[#E6D5FE] flex flex-col gap-8 ">
-
+        <nav className="w-2/12 h-screen bg-[#E6D5FE] flex flex-col gap-8">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <div className="mt-8 w-full flex ">
                 <img className="ml-[0.75vw]" src="logo.svg" />
                 <div className="flex flex-col">
@@ -29,13 +52,13 @@ export function Nav(props) {
 
                 {/* Botão Materiais */}
                 <BotaoNav imagem="estoque" descricao="Materiais" ativo={props.tela == "Materiais"} aoClicar={() => navigate("/materiais")} />
-                
+
                 {/* Botão Produtos */}
                 <BotaoNav imagem="estoque" descricao="Produtos" ativo={props.tela == "Produtos"} aoClicar={() => navigate("/produtos")} />
 
                 {/* Botão Dashboard */}
                 <BotaoNav imagem="dashboard" descricao="Dashboard" ativo={props.tela == "Dashboard"} aoClicar={() => navigate("/dashboard")} />
-                    
+
                 {/* Botão Orçamentos */}
                 <BotaoNav imagem="calculadora" descricao="Orçamentos" ativo={props.tela == "Orcamentos"} aoClicar={() => navigate("/orcamentos")} />
 
@@ -48,7 +71,7 @@ export function Nav(props) {
             </div>
             <div className="flex gap-2 mt-auto mb-4 ml-4 " >
                 <img src="logoutIcon.svg" className="w-4 cursor-pointer" onClick={() => navigate("/")} />
-               <p className="font-title cursor-pointer " onClick={() => navigate("/")}>
+                <p className="font-title cursor-pointer " onClick={logout}>
                     Sair
                 </p>
             </div>

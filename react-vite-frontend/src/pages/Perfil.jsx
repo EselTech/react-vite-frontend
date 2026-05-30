@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function Perfil() {
 
-    const id = 1
+    const id = localStorage.getItem("userid")
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
@@ -22,7 +22,6 @@ export function Perfil() {
                     setEmail(response.data.email),
                     setUserName(response.data.username),
                     setSenha(response.data.senha)
-                console.log(response.data)
             })
         } catch (error) {
             toast.error("Erro ao carregar usuários")
@@ -45,7 +44,6 @@ export function Perfil() {
                     username: userName,
                     senha: senha
                 }
-                console.log(copia)
                 api.patch(`/usuario/atualizar/${id}`, copia).then(() => {
                     toast.success("Alterações salvas com sucesso")
                 })
@@ -62,7 +60,7 @@ export function Perfil() {
             api.delete(`/usuario/remover/${id}`).then(() => {
                 toast.success("Conta excluída com sucesso!");
                 navigate("/")
-                
+
             });
         } catch (error) {
             toast.error("Erro ao tentar excluir a conta.");
@@ -96,10 +94,10 @@ export function Perfil() {
                 </div>
             </div>
         ), {
-            id: "confirmar-exclusao-toast", // Evita que a mensagem se repita ao clicar várias vezes
-            duration: Infinity, 
+            id: "confirmar-exclusao-toast", 
+            duration: Infinity,
             position: "top-center",
-            className: "min-w-[400px] max-w-lg p-5 rounded-2xl shadow-2xl border border-gray-100" // Aumenta o tamanho geral do toast
+            className: "min-w-[400px] max-w-lg p-5 rounded-2xl shadow-2xl border border-gray-100"
         });
     }
 
@@ -128,9 +126,9 @@ export function Perfil() {
                         <InputPerfil isBlocked={block} valor={senha} setValor={setSenha} legenda={"Senha"} />
                     </div>
                     <div className="flex gap-8 mt-14">
-                        <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button>
-                        <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>
-                        <button 
+                        {block ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>}
+
+                        <button
                             className="bg-linear-to-br from-[#f34444] to-[#bb3737] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-text font-bold rounded-3xl w-40 h-12 cursor-pointer"
                             onClick={confirmarExclusao}
                         >
