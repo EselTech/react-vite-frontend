@@ -21,9 +21,9 @@ function corAlerta(topico = "") {
 }
 
 export function Home() {
-  // estado para armazenar os dados
   const [dashboardData, setDashboardData] = useState(null);
   const [notificacoes, setNotificacoes] = useState([]);
+  const [produtosMaisVendidos, setProdutosMaisVendidos] = useState([]);
 
   function carregarDados() {
     const empresaId = 1;
@@ -31,18 +31,36 @@ export function Home() {
     Promise.allSettled([
       api.get(`/home/${empresaId}`),
       api.get("/notificacoes"),
-    ]).then(([resHome, resNotif]) => {
+      api.get("/pedidos"),
+    ]).then(([resHome, resNotif, resPedidos]) => {
       if (resHome.status === "fulfilled") setDashboardData(resHome.value.data);
       if (resNotif.status === "fulfilled") setNotificacoes(resNotif.value.data);
-    })
+
+      if (resPedidos.status === "fulfilled") {
+        const pedidos = resPedidos.value.data;
+
+        const mapaQtd = {};
+        pedidos.forEach((pedido) => {
+          pedido.listaProdutos?.forEach(({ produto, qtdProduto }) => {
+            if (!produto?.nome) return;
+            mapaQtd[produto.nome] = (mapaQtd[produto.nome] ?? 0) + (qtdProduto ?? 1);
+          });
+        });
+
+        const agregado = Object.entries(mapaQtd)
+          .map(([nome, total]) => ({ nome, total }))
+          .sort((a, b) => b.total - a.total)
+          .slice(0, 5);
+
+        setProdutosMaisVendidos(agregado);
+      }
+    });
   }
 
   useEffect(() => { carregarDados(); }, []);
 
-  // formatação moeda
   const fmt = (v) => (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-  // mapeamento kpi
   const kpis = [
     { title: "RECEITA MENSAL", value: fmt(dashboardData?.receitaKPIDTO?.receita_total) },
     { title: "DESPESA MENSAL", value: fmt(dashboardData?.despesaKPIDTO?.despesa_total) },
@@ -50,10 +68,8 @@ export function Home() {
     { title: "A RECEBER ESTE MÊS", value: fmt(dashboardData?.receberKPIDTO?.valor_a_receber) },
   ];
 
-  // ordenação de Alertas
   const alertas = [...notificacoes].sort((a, b) => new Date(b.dtEnvio) - new Date(a.dtEnvio));
 
-  // traduzindo dados banco
   const statusLabel = {
     open: "Abertos",
     ongoing: "Em andamento",
@@ -62,7 +78,7 @@ export function Home() {
     cancelled: "Cancelados",
   };
 
-  // grafico 1 pedidos por status
+  // grafico 1 - pedidos por status
   const dadosPedidosStatus = dashboardData?.pedidosPorStatus ?? [];
   const optPedidos = {
     color: ["#896D95"],
@@ -86,85 +102,75 @@ export function Home() {
       type: "bar",
       data: dadosPedidosStatus.map((p) => p.total),
       itemStyle: { borderRadius: [4, 4, 0, 0] },
-      barWidth: 50
+      barWidth: 50,
     }],
   };
 
-  // meses graf 2
-  const mesesNome = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-
-  // grafico 2 - receita anual
-  const dadosReceitaAnual = dashboardData?.receitaAnual ?? [];
-  const optReceitaAnual = {
-    color: ["#C8A0C0"],
-    tooltip: {
-      trigger: "axis",
-      axisPointer: { type: "shadow" },
-      formatter: (params) => `${params[0].name}: <b>${fmt(params[0].value)}</b>`
+  // grafico 2 - produtos mais vendidos
+  const optProdutosVendidos = {
+  color: ["#C8A0C0"],
+  tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+  legend: {
+    data: ["Quantidade"],
+    right: 0, top: 0, icon: "circle",
+    textStyle: { color: "#999", fontSize: 12 },
+  },
+  grid: { left: "3%", right: "4%", bottom: "25%", top: "20%", containLabel: true }, // ← bottom aumentado
+  xAxis: {
+    type: "category",
+    data: produtosMaisVendidos.map((p) => p.nome),
+    axisLine: { show: false },
+    axisTick: { show: false },
+    axisLabel: {
+      color: "#999",
+      interval: 0,
+      rotate: 0,        // ← inclina os nomes
+      overflow: "truncate", // ← corta se ainda for longo
+      width: 80,
     },
+  },
+  yAxis: { type: "value", show: true, axisLabel: { color: "#999" }, splitLine: { lineStyle: { color: "#EFEFEF" } }},
+  series: [{
+    name: "Quantidade",
+    type: "bar",
+    data: produtosMaisVendidos.map((p) => p.total),
+    itemStyle: { borderRadius: [4, 4, 0, 0] },
+    barWidth: 40, // ← reduzido para dar mais espaço entre barras
+  }],
+};
+
+  // grafico 3 - materiais por categoria
+  const [categoriaMaterial, setCategoriaMaterial] = useState("INTEIRO");
+  const dadosMateriaisCategoria = dashboardData?.materiaisPorCategoria ?? [];
+  const optMateriaisCategoria = {
+    color: ["#C8A0C0"],
+    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
     legend: {
-      data: ["Faturamento"],
+      data: ["Quantidade"],
       right: 0, top: 0, icon: "circle",
       textStyle: { color: "#999", fontSize: 12 },
     },
     grid: { left: "3%", right: "4%", bottom: "0%", top: "20%", containLabel: true },
     xAxis: {
       type: "category",
-      data: dadosReceitaAnual.map((r) => mesesNome[r.mes - 1] || `Mês ${r.mes}`),
+      data: dadosMateriaisCategoria
+        .filter((m) => m.categoria === categoriaMaterial)
+        .map((m) => m.nome),
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#999" },
-    },
-    yAxis: { type: "value", show: false },
-    series: [{
-      name: "Faturamento",
-      type: "bar",
-      data: dadosReceitaAnual.map((r) => r.valor),
-      itemStyle: { borderRadius: [4, 4, 0, 0] },
-    }],
-  };
-
-  // grafico 3 - Materiais Mais Saídos
-  const [categoriaMaterial, setCategoriaMaterial] = useState("INTEIRO")
-  const dadosMateriaisCategoria = dashboardData?.materiaisPorCategoria ?? []
-  const optMateriaisCategoria = {
-    color: ["#C8A0C0"],
-    legend: {
-      data: ["Quantidade"],
-      right: 0, top: 0, icon: "circle",
-      textStyle: { color: "#999", fontSize: 12 },
-    },
-    // CORREÇÃO: Aumentado o bottom de 0% para 25% para abrir espaço para o texto inclinado
-    grid: { left: "2%", right: "2%", },
-    xAxis: {
-      type: "category",
-      data: (dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.nome),
-      axisLine: { show: false },
-      axisTick: { show: false },
-      // CORREÇÃO: Rotacionando as legendas e forçando a exibição de todas
-      axisLabel: {
-        color: "#999",
-        // rotate: 45,    // Inclina o texto em 45 graus
-        interval: 0    // Força a exibição de 100% dos nomes dos materiais
-      },
+      axisLabel: { color: "#999", interval: 0 },
     },
     yAxis: { type: "value", show: false },
     series: [{
       name: "Quantidade",
       type: "bar",
-      data: (dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.valorTotal),
+      data: dadosMateriaisCategoria
+        .filter((m) => m.categoria === categoriaMaterial)
+        .map((m) => m.valorTotal),
       itemStyle: { borderRadius: [4, 4, 0, 0] },
-      barWidth: 50
+      barWidth: 50,
     }],
-  }
-
-  console.log((dadosMateriaisCategoria.filter(material => material.categoria == categoriaMaterial)).map(material => material.valorTotal));
-
-
-  const graficos = [
-    { titulo: "Quantidade de Pedidos Mensal por Status", opt: optPedidos },
-    { titulo: "Receita Anual por Mês", opt: optReceitaAnual },
-  ];
+  };
 
   return (
     <div className="flex w-full h-screen overflow-hidden">
@@ -198,7 +204,6 @@ export function Home() {
 
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 shadow-sm flex flex-col col-span-2">
             <h2 className="text-xl font-bold text-[#634C89] mb-4">Alertas</h2>
-
             <ul className="flex flex-col gap-3 overflow-y-auto max-h-36">
               {alertas.length === 0 ? (
                 <li className="text-gray-400 text-sm">Nenhuma notificação no momento.</li>
@@ -225,39 +230,49 @@ export function Home() {
 
         {/* graficos */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-70">
-          {graficos.map((g, i) => (
-            <div key={i} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-gray-400 text-sm font-semibold">{g.titulo}</h3>
-              </div>
 
-              <div className="flex-1 w-full min-h-0">
-                <ReactECharts
-                  option={g.opt}
-                  style={{ height: "100%", width: "100%" }}
-                  opts={{ renderer: "svg" }}
-                />
-              </div>
+          {/* grafico 1 - pedidos por status */}
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-gray-400 text-sm font-semibold">Quantidade de pedidos por Status</h3>
             </div>
-          ))}
+            <div className="flex-1 w-full min-h-0">
+              <ReactECharts
+                option={optPedidos}
+                style={{ height: "100%", width: "100%" }}
+                opts={{ renderer: "svg" }}
+              />
+            </div>
+          </div>
+
+          {/* grafico 2 - produtos mais vendidos */}
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-gray-400 text-sm font-semibold">Produtos mais Vendidos no mês atual</h3>
+            </div>
+            <div className="flex-1 w-full min-h-0">
+              <ReactECharts
+                option={optProdutosVendidos}
+                style={{ height: "100%", width: "100%" }}
+                opts={{ renderer: "svg" }}
+              />
+            </div>
+          </div>
+
+          {/* grafico 3 - materiais por categoria */}
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80 col-span-2">
-
             <div className="flex gap-10 items-center mb-4">
-              <h3 className="text-gray-400 text-sm font-semibold">Materiais Mais Utilizados em Produtos por Categoria</h3>
-
+              <h3 className="text-gray-400 text-sm font-semibold">Materiais mais Utilizados no mês atual por Categoria</h3>
               <select
-                className=" text-sm font-semibold font-text border border-[#eadeef] rounded-md px-2 outline-none focus:border-[#896D95] text-gray-400"
-                onChange={e => {
-                  setCategoriaMaterial(e.target.value)
-                }}>
+                className="text-sm font-semibold font-text border border-[#eadeef] rounded-md px-2 outline-none focus:border-[#896D95] text-gray-400"
+                onChange={(e) => setCategoriaMaterial(e.target.value)}
+              >
                 <option value="INTEIRO">Unidade</option>
                 <option value="MILILITRO">Mililitros</option>
                 <option value="GRAMA">Gramas</option>
                 <option value="CENTIMETRO">Centímetro</option>
               </select>
             </div>
-
-
             <div className="flex-1 w-full min-h-0">
               <ReactECharts
                 option={optMateriaisCategoria}
@@ -266,6 +281,7 @@ export function Home() {
               />
             </div>
           </div>
+
         </section>
       </main>
     </div>
