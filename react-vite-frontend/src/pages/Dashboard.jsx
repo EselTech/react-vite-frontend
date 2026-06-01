@@ -292,10 +292,10 @@ export function Dashboard() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#F7F5FA]">
+    <div className="flex min-h-screen bg-[#F7F5FA] h-screen overflow-hidden">
       <Nav tela="Dashboard" />
 
-      <main className="flex-1 flex flex-col p-8 gap-6 overflow-auto font-sans text-gray-800">
+      <main className="flex-1 flex flex-col p-8 gap-6 overflow-auto font-sans text-gray-800 overflow-y-auto">
 
         {/* cabecalho */}
         <header className="flex items-end justify-between">
