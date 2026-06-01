@@ -73,7 +73,7 @@ export function CampoLogin(props) {
                         aoMudar={setSenha}
                         inputsBloqueados={inputsBloqueados}
                     />
-                    <p className="text-[#896D95] font-text text-left self-start text-sm -mt-4 font-semibold mb-12 cursor-pointer">Esqueci minha senha</p>
+                    <p className="text-[#896D95] font-text text-left self-start text-sm -mt-4 font-semibold mb-12 cursor-pointer"></p>
                 </div>
                 <BotaoEntrar aoClicar={entrar} texto={"Entrar"} />
             </div>
