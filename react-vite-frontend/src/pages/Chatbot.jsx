@@ -18,7 +18,7 @@ export function Chatbot() {
             const copia = [...resposta.data]
             setChat(copia)
             console.log(copia);
-            
+
         })
     }
 
@@ -68,7 +68,7 @@ export function Chatbot() {
                 }
 
                 console.log(respostaChat);
-                
+
 
                 api.post("/conversa", respostaChat)
                 carregarConversa
@@ -84,14 +84,14 @@ export function Chatbot() {
     }
 
     return (
-        <div className="flex h-screen w-screen overflow-hidden bg-white">
+        <div className="flex w-screen bg-white h-screen overflow-hidden">
             <Toaster
                 position="top-center"
                 reverseOrder={false}
             />
             <Nav tela="Chatbot" />
 
-            <div className="w-10/12 flex flex-col justify-between items-center pt-[4vh] pb-[4vh]">
+            <div className="w-10/12 flex flex-col justify-between items-center pt-[4vh] pb-[4vh] overflow-y-auto">
 
                 <div className="self-start pl-[9vw] w-max shrink-0">
                     <h1 className="text-[#695088] font-semibold text-5xl mb-2.5 font-title">Chatbot</h1>
