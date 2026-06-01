@@ -12,7 +12,11 @@ export function Perfil() {
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
     const [senha, setSenha] = useState("")
+    const [novaSenha, setNovaSenha] = useState("")
+    const [senhaConfirmada, setSenhaConfirmada] = useState("")
     const [block, setBlock] = useState(true)
+    const [blockSenha, setBlockSenha] = useState(true)
+
     const navigate = useNavigate();
 
     function carregarUsuario() {
@@ -20,8 +24,7 @@ export function Perfil() {
             api.get(`/usuario/find-by-id/${id}`).then(response => {
                 setNome(response.data.nome),
                     setEmail(response.data.email),
-                    setUserName(response.data.username),
-                    setSenha(response.data.senha)
+                    setUserName(response.data.username)
             })
         } catch (error) {
             toast.error("Erro ao carregar usuários")
@@ -33,7 +36,7 @@ export function Perfil() {
         let copia = {}
         try {
             api.get(`/usuario/find-by-id/${id}`).then(response => {
-                if (response.data.nome == nome && response.data.email == email && response.data.username == userName && response.data.senha == senha) {
+                if (response.data.nome == nome && response.data.email == email && response.data.username == userName) {
                     setBlock(true)
                     return
                 }
@@ -42,7 +45,6 @@ export function Perfil() {
                     nome: nome,
                     email: email,
                     username: userName,
-                    senha: senha
                 }
                 api.patch(`/usuario/atualizar/${id}`, copia).then(() => {
                     toast.success("Alterações salvas com sucesso")
@@ -53,6 +55,39 @@ export function Perfil() {
             toast.error("Não foi possível salvar suas alterações, tente novamente mais tarde")
             console.log(error)
         }
+    }
+
+    function atualizarSenha() {
+        const corpoNovaSenha = {
+            "senhaAntiga": senha,
+            "novaSenha": novaSenha,
+            "userID": id
+        }
+
+        if (senhaConfirmada != novaSenha) {
+            toast("As senhas não conferem", {
+                icon: '⚠️'
+            })
+            return
+        }
+
+        try {
+
+            api.put(`/usuario/atualizar-senha`, corpoNovaSenha)
+
+            setBlockSenha(true)
+            setSenha('')
+            setNovaSenha('')
+            setSenhaConfirmada('')
+
+            toast.success("Senha atualizada com sucesso")
+
+        } catch (error) {
+            toast.error("Erro ao alterar senha")
+            console.log(error)
+        }
+
+
     }
 
     function deletarUsuario() {
@@ -94,7 +129,7 @@ export function Perfil() {
                 </div>
             </div>
         ), {
-            id: "confirmar-exclusao-toast", 
+            id: "confirmar-exclusao-toast",
             duration: Infinity,
             position: "top-center",
             className: "min-w-[400px] max-w-lg p-5 rounded-2xl shadow-2xl border border-gray-100"
@@ -115,25 +150,44 @@ export function Perfil() {
                     reverseOrder={false}
                 />
 
-                <div className="w-1/2">
+                <div className="w-full">
                     <h1 className="text-[#695088] font-title font-semibold text-5xl mb-20">
                         Informações Pessoais
                     </h1>
-                    <div className="w-xl flex flex-col gap-7">
-                        <InputPerfil isBlocked={block} valor={nome} setValor={setNome} legenda={"Nome"} />
-                        <InputPerfil isBlocked={block} valor={email} setValor={setEmail} legenda={"Email"} />
-                        <InputPerfil isBlocked={block} valor={userName} setValor={setUserName} legenda={"Nome de usuário"} />
-                        <InputPerfil isBlocked={block} valor={senha} setValor={setSenha} legenda={"Senha"} />
-                    </div>
-                    <div className="flex gap-8 mt-14">
-                        {block ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>}
+                    <div className="flex flex-row gap-40 w-full">
+                        <div>
+                            <div className="w-100 flex flex-col gap-7">
+                                <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize seu perfil</h1>
+                                <InputPerfil isBlocked={block} valor={nome} setValor={setNome} legenda={"Nome"} />
+                                <InputPerfil isBlocked={block} valor={email} setValor={setEmail} legenda={"Email"} />
+                                <InputPerfil isBlocked={block} valor={userName} setValor={setUserName} legenda={"Nome de usuário"} />
+                            </div>
+                            <div className="flex gap-8 mt-14">
+                                {block ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>}
 
-                        <button
-                            className="bg-linear-to-br from-[#f34444] to-[#bb3737] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-text font-bold rounded-3xl w-40 h-12 cursor-pointer"
-                            onClick={confirmarExclusao}
-                        >
-                            Deletar Conta
-                        </button>
+                                <button
+                                    className="bg-linear-to-br from-[#f34444] to-[#bb3737] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-text font-bold rounded-3xl w-40 h-12 cursor-pointer"
+                                    onClick={confirmarExclusao}
+                                >
+                                    Deletar Conta
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="w-100 flex flex-col gap-7">
+                                <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize sua senha</h1>
+                                <InputPerfil isBlocked={blockSenha} valor={senha} setValor={setSenha} legenda={"Senha antiga"} />
+                                <InputPerfil isBlocked={blockSenha} valor={novaSenha} setValor={setNovaSenha} legenda={"Nova senha"} />
+                                <InputPerfil isBlocked={blockSenha} valor={senhaConfirmada} setValor={setSenhaConfirmada} legenda={"Confirme sua senha"} />
+                            </div>
+                            <div className="flex gap-8 mt-14">
+                                {blockSenha ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => blockSenha ? setBlockSenha(false) : setBlockSenha(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => atualizarSenha()}>Salvar</button>}
+
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
 
