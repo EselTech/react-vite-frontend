@@ -45,8 +45,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
 
     async function handleExcluir() {
         try {
-            await api.delete(`/pedidos/${editPedido.id}`);
-            carregarPedidos();
+            await api.delete(`/pedidos/${editPedido.id}`).then(resposta => carregarPedidos());
             setIsOpen(false);
             toast.success("Pedido excluído com sucesso")
         } catch (error) {

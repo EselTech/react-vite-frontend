@@ -42,8 +42,7 @@ export function Orcamentos() {
                 })
                 return
             }
-            api.post("/orcamentos", novo)
-            carregarOrcamentos()
+            api.post("/orcamentos", novo).then(resposta => carregarOrcamentos())
             toast.success("Orçamento finalizado com sucesso")
         } catch {
             console.error("Erro ao salvar produto:", error.response?.data || error.message);
