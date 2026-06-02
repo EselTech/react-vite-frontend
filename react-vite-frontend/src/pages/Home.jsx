@@ -199,18 +199,18 @@ export function Home() {
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">
             Bem-vinda de volta, {nomeUsuario}
           </h1>
-          <p className="text-gray-400 m-0">
+          <p className="text-gray-400 m-0 font-text">
             Aqui está um resumo do seu ateliê hoje
           </p>
         </header>
 
         {/* kpi e alertas */}
-        <section className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-4 shrink-0">
+        <section className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-4 shrink-0 ">
 
           <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {kpis.map((kpi, index) => (
               <div key={index} className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-4 shadow-sm flex flex-col justify-center">
-                <p className="text-gray-400 text-xs font-semibold tracking-wider uppercase mb-1">
+                <p className="text-gray-400 text-xs tracking-wider uppercase mb-1 font-medium font-title">
                   {kpi.title}
                 </p>
                 <h2 className="text-4xl font-bold text-[#896D95] m-0 mb-2">
@@ -221,7 +221,7 @@ export function Home() {
           </div>
 
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-5 shadow-sm flex flex-col col-span-2">
-            <h2 className="text-xl font-bold text-[#634C89] mb-4">Alertas</h2>
+            <h2 className="text-xl font-semibold text-[#634C89] mb-4 font-title">Alertas</h2>
             <ul className="flex flex-col gap-3 overflow-y-auto max-h-36">
               {alertas.length === 0 ? (
                 <li className="text-gray-400 text-sm">Nenhuma notificação no momento.</li>
@@ -252,7 +252,7 @@ export function Home() {
           {/* grafico 1 - pedidos por status */}
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-gray-400 text-sm font-semibold">Quantidade de pedidos por Status</h3>
+              <h3 className="text-gray-400 text-sm font-medium font-title">Quantidade de pedidos por Status</h3>
             </div>
             <div className="flex-1 w-full min-h-0">
               <ReactECharts
@@ -266,7 +266,7 @@ export function Home() {
           {/* grafico 2 - produtos mais vendidos */}
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-gray-400 text-sm font-semibold">Produtos mais Vendidos no mês atual</h3>
+              <h3 className="text-gray-400 text-sm font-medium font-title">Produtos mais Vendidos no mês atual</h3>
             </div>
             <div className="flex-1 w-full min-h-0">
               <ReactECharts
@@ -280,7 +280,7 @@ export function Home() {
           {/* grafico 3 - materiais por categoria */}
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80 col-span-2">
             <div className="flex gap-10 items-center mb-4">
-              <h3 className="text-gray-400 text-sm font-semibold">Materiais mais Utilizados no mês atual por Categoria</h3>
+              <h3 className="text-gray-400 text-sm font-medium font-title">Materiais mais Utilizados no mês atual por Categoria</h3>
               <select
                 className="text-sm font-semibold font-text border border-[#eadeef] rounded-md px-2 outline-none focus:border-[#896D95] text-gray-400"
                 onChange={(e) => setCategoriaMaterial(e.target.value)}

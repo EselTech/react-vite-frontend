@@ -96,7 +96,7 @@ export function Orcamentos() {
                             <h1 className="font-title text-5xl font-bold text-[#695088]">Nenhum orçamento criado ainda</h1>
                             <p className="text-gray-400 mt-4 font-text">Combine materiais e defina seus lucros de forma automatizada.</p>
                             <button
-                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12"
+                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 font-title"
                                 onClick={() => setDrawerIsOpen(true)}
                             >
                                 Criar Primeiro Orçamento

@@ -300,10 +300,10 @@ export function Dashboard() {
         {/* cabecalho */}
         <header className="flex items-end justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-[#634C89] leading-tight">Dashboard</h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <h1 className="text-3xl font-bold text-[#634C89] leading-tight font-title">Dashboard</h1>
+            <p className="text-gray-400 text-sm mt-1 font-text">
               Visão geral dos seus produtos e materiais —{" "}
-              <span className="font-medium text-[#896D95]">{mesAtual}</span>
+              <span className="font-semibold text-[#896D95] font-text">{mesAtual}</span>
             </p>
           </div>
         </header>
@@ -321,7 +321,7 @@ export function Dashboard() {
                   key={index}
                   className="bg-white border border-[#EDE8F3] rounded-2xl px-5 py-5 shadow-sm flex flex-col gap-2"
                 >
-                  <p className="text-gray-400 text-xs font-medium leading-snug">{kpi.label}</p>
+                  <p className="text-gray-400 text-xs font-semibold leading-snug font-text">{kpi.label}</p>
                   <h2 className="text-lg font-bold text-[#634C89] truncate leading-tight">{kpi.valor}</h2>
                   {kpi.detalhe && (
                     <span className="inline-block self-start bg-[#F0EAF7] text-[#896D95] text-xs font-semibold px-2 py-0.5 rounded-full">
@@ -341,7 +341,7 @@ export function Dashboard() {
                 >
                   {/* Cabeçalho do card */}
                   <div className="flex items-baseline gap-2">
-                    <h3 className="text-sm font-semibold text-gray-700">{grafico.titulo}</h3>
+                    <h3 className=" text-gray-400 text-sm font-bold font-text ">{grafico.titulo}</h3>
                     <span className="text-xs font-medium text-[#896D95] bg-[#F0EAF7] px-2 py-0.5 rounded-full whitespace-nowrap">
                       {grafico.subtitulo}
                     </span>

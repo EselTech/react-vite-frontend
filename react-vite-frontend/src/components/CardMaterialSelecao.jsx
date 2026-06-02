@@ -20,7 +20,7 @@ export function CardMaterialSelecao({ material, qtd, onUpdate }) {
                     📦
                 </div>
                 <div className="flex-1 pl-4 flex flex-col justify-center">
-                    <p className="font-bold text-[#3D2B4F] text-sm uppercase tracking-tight">{material.nome}</p>
+                    <p className="text-[#3D2B4F] font-title font-semibold">{material.nome}</p>
                     <p className="text-[10px] text-[#7a6688] font-bold uppercase">Unitário: R$ {material.preco.toFixed(2)}</p>
                 </div>
                 <div className="text-right font-title font-bold text-[#695088]">
@@ -39,7 +39,7 @@ export function CardMaterialSelecao({ material, qtd, onUpdate }) {
                             className="w-6 h-6 flex items-center justify-center hover:bg-[#ede0f0] rounded-full font-bold text-[#7a6688] transition-colors"
                             onClick={() => onUpdate(Math.max(0, qtd - 1))}
                         > − </button>
-                        <span className="font-bold text-[#3D2B4F] min-w-[20px] text-center">{qtd}</span>
+                        <span className="font-bold text-[#3D2B4F] min-w-5 text-center">{qtd}</span>
                         <button
                             className="w-6 h-6 flex items-center justify-center hover:bg-[#ede0f0] rounded-full font-bold text-[#7a6688] transition-colors"
                             onClick={() => onUpdate(qtd + 1)}

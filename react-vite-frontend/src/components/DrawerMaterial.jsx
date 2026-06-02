@@ -9,8 +9,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
         categoria: "INTEIRO",
         nome: "",
         descricao: "",
-        qtdEstoque: 0,
-        preco: 0.00
+        qtdEstoque: null,
+        preco: null
     });
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITRO", "GRAMA"];
@@ -86,7 +86,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                             <div className="flex flex-col">
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd. Estoque</label>
                                 <input
-                                    type="number"
+                                    type=""
+                                    placeholder="Ex: 10"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                                     value={form.qtdEstoque}
                                     onChange={event => setForm({ ...form, qtdEstoque: Number(event.target.value) })}
@@ -95,7 +96,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                             <div className="flex flex-col">
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço Un. (R$)</label>
                                 <input
-                                    type="number"
+                                    type=""
+                                    placeholder="Ex: 10.00"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                                     value={form.preco}
                                     onChange={event => setForm({ ...form, preco: Number(event.target.value) })}

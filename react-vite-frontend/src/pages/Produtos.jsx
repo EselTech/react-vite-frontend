@@ -105,10 +105,10 @@ export function Produtos() {
                             <table className="w-full text-left border-collapse">
                                 <thead>
                                     <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
-                                        <th className="p-5 font-title text-[#695088] font-bold text-center">Produto</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold text-center">Custo Total</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold text-center">Preço de Venda</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold text-center">Ações</th>
+                                        <th className="p-5 font-title text-[#695088] font-bold">Produto</th>
+                                        <th className="p-5 font-title text-[#695088] font-bold pl-8">Custo Total</th>
+                                        <th className="p-5 font-title text-[#695088] font-bold">Preço de Venda</th>
+                                        <th className="p-5 font-title text-[#695088] font-bold pl-10">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,25 +116,26 @@ export function Produtos() {
 
                                         <tr
                                             key={prod.id}
-                                            className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer"
+                                            className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
                                             onClick={() => abrirDetalhes(prod)}
                                         >
-                                            <td className="p-5 text-center">
+                                            <td className="p-5">
                                                 <div className="flex flex-col">
                                                     <span className="font-bold text-[#3D2B4F] text-sm">{prod.nome}</span>
+                                                    <span className="text-[10px] text-gray-400 line-clamp-1">{prod.descricao}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-5 text-center">
-                                                <span className="p-5 font-title text-[#695088] font-bold text-right">
+                                            <td className="p-5">
+                                                <span className="p-5 text-right font-bold text-[#695088]">
                                                     R$ {Number(prod.custo).toFixed(2)}
                                                 </span>
                                             </td>
-                                            <td className="p-5 text-center">
-                                                <span className="p-5 font-title text-[#695088] font-bold text-right">
+                                            <td className="p-5">
+                                                <span className="p-5 text-right font-bold text-[#695088]">
                                                     R$ {Number(prod.preco).toFixed(2)}
                                                 </span>
                                             </td>
-                                            <td className="p-5 text-center">
+                                            <td className="p-5">
                                                 <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold">
                                                     Detalhes
                                                 </button>

@@ -17,10 +17,10 @@ export function CardProdutoOrcamento({ nome, preco, qtd, onUpdate }) {
       <div className="h-28 flex px-4 items-center" onClick={handleCardClick}>
         <div className="w-1/12 text-3xl">📦</div>
         <div className="w-8/12 pl-4 flex flex-col justify-center">
-          <p className="font-bold text-[#3D2B4F]">{nome}</p>
-          <p className="text-xs text-[#7a6688]">Unitário: R$ {preco.toFixed(2)}</p>
+          <p className="text-[#3D2B4F] font-title font-semibold">{nome}</p>
+          <p className="text-xs text-[#7a6688] font-title">Unitário: R$ {preco.toFixed(2)}</p>
         </div>
-        <div className="w-3/12 text-right font-bold text-[#3D2B4F] text-lg">
+        <div className="w-3/12 text-right font-semibold text-[#3D2B4F] text-lg font-title">
           R$ {preco.toFixed(2)}
         </div>
       </div>

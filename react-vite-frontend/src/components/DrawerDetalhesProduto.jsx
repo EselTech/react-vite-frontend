@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../provider/api";
+import toast from "react-hot-toast";
 
 export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar, carregarProdutos }) {
     const [editProd, setEditProd] = useState(null);
@@ -36,7 +37,9 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
             console.log("Produto atualizado:", response.data);
             onAtualizar(editProd);
             setIsOpen(false);
+            toast.success("Produto alterado com sucesso")
         } catch (error) {
+            toast.error("Erro ao alterar produto")
             console.error("Erro ao atualizar:", error.response?.data || error.message);
         }
     }
@@ -46,7 +49,9 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
             const response = await api.delete(`/produtos/${editProd.id}`);
             setIsOpen(false);
             carregarProdutos()
+            toast.success("Produto excluído com sucesso")
         } catch (error) {
+            toast.error("Não é possível excluir este produto")
             console.error("Erro ao excluir:", error.response?.data || error.message);
         }
     }
@@ -104,13 +109,13 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                     <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 gap-4 bg-white">
                         <button
                             onClick={handleSalvar}
-                            className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
+                            className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                         >
                             Salvar Alterações
                         </button>
                         <button
                             onClick={handleExcluir}
-                            className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
+                            className="w-1/3 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                         >
                             Excluir
                         </button>

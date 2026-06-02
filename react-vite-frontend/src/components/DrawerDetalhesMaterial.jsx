@@ -130,13 +130,13 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         <div className="w-full flex justify-between items-center gap-4">
                             <button
                                 onClick={handleSalvar}
-                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
+                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                             >
                                 Salvar Alterações
                             </button>
                             <button
                                 onClick={handleExcluir}
-                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"
+                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                             >
                                 Excluir
                             </button>

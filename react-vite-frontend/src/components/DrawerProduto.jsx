@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = [], carregarProdutos }) {
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [custoMaoDeObra, setCustoMaoDeObra] = useState(0);
-    const [margemLucro, setMargemLucro] = useState(0);
+    const [custoMaoDeObra, setCustoMaoDeObra] = useState();
+    const [margemLucro, setMargemLucro] = useState();
     const [quantidades, setQuantidades] = useState({});
 
     const custoMateriais = materiaisDisponiveis.reduce((acc, mat) => {
@@ -94,11 +94,11 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex flex-col">
                                     <label className="font-medium mb-2 font-title text-[#3D2B4F]">Mão de Obra (R$)</label>
-                                    <input placeholder="10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={custoMaoDeObra} onChange={e => setCustoMaoDeObra(e.target.value)} />
+                                    <input placeholder="Ex: 10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={custoMaoDeObra} onChange={e => setCustoMaoDeObra(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="font-medium mb-2 font-title text-[#3D2B4F]">Lucro (%)</label>
-                                    <input placeholder="10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
+                                    <input placeholder="Ex: 10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
                                 </div>
                             </div>
                         </div>
