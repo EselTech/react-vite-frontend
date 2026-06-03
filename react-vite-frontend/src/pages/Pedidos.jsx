@@ -90,24 +90,26 @@ export function Pedidos() {
                     </button>
                 </header>
 
-                <main className="p-8 flex gap-6 overflow-x-auto items-start flex-1">
+                <main className="p-8 flex gap-6 overflow-x-auto items-start flex-1 h-[calc(100vh-160px)]">
                     {colunas.map(coluna => (
                         <div
                             key={coluna.id}
                             onDragOver={(e) => { e.preventDefault(); setDragOverCol(coluna.id); }}
                             onDragLeave={() => setDragOverCol(null)}
                             onDrop={(e) => handleDrop(e, coluna.id)}
-                            className={`w-80 shrink-0 bg-white/60 rounded-3xl border flex flex-col overflow-hidden transition-all duration-200 ${dragOverCol === coluna.id ? "border-[#896D95] scale-[1.02] bg-[#f3eaf8]" : "border-purple-100"
+                            className={`w-80 max-h-full shrink-0 bg-white/60 rounded-3xl border flex flex-col overflow-hidden transition-all duration-200 ${dragOverCol === coluna.id ? "border-[#896D95] scale-[1.02] bg-[#f3eaf8]" : "border-purple-100"
                                 }`}
                         >
-                            <div className={`p-5 border-b ${coluna.borderColor} bg-linear-to-b ${coluna.headerFrom} to-white flex justify-between items-center`}>
+                            {/* Header da Coluna */}
+                            <div className={`p-5 border-b ${coluna.borderColor} bg-linear-to-b ${coluna.headerFrom} to-white flex justify-between items-center shrink-0`}>
                                 <span className={`font-bold text-sm ${coluna.color} font-title`}>{coluna.label}</span>
                                 <span className="text-[10px] bg-white/80 px-2 py-0.5 rounded-full font-bold text-gray-500">
                                     {pedidos.filter(o => String(o.status).trim().toLowerCase() === String(coluna.id).trim().toLowerCase()).length}
                                 </span>
                             </div>
 
-                            <div className="p-4 space-y-4 overflow-y-auto min-h-75">
+                            {/* Lista de Pedidos com Scroll Próprio */}
+                            <div className="p-4 space-y-4 overflow-y-auto flex-1 manual-scroll-style">
                                 {pedidos
                                     .filter(pedido => String(pedido.status).trim().toLowerCase() === String(coluna.id).trim().toLowerCase())
                                     .map(pedido => (
