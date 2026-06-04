@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from "react";
 
 export default function CardProdutoPedido({ produto, pedido, atualizarPedido }) {
-    const [qtd, setQtd] = useState(0);
+    const produtoExistente = pedido.listaProdutos?.find(
+        item => item.produtoId === produto.id || item.produto?.id === produto.id
+    );
+    
+    const [qtd, setQtd] = useState(produtoExistente ? produtoExistente.qtdProduto : 0);
     const isSelecionado = qtd > 0;
 
     useEffect(() => {
-        const listaSemProdutoAtual = pedido.listaProdutos.filter(
-            (item) => item.produtoId !== produto.id
+        if (produtoExistente) {
+            setQtd(produtoExistente.qtdProduto);
+        } else {
+            setQtd(0);
+        }
+    }, [pedido]);
+
+    useEffect(() => {
+        const listaSemProdutoAtual = (pedido.listaProdutos || []).filter(
+            (item) => item.produtoId !== produto.id && item.produto?.id !== produto.id
         );
 
         let novaLista = listaSemProdutoAtual;
@@ -15,13 +27,18 @@ export default function CardProdutoPedido({ produto, pedido, atualizarPedido }) 
             novaLista = [
                 ...listaSemProdutoAtual,
                 {
+                    id: produtoExistente?.id || null,
                     produtoId: produto.id,
-                    qtdProduto: qtd
+                    qtdProduto: qtd,
+                    produto: produto 
                 }
             ];
         }
 
-        atualizarPedido({ ...pedido, listaProdutos: novaLista });
+        if (JSON.stringify(pedido.listaProdutos) !== JSON.stringify(novaLista)) {
+            atualizarPedido({ ...pedido, listaProdutos: novaLista });
+        }
+        
     }, [qtd]);
 
     const handleCardClick = () => {
@@ -30,8 +47,9 @@ export default function CardProdutoPedido({ produto, pedido, atualizarPedido }) 
 
     return (
         <div
-            className={`transition-all duration-300 border rounded-2xl overflow-hidden cursor-pointer mb-3 ${isSelecionado ? "h-40 bg-[#fcf0ff] border-[#896D95] shadow-sm" : "h-24 border-[#896D9533] bg-white hover:border-[#896D9566]"
-                }`}
+            className={`transition-all duration-300 border rounded-2xl overflow-hidden cursor-pointer mb-3 ${
+                isSelecionado ? "h-40 bg-[#fcf0ff] border-[#896D95] shadow-sm" : "h-24 border-[#896D9533] bg-white hover:border-[#896D9566]"
+            }`}
         >
             <div className="h-24 flex px-4 items-center" onClick={handleCardClick}>
                 <div className="w-12 h-12 rounded-xl bg-[#f8f4f9] flex items-center justify-center text-2xl">

@@ -46,19 +46,21 @@ export function Pedidos() {
         setIsDetalhesOpen(true);
     };
 
-    const handleDrop = async (e, status) => {
+    const handleDrop = async (e, statusAlvo) => {
         const id = e.dataTransfer.getData("orderId");
         setDragOverCol(null);
 
         const pedidoOriginal = pedidos.find(p => String(p.id) === id);
-        if (!pedidoOriginal || pedidoOriginal.status === status) return;
+        if (!pedidoOriginal || pedidoOriginal.status === statusAlvo) return;
 
-        setPedidos(pedidos.map(p => String(p.id) === id ? { ...p, status: p.statusDestino } : p));
+        setPedidos(prevPedidos =>
+            prevPedidos.map(p => String(p.id) === id ? { ...p, status: statusAlvo } : p)
+        );
 
         try {
             await api.patch(`/pedidos/atualizar-status/${id}`, {}, {
                 params: {
-                    status: status
+                    status: statusAlvo
                 }
             });
             carregarPedidos();
@@ -108,7 +110,6 @@ export function Pedidos() {
                                 </span>
                             </div>
 
-                            {/* Lista de Pedidos com Scroll Próprio */}
                             <div className="p-4 space-y-4 overflow-y-auto flex-1 manual-scroll-style">
                                 {pedidos
                                     .filter(pedido => String(pedido.status).trim().toLowerCase() === String(coluna.id).trim().toLowerCase())

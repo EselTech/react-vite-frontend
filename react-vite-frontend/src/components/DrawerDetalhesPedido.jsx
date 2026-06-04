@@ -3,54 +3,79 @@ import { api } from "../provider/api";
 import toast from "react-hot-toast";
 
 export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedidos, colunas }) {
-    const [editPedido, setEditPedido] = useState(null);
+
+    const [id, setId] = useState();
+    const [nome, setNome] = useState();
+    const [descricao, setDescricao] = useState();
+    const [status, setStatus] = useState();
+    const [prazo, setPrazo] = useState();
+    const [valor, setValor] = useState();
+    const [listaProdutos, setListaProdutos] = useState([]);
 
     useEffect(() => {
-        if (pedido) setEditPedido({ ...pedido });
+        if (pedido) {
+            setId(pedido.id);
+            setNome(pedido.nome);
+            setDescricao(pedido.descricao || "");
+            setStatus(pedido.status);
+            setPrazo(pedido.prazo);
+            setValor(pedido.valor);
+            setListaProdutos(pedido.listaProdutos || []);
+        }
     }, [pedido, isOpen]);
-
-    if (!editPedido) return null;
-
-    const handleChange = (field, value) => {
-        setEditPedido(prev => ({ ...prev, [field]: value }));
-    };
 
     async function handleSalvar() {
         try {
+            const listaFormatada = listaProdutos.map(item => {
+                const realProdutoId = item.produto?.id || item.produtoId;
+                return {
+                    id: item.id || null,
+                    produtoId: realProdutoId,
+                    qtdProduto: item.qtdProduto,
+                    produto: item.produto
+                };
+            });
+
             const payload = {
-                nome: editPedido.nome,
-                descricao: editPedido.descricao,
-                status: editPedido.status,
-                prazo: editPedido.prazo,
-                valor: editPedido.valor,
+                id: id,
+                nome: nome,
+                descricao: descricao,
+                status: status,
+                prazo: prazo,
+                valor: Number(valor),
+                listaProdutos: listaFormatada,
                 empresaId: 1
             };
+
+            console.log("Payload corrigido enviado no PUT:", payload);
 
             if (payload.valor <= 0 || !payload.nome || !payload.prazo) {
                 toast.error('Por favor, preencha os campos corretamente', {
                     icon: "⚠️"
-                })
-                return
+                });
+                return;
             }
 
-            await api.put(`/pedidos/${editPedido.id}`, payload);
-            carregarPedidos();
-            toast.success("Pedido alterado com sucesso")
+            await api.put(`/pedidos/${pedido.id}`, payload);
+            await carregarPedidos();
+            
+            toast.success("Pedido alterado com sucesso");
             setIsOpen(false);
         } catch (error) {
-            console.error("Erro ao atualizar pedido:", error.message);
-            toast.error("Erro ao alterar pedido")
+            console.error("Erro ao atualizar pedido:", error.response?.data || error.message);
+            toast.error("Erro ao alterar pedido");
         }
     }
 
     async function handleExcluir() {
         try {
-            await api.delete(`/pedidos/${editPedido.id}`).then(resposta => carregarPedidos());
+            await api.delete(`/pedidos/${pedido.id}`);
+            await carregarPedidos();
             setIsOpen(false);
-            toast.success("Pedido excluído com sucesso")
+            toast.success("Pedido excluído com sucesso");
         } catch (error) {
             console.error("Erro ao excluir pedido:", error.message);
-            toast.error("Erro ao excluir pedido")
+            toast.error("Erro ao excluir pedido");
         }
     }
 
@@ -71,7 +96,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                         </div>
                         <button
                             className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center cursor-pointer border-[#896D9533]"
-                            onClick={() => setDrawerIsOpen(false)}
+                            onClick={() => setIsOpen(false)}
                         > × </button>
                     </div>
 
@@ -80,8 +105,8 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Cliente</label>
                             <input
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
-                                value={editPedido.nome}
-                                onChange={(e) => handleChange("nome", e.target.value)}
+                                value={nome || ""}
+                                onChange={(e) => setNome(e.target.value)}
                             />
                         </div>
 
@@ -90,8 +115,8 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Status</label>
                                 <select
                                     className="w-full text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none"
-                                    value={editPedido.status}
-                                    onChange={(e) => handleChange("status", e.target.value)}
+                                    value={status || ""}
+                                    onChange={(e) => setStatus(e.target.value)}
                                 >
                                     {colunas.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                                 </select>
@@ -101,8 +126,8 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                                 <input
                                     type="date"
                                     className="w-full text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none"
-                                    value={editPedido.prazo}
-                                    onChange={(e) => handleChange("prazo", e.target.value)}
+                                    value={prazo || ""}
+                                    onChange={(e) => setPrazo(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -112,18 +137,18 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                             <textarea
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none resize-none"
                                 rows="3"
-                                value={editPedido.descricao}
-                                onChange={(e) => handleChange("descricao", e.target.value)}
+                                value={descricao || ""}
+                                onChange={(e) => setDescricao(e.target.value)}
                             />
                         </div>
 
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Produtos deste Pedido</label>
                             <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
-                                {editPedido.listaProdutos && editPedido.listaProdutos.length > 0 ? (
-                                    editPedido.listaProdutos.map((item) => (
+                                {listaProdutos && listaProdutos.length > 0 ? (
+                                    listaProdutos.map((item) => (
                                         <div
-                                            key={item.id}
+                                            key={item.produto?.id || item.produtoId || item.id}
                                             className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl"
                                         >
                                             <span className="font-semibold text-sm">
@@ -144,8 +169,8 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço (R$)</label>
                             <input
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
-                                value={editPedido.valor}
-                                onChange={(e) => handleChange("valor", e.target.value)}
+                                value={valor || 0}
+                                onChange={(e) => setValor(e.target.value)}
                             />
                         </div>
 

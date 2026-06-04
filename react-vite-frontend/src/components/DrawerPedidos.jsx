@@ -31,22 +31,20 @@ export default function DrawerPedidos(props) {
             if (payload.valor <= 0 || !payload.nome || !payload.prazo) {
                 toast.error('Por favor, preencha os campos corretamente', {
                     icon: "⚠️"
-                })
-                return
+                });
+                return;
             }
             api.post("/pedidos", payload)
                 .then(() => {
-                    props.onClose()
-                    props.carregarPedidos()
+                    props.onClose();
+                    props.carregarPedidos();
                 })
                 .catch(erro => console.error("Erro ao salvar pedido:", erro));
-            toast.success("Pedido salvo com sucesso")
+            toast.success("Pedido salvo com sucesso");
         } catch (error) {
             console.error("Erro ao salvar pedido:", error.response?.data || error.message);
-            toast.error("Erro ao salvar pedido")
+            toast.error("Erro ao salvar pedido");
         }
-
-
     }
 
     useEffect(() => {
