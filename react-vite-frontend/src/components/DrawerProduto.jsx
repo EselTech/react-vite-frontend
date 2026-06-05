@@ -151,7 +151,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                         <button
                             //w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer
                             onClick={handleSalvar}
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 rounded-2xl font-bold font-title  shadow-lg hover:scale-105 active:scale-95 tracking-widest transition-all disabled:opacity-50 disabled:hover:scale-100 text-title"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 rounded-2xl font-bold font-title  shadow-lg hover:scale-105 active:scale-95 tracking-widest transition-all disabled:opacity-50 disabled:hover:scale-100 text-title cursor-pointer"
                         >
                             Salvar Produto
                         </button>

@@ -9,8 +9,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
         categoria: "INTEIRO",
         nome: "",
         descricao: "",
-        qtdEstoque: Number(''),
-        preco: Number('')
+        qtdEstoque: '',
+        preco: ''
     });
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITRO", "GRAMA"];
@@ -90,7 +90,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                                     placeholder="Ex: 10"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                                     value={form.qtdEstoque}
-                                    onChange={event => setForm({ ...form, qtdEstoque: Number(event.target.value) })}
+                                    onChange={event => setForm({ ...form, qtdEstoque: event.target.value })}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -100,7 +100,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                                     placeholder="Ex: 10.00"
                                     className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                                     value={form.preco}
-                                    onChange={event => setForm({ ...form, preco: Number(event.target.value) })}
+                                    onChange={event => setForm({ ...form, preco: event.target.value })}
                                 />
                             </div>
                         </div>

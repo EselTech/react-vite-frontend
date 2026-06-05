@@ -136,7 +136,7 @@ export function Produtos() {
                                                 </span>
                                             </td>
                                             <td className="p-5">
-                                                <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold">
+                                                <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold cursor-pointer">
                                                     Detalhes
                                                 </button>
                                             </td>

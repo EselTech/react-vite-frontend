@@ -101,7 +101,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                                 type="number"
                                 className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
                                 value={editProd.preco}
-                                onChange={(e) => handleChange("preco", Number(e.target.value))}
+                                onChange={(e) => handleChange("preco", e.target.value)}
                             />
                         </div>
 

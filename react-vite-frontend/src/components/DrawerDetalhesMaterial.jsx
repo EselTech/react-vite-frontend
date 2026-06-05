@@ -101,7 +101,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                     type="number"
                                     className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
                                     value={editMaterial.qtdEstoque}
-                                    onChange={e => handleChange("qtdEstoque", Number(e.target.value))}
+                                    onChange={e => handleChange("qtdEstoque", e.target.value)}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -110,7 +110,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                     type="number"
                                     className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
                                     value={editMaterial.preco}
-                                    onChange={e => handleChange("preco", Number(e.target.value))}
+                                    onChange={e => handleChange("preco", e.target.value)}
                                 />
                             </div>
                         </div>
