@@ -322,7 +322,7 @@ export function Dashboard() {
                   className="bg-white border border-[#EDE8F3] rounded-2xl px-5 py-5 shadow-sm flex flex-col gap-2"
                 >
                   <p className="text-gray-400 text-xs font-semibold leading-snug font-text">{kpi.label}</p>
-                  <h2 className="text-lg font-bold text-[#634C89] truncate leading-tight">{kpi.valor}</h2>
+                  <h2 className="text-lg font-semibold font-title text-[#634C89] truncate leading-tight">{kpi.valor}</h2>
                   {kpi.detalhe && (
                     <span className="inline-block self-start bg-[#F0EAF7] text-[#896D95] text-xs font-semibold px-2 py-0.5 rounded-full">
                       {kpi.detalhe}

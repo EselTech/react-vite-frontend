@@ -67,9 +67,6 @@
                         dtHoraConversa: obterDataHoraAtual()
                     }
 
-                    console.log(respostaChat);
-
-
                     api.post("/conversa", respostaChat).then(respota => carregarConversa())
                 })
             } catch (error) {
