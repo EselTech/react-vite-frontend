@@ -27,7 +27,14 @@ export function Orcamentos() {
     }
 
     function carregarOrcamentos() {
-        api.get("/orcamentos").then(resposta => setListaOrcamentos(resposta.data))
+        api.get("/orcamentos").then(resposta => setListaOrcamentos(resposta.data)).catch(erro => {
+            setListaOrcamentos([]);
+            if (erro.response && erro.response.status == 404) {
+                console.log("Nenhum orçamento cadastrado");
+            } else {
+                console.log("Erro ao carregar orçamentos:", erro.message);
+            }
+        });
     }
 
     useEffect(() => {
