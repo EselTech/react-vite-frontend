@@ -285,7 +285,7 @@ export function Dashboard() {
       opcoes: opcoesGraficoTrimestre,
     },
     {
-      titulo: "Receita Anual por Mês",
+      titulo: "Receita Anual",
       subtitulo: new Date().getFullYear().toString(),
       opcoes: opcoesGraficoReceitaAnual,
     },
