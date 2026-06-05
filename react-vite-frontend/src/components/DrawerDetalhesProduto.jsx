@@ -18,7 +18,6 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
     async function handleSalvar() {
         try {
 
-            // Tratando o produto que será enviado para seguir as definições da request
             const { empresa, ...produtoSemEmpresa } = editProd
             const listaMateriaisFormatados = produtoSemEmpresa.listaMateriais.map((material) => {
                 return {
@@ -53,6 +52,18 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
         } catch (error) {
             toast.error("Não é possível excluir este produto")
             console.error("Erro ao excluir:", error.response?.data || error.message);
+        }
+    }
+
+    function identificarUnidade(unidade) {
+        if (unidade == 'CENTIMETRO') {
+            return 'cm'
+        } 
+        if (unidade == 'MILILITROS') {
+            return 'ml'
+        }
+        if (unidade == 'GRAMAS') {
+            return 'g'
         }
     }
 
@@ -102,6 +113,28 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                                 value={editProd.descricao}
                                 onChange={(e) => handleChange("descricao", e.target.value)}
                             />
+                        </div>
+                        <div className="flex flex-col text-[#3D2B4F]">
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Produtos deste Pedido</label>
+                            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                                {produto.listaMateriais && produto.listaMateriais.length > 0 ? (
+                                    produto.listaMateriais.map((material) => (
+                                        <div
+                                            key={material?.id}
+                                            className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl"
+                                        >
+                                            <span className="font-semibold text-sm">
+                                                {material.material?.nome || "Produto não identificado"}
+                                            </span>
+                                            <span className="bg-[#ede0f0] text-[#3D2B4F] font-bold text-xs px-3 py-1 rounded-full border border-[#896D9522]">
+                                                Qtd: {material?.quantidade}{identificarUnidade(material.material?.categoria)}
+                                            </span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-gray-400 italic">Nenhum material adicionado a este produto.</p>
+                                )}
+                            </div>
                         </div>
 
                     </div>
