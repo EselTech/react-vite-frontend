@@ -118,36 +118,36 @@ export function Home() {
 
   // grafico 2 - produtos mais vendidos
   const optProdutosVendidos = {
-  color: ["#C8A0C0"],
-  tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
-  legend: {
-    data: ["Quantidade"],
-    right: 0, top: 0, icon: "circle",
-    textStyle: { color: "#999", fontSize: 12 },
-  },
-  grid: { left: "3%", right: "4%", bottom: "25%", top: "20%", containLabel: true }, // ← bottom aumentado
-  xAxis: {
-    type: "category",
-    data: produtosMaisVendidos.map((p) => p.nome),
-    axisLine: { show: false },
-    axisTick: { show: false },
-    axisLabel: {
-      color: "#999",
-      interval: 0,
-      rotate: 0,        // ← inclina os nomes
-      overflow: "truncate", // ← corta se ainda for longo
-      width: 80,
+    color: ["#C8A0C0"],
+    tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+    legend: {
+      data: ["Quantidade"],
+      right: 0, top: 0, icon: "circle",
+      textStyle: { color: "#999", fontSize: 12 },
     },
-  },
-  yAxis: { type: "value", show: true, axisLabel: { color: "#999" }, splitLine: { lineStyle: { color: "#EFEFEF" } }},
-  series: [{
-    name: "Quantidade",
-    type: "bar",
-    data: produtosMaisVendidos.map((p) => p.total),
-    itemStyle: { borderRadius: [4, 4, 0, 0] },
-    barWidth: 40, // ← reduzido para dar mais espaço entre barras
-  }],
-};
+    grid: { left: "3%", right: "4%", bottom: "25%", top: "20%", containLabel: true },
+    xAxis: {
+      type: "category",
+      data: produtosMaisVendidos.map((p) => p.nome),
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: {
+        color: "#999",
+        interval: 0,
+        rotate: 0,
+        overflow: "truncate",
+        width: 80,
+      },
+    },
+    yAxis: { type: "value", show: true, axisLabel: { color: "#999" }, splitLine: { lineStyle: { color: "#EFEFEF" } } },
+    series: [{
+      name: "Quantidade",
+      type: "bar",
+      data: produtosMaisVendidos.map((p) => p.total),
+      itemStyle: { borderRadius: [4, 4, 0, 0] },
+      barWidth: 40,
+    }],
+  };
 
   // grafico 3 - materiais por categoria
   const [categoriaMaterial, setCategoriaMaterial] = useState("INTEIRO");
