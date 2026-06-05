@@ -9,8 +9,8 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
         categoria: "INTEIRO",
         nome: "",
         descricao: "",
-        qtdEstoque: null,
-        preco: null
+        qtdEstoque: Number(''),
+        preco: Number('')
     });
 
     const categorias = ["INTEIRO", "CENTIMETRO", "MILILITRO", "GRAMA"];

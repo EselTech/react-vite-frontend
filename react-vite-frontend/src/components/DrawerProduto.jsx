@@ -94,18 +94,38 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex flex-col">
                                     <label className="font-medium mb-2 font-title text-[#3D2B4F]">Mão de Obra (R$)</label>
-                                    <input placeholder="Ex: 10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={custoMaoDeObra} onChange={e => setCustoMaoDeObra(e.target.value)} />
+                                    <input
+                                        placeholder="Ex: 10"
+                                        type="number"
+                                        className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
+                                        value={custoMaoDeObra}
+                                        onChange={e => setCustoMaoDeObra(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col">
                                     <label className="font-medium mb-2 font-title text-[#3D2B4F]">Lucro (%)</label>
-                                    <input placeholder="Ex: 10" type="number" className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm" value={margemLucro} onChange={e => setMargemLucro(e.target.value)} />
+                                    <input
+                                        placeholder="Ex: 10"
+                                        type="number"
+                                        className="bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
+                                        value={margemLucro}
+                                        onChange={e => setMargemLucro(e.target.value)} />
                                 </div>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
+                                <textarea
+                                    placeholder="Ex: Caixinha personalizada..."
+                                    rows="3"
+                                    className="border border-[#e8d8f0] rounded-2xl p-4 outline-none focus:border-[#896D95] shadow-sm resize-none"
+                                    value={descricao}
+                                    onChange={e => setDescricao(e.target.value)}
+                                />
                             </div>
                         </div>
 
                         {/* Listagem de Materiais */}
                         <div className="mb-4 flex items-center font-medium font-title justify-between">
-                            <label className="font-medium mb-4 mt-4 px-2 text-[#3D2B4F] font-title">Escolha os Materiais Usados</label>
+                            <label className="font-medium mt-4 px-2 text-[#3D2B4F] font-title">Escolha os Materiais Usados</label>
                             <span className="text-[12px] font-title bg-[#896D95] text-white px-2 py-0.5 rounded-full">{materiaisDisponiveis.length} {materiaisDisponiveis.length <= 1 ? "disponível" : "disponíveis"}</span>
                         </div>
 
