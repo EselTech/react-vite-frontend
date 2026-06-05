@@ -17,8 +17,6 @@
             api.get("/conversa/1").then(resposta => {
                 const copia = [...resposta.data]
                 setChat(copia)
-                console.log(copia);
-
             })
         }
 
@@ -98,7 +96,7 @@
 
                     <div className="w-5xl h-140 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
                         {chat.map(mensagem => {
-                            return <MensagemChatbot remetente={mensagem.emissor} texto={mensagem.mensagem} />
+                            return <MensagemChatbot key={mensagem.id} remetente={mensagem.emissor} texto={mensagem.mensagem} />
                         })}
                     </div>
 
