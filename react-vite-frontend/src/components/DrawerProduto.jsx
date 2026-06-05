@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = [], carregarProdutos }) {
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [custoMaoDeObra, setCustoMaoDeObra] = useState();
-    const [margemLucro, setMargemLucro] = useState();
+    const [custoMaoDeObra, setCustoMaoDeObra] = useState('');
+    const [margemLucro, setMargemLucro] = useState('');
     const [quantidades, setQuantidades] = useState({});
 
     const custoMateriais = materiaisDisponiveis.reduce((acc, mat) => {
@@ -17,7 +17,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
     }, 0);
 
     const custoTotal = custoMateriais + Number(custoMaoDeObra);
-    const precoSugerido = margemLucro > 0 ? custoTotal * (1 + (margemLucro / 100)) : custoTotal;
+    const precoSugerido = Number(margemLucro) > 0 ? Number(custoTotal) * (1 + (margemLucro / 100)) : custoTotal;
 
     const atualizarQuantidade = (id, novaQtd) => {
         setQuantidades(prev => ({
@@ -125,6 +125,7 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                     <div className="h-28 border-t border-[#e8d8f0] p-6 bg-[#FAFAFA] absolute bottom-0 w-full flex items-center justify-between shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
                         <div>
                             <p className="text-[10px] text-gray-400 uppercase font-black font-title tracking-wider text-center">Preço de Venda</p>
+                            {console.log(precoSugerido)}
                             <p className="text-3xl font-black font-title text-[#695088]">R$ {precoSugerido.toFixed(2)}</p>
                         </div>
                         <button
