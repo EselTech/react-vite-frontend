@@ -5,10 +5,10 @@ import { api } from "../provider/api";
 import toast from "react-hot-toast";
 
 export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = [], carregarProdutos }) {
-    const [nome, setNome] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [custoMaoDeObra, setCustoMaoDeObra] = useState('');
-    const [margemLucro, setMargemLucro] = useState('');
+    const [nome, setNome] = useState("Barquinho de Papel");
+    const [descricao, setDescricao] = useState("Barquinho de papel branco, tamanho médio, ideal para decoração de festaas temáticas");
+    const [custoMaoDeObra, setCustoMaoDeObra] = useState('10');
+    const [margemLucro, setMargemLucro] = useState('10');
     const [quantidades, setQuantidades] = useState({});
 
     const custoMateriais = materiaisDisponiveis.reduce((acc, mat) => {
@@ -74,12 +74,13 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                             <p className="text-[#3D2B4F] text-sm font-text">Composição e Precificação</p>
                         </div>
                         <button
-                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533]"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-[#f1e6f3]"
                             onClick={() => setDrawerIsOpen(false)}
                         > × </button>
                     </div>
 
                     <div className="p-6 overflow-y-auto h-[calc(100vh-180px)] custom-scrollbar">
+
                         {/* Corpo */}
                         <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-6 text-[#3D2B4F]">
                             <div className="flex flex-col">
@@ -114,9 +115,9 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                             <div className="flex flex-col">
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
                                 <textarea
+                                    className="text-[#3D2B4F] font-text bg-white p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                     placeholder="Ex: Caixinha personalizada..."
                                     rows="3"
-                                    className="border border-[#e8d8f0] rounded-2xl p-4 outline-none focus:border-[#896D95] shadow-sm resize-none"
                                     value={descricao}
                                     onChange={e => setDescricao(e.target.value)}
                                 />
@@ -145,7 +146,6 @@ export function DrawerProduto({ isOpen, setDrawerIsOpen, materiaisDisponiveis = 
                     <div className="h-28 border-t border-[#e8d8f0] p-6 bg-[#FAFAFA] absolute bottom-0 w-full flex items-center justify-between shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
                         <div>
                             <p className="text-[10px] text-gray-400 uppercase font-black font-title tracking-wider text-center">Preço de Venda</p>
-                            {console.log(precoSugerido)}
                             <p className="text-3xl font-black font-title text-[#695088]">R$ {precoSugerido.toFixed(2)}</p>
                         </div>
                         <button

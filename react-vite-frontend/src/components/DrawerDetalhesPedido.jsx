@@ -47,8 +47,6 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                 empresaId: 1
             };
 
-            console.log("Payload corrigido enviado no PUT:", payload);
-
             if (payload.valor <= 0 || !payload.nome || !payload.prazo) {
                 toast.error('Por favor, preencha os campos corretamente', {
                     icon: "⚠️"
@@ -58,7 +56,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
 
             await api.put(`/pedidos/${pedido.id}`, payload);
             await carregarPedidos();
-            
+
             toast.success("Pedido alterado com sucesso");
             setIsOpen(false);
         } catch (error) {
@@ -86,7 +84,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
         >
             <div className="flex h-full w-full justify-end">
                 <div
-                    className={`w-full md:w-1/3 h-screen bg-white flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                    className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="bg-[#f3eaf8] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
@@ -95,16 +93,22 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                             <p className="text-[#3D2B4F] text-sm font-text">Altere informações do seu pedido</p>
                         </div>
                         <button
-                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center cursor-pointer border-[#896D9533]"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center  cursor-pointer border-[#896D9533] hover:bg-white/50"
                             onClick={() => setIsOpen(false)}
-                        > × </button>
+                        >
+                            ×
+                        </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Cliente</label>
+                            <label
+                                className="font-medium mb-2 font-title text-[#3D2B4F]"
+                            >
+                                Nome do Cliente
+                            </label>
                             <input
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 value={nome || ""}
                                 onChange={(e) => setNome(e.target.value)}
                             />
@@ -112,9 +116,13 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
 
                         <div className="flex gap-4">
                             <div className="flex-1">
-                                <label className="font-medium mb-2 font-title text-[#3D2B4F]">Status</label>
+                                <label
+                                    className="font-medium mb-2 font-title text-[#3D2B4F]"
+                                >
+                                    Status
+                                </label>
                                 <select
-                                    className="w-full text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none"
+                                    className="w-full text-[#3D2B4F] font-semibold bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                     value={status || ""}
                                     onChange={(e) => setStatus(e.target.value)}
                                 >
@@ -125,31 +133,48 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Prazo</label>
                                 <input
                                     type="date"
-                                    className="w-full text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none"
+                                    className="w-full text-[#3D2B4F] font-semibold bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                     value={prazo || ""}
                                     onChange={(e) => setPrazo(e.target.value)}
                                 />
                             </div>
                         </div>
 
-                        <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição / Observações</label>
+                        <div
+                            className="flex flex-col"
+                        >
+                            <label
+                                className="font-medium mb-2 font-title text-[#3D2B4F]"
+                            >
+                                Descrição / Observações
+                            </label>
                             <textarea
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none resize-none"
+                                className="text-[#3D2B4F] font-text bg-white p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                 rows="3"
                                 value={descricao || ""}
                                 onChange={(e) => setDescricao(e.target.value)}
                             />
                         </div>
 
+                        <div className="flex flex-col">
+                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço (R$)</label>
+                            <input
+                                className="text-[#3D2B4F] font-semibold bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
+                                value={valor || 0}
+                                onChange={(e) => setValor(e.target.value)}
+                            />
+                        </div>
+
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Produtos deste Pedido</label>
-                            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                            <div
+                                className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1"
+                            >
                                 {listaProdutos && listaProdutos.length > 0 ? (
                                     listaProdutos.map((item) => (
                                         <div
                                             key={item.produto?.id || item.produtoId || item.id}
-                                            className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl"
+                                            className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl shadow-sm"
                                         >
                                             <span className="font-semibold text-sm">
                                                 {item.produto?.nome || "Produto não identificado"}
@@ -163,15 +188,6 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                                     <p className="text-sm text-gray-400 italic">Nenhum produto adicionado a este pedido.</p>
                                 )}
                             </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço (R$)</label>
-                            <input
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
-                                value={valor || 0}
-                                onChange={(e) => setValor(e.target.value)}
-                            />
                         </div>
 
                     </div>

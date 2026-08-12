@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualizar, carregarMateriais }) {
     const [editMaterial, setEditMaterial] = useState(null);
 
-    // Sincroniza o estado interno quando o material ou a abertura da drawer muda
     useEffect(() => {
         if (material) {
             setEditMaterial({ ...material });
@@ -21,7 +20,6 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
 
     async function handleSalvar() {
         try {
-            // Tratando o material que será enviado para seguir as definições da request
             const { empresa, ...materialSemEmpresa } = editMaterial
             const materialFinal = { ...materialSemEmpresa, empresaId: 1 }
 
@@ -56,37 +54,43 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
         >
             <div className="flex h-full w-full justify-end">
                 <div
-                    className={`w-full md:w-1/3 h-screen bg-white flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                    className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={e => e.stopPropagation()}
                 >
-                    {/* Header Identico ao de Orçamento */}
+                    {/* Header */}
                     <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between text-[#3D2B4F]">
                         <div>
-                            <h2 className="font-semibold text-xl tracking-tight font-title uppercase">Editar Material</h2>
+                            <h2 className="font-semibold text-xl tracking-tight font-title">Editar Material</h2>
                             <p className="text-sm font-text">Altere as informações do insumo</p>
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-white/50 transition-colors"
-                        > × </button>
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-white/50"
+                        >
+                            ×
+                        </button>
                     </div>
 
-                    {/* Corpo com inputs editáveis diretamente */}
+                    {/* Corpo */}
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Insumo</label>
                             <input
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] transition-colors"
+                                className="text-[#3D2B4F] font-text bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                 value={editMaterial.nome}
                                 onChange={e => handleChange("nome", e.target.value)}
                             />
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Categoria</label>
+                            <label
+                                className="font-medium mb-2 font-title text-[#3D2B4F]"
+                            >
+                                Categoria
+                            </label>
                             <select
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] appearance-none"
+                                className="text-[#3D2B4F] font-text bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                 value={editMaterial.categoria}
                                 onChange={e => handleChange("categoria", e.target.value)}
                             >
@@ -99,7 +103,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd em Estoque</label>
                                 <input
                                     type="number"
-                                    className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                    className="text-[#3D2B4F] font-text bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                     value={editMaterial.qtdEstoque}
                                     onChange={e => handleChange("qtdEstoque", e.target.value)}
                                 />
@@ -108,7 +112,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Preço Un. (R$)</label>
                                 <input
                                     type="number"
-                                    className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                    className="text-[#3D2B4F] font-text bg-white p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                     value={editMaterial.preco}
                                     onChange={e => handleChange("preco", e.target.value)}
                                 />
@@ -118,8 +122,8 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
                             <textarea
-                                rows="4"
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] resize-none"
+                                className="text-[#3D2B4F] font-text bg-white p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
+                                rows="3"
                                 value={editMaterial.descricao}
                                 onChange={e => handleChange("descricao", e.target.value)}
                             />

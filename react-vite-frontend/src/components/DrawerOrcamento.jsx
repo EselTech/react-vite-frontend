@@ -61,7 +61,7 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
         >
             <div className="flex h-full w-full justify-end">
                 <div
-                    className={`w-full md:w-1/3 h-screen bg-white flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                    className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
@@ -70,31 +70,33 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
                             <p className="text-[#3D2B4F] text-sm font-text">Selecione produtos e personalize</p>
                         </div>
                         <button
-                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533]"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-white/50"
                             onClick={() => setDrawerIsOpen(false)}
-                        > × </button>
+                        >
+                            ×
+                        </button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Título do Orçamento</label>
                             <input
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 placeholder="Ex: Festa de 15 anos da Maria"
                                 type="text"
                                 value={titulo}
                                 onChange={(e) => setTitulo(e.target.value)}
-                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                             />
                         </div>
 
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Comprador</label>
                             <input
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 placeholder="Ex: Ana Claudia Silva"
                                 type="text"
                                 value={comprador}
                                 onChange={(e) => setComprador(e.target.value)}
-                                className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                             />
                         </div>
 

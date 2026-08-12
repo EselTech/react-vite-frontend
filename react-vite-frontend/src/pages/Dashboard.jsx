@@ -235,10 +235,10 @@ export function Dashboard() {
   const kpis = [
     {
       label: `Material Mais Utilizado em ${mesAtual}`,
-      valor: dados?.kpiMaterialMaisUtilizado?.nome ?? "—",
+      valor: dados?.kpiProdutoMaisEncomendado?.nome ?? "—",
       detalhe:
-        dados?.kpiMaterialMaisUtilizado?.qtd_estoque != null
-          ? `${Number(dados.kpiMaterialMaisUtilizado.qtd_estoque).toFixed(0)} em estoque`
+        dados?.kpiProdutoMaisEncomendado?.totalUnidadesVendidas != null
+          ? `${Number(dados.kpiProdutoMaisEncomendado.totalUnidadesVendidas).toFixed(0)} vendidas`
           : null,
     },
     {

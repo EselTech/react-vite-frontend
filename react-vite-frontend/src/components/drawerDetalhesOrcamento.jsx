@@ -43,8 +43,8 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
     async function handleExcluir() {
         try {
             await api.delete(`/orcamentos/${editOrcamento.id}`);
-            carregarOrcamentos(); 
-            setIsOpen(false);     
+            carregarOrcamentos();
+            setIsOpen(false);
             toast.success("Orçamento excluído com sucesso")
         } catch (error) {
             console.error("Erro ao excluir orçamento:", error.message);
@@ -59,7 +59,7 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
         >
             <div className="flex h-full w-full justify-end">
                 <div
-                    className={`w-full md:w-1/3 h-screen bg-white flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                    className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Cabeçalho */}
@@ -69,20 +69,20 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
                             <p className="text-[#3D2B4F] text-sm font-text">Visualize ou altere os dados salvos</p>
                         </div>
                         <button
-                            className="text-[#3D2B4F] text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-white/50"
                             onClick={() => setIsOpen(false)}
                         >
                             ×
                         </button>
                     </div>
 
-                    {/* Formulário de Edição */}
+                    {/* Corpo */}
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
 
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Título do Orçamento</label>
                             <input
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 value={editOrcamento.titulo}
                                 onChange={(e) => handleChange("titulo", e.target.value)}
                             />
@@ -91,7 +91,7 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Cliente</label>
                             <input
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 value={editOrcamento.cliente}
                                 onChange={(e) => handleChange("cliente", e.target.value)}
                             />
@@ -102,7 +102,7 @@ export function DrawerDetalhesOrcamento({ isOpen, setIsOpen, orcamento, carregar
                             <input
                                 type="number"
                                 step="0.01"
-                                className="text-[#3D2B4F] font-semibold bg-[#f8f4f9] p-3 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95]"
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 value={editOrcamento.valor}
                                 onChange={(e) => handleChange("valor", e.target.value)}
                             />

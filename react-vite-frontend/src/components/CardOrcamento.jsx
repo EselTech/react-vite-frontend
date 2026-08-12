@@ -26,7 +26,7 @@ export function CardOrcamento(props) {
             R$ {props.valor.toFixed(2)}
           </h2>
         </div>
-        <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-colors px-4 py-2 rounded-xl font-semibold flex items-center gap-1 font-text">
+        <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-colors px-4 py-2 rounded-xl font-semibold flex items-center gap-1 font-text cursor-pointer">
           Detalhes <span>→</span>
         </button>
       </div>

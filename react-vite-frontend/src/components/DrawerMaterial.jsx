@@ -7,9 +7,9 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
     const [form, setForm] = useState({
         empresaId: 1,
         categoria: "INTEIRO",
-        nome: "",
-        descricao: "",
-        qtdEstoque: '',
+        nome: "Folha Sulfite",
+        descricao: "Folha sulfite branca A4",
+        qtdEstoque: '10',
         preco: ''
     });
 
@@ -42,7 +42,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
         >
             <div className="flex h-full w-full justify-end">
                 <div
-                    className={`w-full md:w-1/3 h-screen bg-white flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+                    className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={event => event.stopPropagation()}
                 >
 
@@ -53,19 +53,25 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                             <p className="text-[#3D2B4F] text-sm font-text">Entrada de Insumo</p>
                         </div>
                         <button
-                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533]"
+                            className="text-2xl border w-8 h-8 rounded-full flex items-center justify-center pb-1 cursor-pointer border-[#896D9533] hover:bg-[#f1e6f3]"
                             onClick={() => setDrawerIsOpen(false)}
-                        > × </button>
+                        >
+                            ×
+                        </button>
                     </div>
 
                     {/* Corpo */}
                     <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
-                            <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Insumo</label>
+                            <label
+                                className="font-medium mb-2 font-title text-[#3D2B4F]"
+                            >
+                                Nome do Insumo
+                            </label>
                             <input
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 placeholder="Fita, sacola, caixa..."
-                                className="font-text border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
                                 value={form.nome}
                                 onChange={event => setForm({ ...form, nome: event.target.value })}
                             />
@@ -74,7 +80,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Categoria de Medida</label>
                             <select
-                                className="font-text border border-[#e8d8f0] bg-white rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] appearance-none"
+                                className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                 value={form.categoria}
                                 onChange={event => setForm({ ...form, categoria: event.target.value })}
                             >
@@ -88,7 +94,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                                 <input
                                     type=""
                                     placeholder="Ex: 10"
-                                    className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
+                                    className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                     value={form.qtdEstoque}
                                     onChange={event => setForm({ ...form, qtdEstoque: event.target.value })}
                                 />
@@ -98,7 +104,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                                 <input
                                     type=""
                                     placeholder="Ex: 10.00"
-                                    className="border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95]"
+                                    className="font-text bg-white border border-[#e8d8f0] rounded-2xl h-12 px-4 outline-none focus:border-[#896D95] shadow-sm"
                                     value={form.preco}
                                     onChange={event => setForm({ ...form, preco: event.target.value })}
                                 />
@@ -108,9 +114,9 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Descrição</label>
                             <textarea
+                                className="text-[#3D2B4F] font-text bg-white p-4 rounded-xl border border-[#e8d8f0] outline-none focus:border-[#896D95] shadow-sm"
                                 placeholder="Folha de papel 3x4..."
                                 rows="3"
-                                className="border border-[#e8d8f0] rounded-2xl p-4 outline-none focus:border-[#896D95] shadow-sm resize-none"
                                 value={form.descricao}
                                 onChange={event => setForm({ ...form, descricao: event.target.value })}
                             />
@@ -118,10 +124,13 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                     </div>
 
                     {/* Footer fixo idêntico ao de Orçamento */}
-                    <div className="h-24 border-t border-[#e8d8f0] flex items-center px-8 bg-[#FAFAFA]">
+                    <div className="h-28 border-t border-[#e8d8f0] p-6 bg-[#FAFAFA] absolute bottom-0 w-full flex items-center justify-center shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+
                         <button
                             onClick={handleSalvar}
-                            className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
+                            // className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"
+                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white px-8 h-14 w-full rounded-2xl font-bold font-title  shadow-lg hover:scale-105 active:scale-95 tracking-widest transition-all disabled:opacity-50 disabled:hover:scale-100 text-title cursor-pointer"
+
                         >
                             Salvar Material
                         </button>
