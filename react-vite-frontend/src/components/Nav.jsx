@@ -27,19 +27,19 @@ export function Nav(props) {
 
     return (
 
-        <nav className="w-2/12 h-screen bg-[#E6D5FE] flex flex-col gap-8">
+        <nav className="fixed bottom-0 left-0 z-40 w-full h-16 bg-[#E6D5FE] flex flex-row gap-2 shadow-[0_-4px_16px_rgba(105,80,136,0.12)] md:static md:w-2/12 md:h-screen md:flex-col md:gap-8 md:shadow-none">
             <Toaster
                 position="top-center"
                 reverseOrder={false}
             />
-            <div className="mt-8 w-full flex ">
-                <img className="ml-[0.75vw]" src="logo.svg" />
+            <div className="hidden mt-8 w-full md:flex">
+                <img className="ml-[0.75vw]" src="logo.svg" alt="Logo Atelier da Cibis" />
                 <div className="flex flex-col">
                     <p className="font-bold text-[#695088] font-title">Atelier da Cibis</p>
                     <p className="font-bold text-[#896D95] text-[12px] font-text">Papelaria personalizada</p>
                 </div>
             </div>
-            <div className="flex flex-col gap-4 ml-6 ">
+            <div className="flex flex-row w-full gap-1 px-1 overflow-x-auto md:flex-col md:gap-4 md:ml-0 md:px-3">
 
                 {/* Botão Home */}
                 <BotaoNav imagem="home" descricao="Home" ativo={props.tela == "Home"} aoClicar={() => navigate("/home")} />
@@ -69,9 +69,9 @@ export function Nav(props) {
                 <BotaoNav imagem="perfil" descricao="Perfil" ativo={props.tela == "Perfil"} aoClicar={() => navigate("/perfil")} />
 
             </div>
-            <div className="flex gap-2 mt-auto mb-4 ml-4 " >
-                <img src="logoutIcon.svg" className="w-4 cursor-pointer" onClick={() => navigate("/")} />
-                <p className="font-title cursor-pointer " onClick={logout}>
+            <div className="shrink-0 flex items-center justify-center gap-2 mt-auto mb-1 md:mb-4 ml-0 md:ml-4" >
+                <img src="logoutIcon.svg" alt="Sair" className="w-4 cursor-pointer" onClick={logout} />
+                <p className="hidden md:block font-title cursor-pointer" onClick={logout}>
                     Sair
                 </p>
             </div>

@@ -87,20 +87,20 @@ export function Chatbot() {
             />
             <Nav tela="Chatbot" />
 
-            <div className="w-10/12 flex flex-col justify-between items-center pt-[4vh] pb-[4vh] overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 flex flex-col justify-between items-center gap-6 px-4 pb-20 pt-[4vh] md:w-10/12 md:pb-[4vh] overflow-y-auto">
 
-                <div className="self-start pl-[9vw] w-max shrink-0">
-                    <h1 className="text-[#695088] font-semibold text-5xl mb-2.5 font-title">Chatbot</h1>
+                <div className="self-start w-full max-w-5xl shrink-0">
+                    <h1 className="text-[#695088] font-semibold text-3xl md:text-5xl mb-2.5 font-title">Chatbot</h1>
                     <p className="text-[#896D95] font-normal text-lg font-text">Tire todas as suas dúvidas aqui</p>
                 </div>
 
-                <div className="w-5xl h-140 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
+                <div className="w-full max-w-5xl h-[50vh] min-h-80 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
                     {chat.map(mensagem => {
                         return <MensagemChatbot key={mensagem.id} remetente={mensagem.emissor} texto={mensagem.mensagem} />
                     })}
                 </div>
 
-                <div className="border border-[#e8d8f0] w-5xl rounded-2xl h-14 flex items-center shrink-0 shadow-[0_4px_12px_rgba(137,109,149,0.05)] bg-[#FDFDFD]">
+                <div className="border border-[#e8d8f0] w-full max-w-5xl rounded-2xl h-14 flex items-center shrink-0 shadow-[0_4px_12px_rgba(137,109,149,0.05)] bg-[#FDFDFD]">
                     <img src="chatIcon.svg" alt="" className="w-5 mx-6" />
                     <input
                         value={pergunta}

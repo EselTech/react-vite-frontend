@@ -43,15 +43,15 @@ export function Materiais() {
     return (
         <div className="flex h-screen overflow-hidden">
             <Nav tela="Materiais" />
-            <div className="w-10/12 bg-white pl-20 pt-[4vh] overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 bg-white px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
                 <Toaster
                     position="top-center"
                     reverseOrder={false}
                 />
-                <div className="w-11/12 mt-8">
-                    <div className="h-16 flex justify-between w-full items-center mb-12">
+                <div className="w-full max-w-[1400px] mt-8">
+                    <div className="min-h-16 flex flex-col justify-center gap-4 w-full items-start mb-8 md:flex-row md:justify-between md:items-center md:mb-12">
                         <div>
-                            <h1 className={`text-[#695088] font-title font-semibold text-5xl self-start ${listaMateriais.length < 1 ? "hidden" : "block"}`}>
+                            <h1 className={`text-[#695088] font-title font-semibold text-3xl md:text-4xl lg:text-5xl self-start ${listaMateriais.length < 1 ? "hidden" : "block"}`}>
                                 Estoque de Materiais
                             </h1>
                             <p className={`text-gray-400 m-0 font-text ${listaMateriais.length < 1 ? "hidden" : "block"}`}>
@@ -59,7 +59,7 @@ export function Materiais() {
                             </p>
                         </div>
                         <button
-                            className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider ${listaMateriais.length > 0 ? "block" : "hidden"}`}
+                            className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-full sm:w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider ${listaMateriais.length > 0 ? "block" : "hidden"}`}
                             onClick={() => setDrawerIsOpen(true)}
                         >
                             + Novo Material
@@ -67,8 +67,8 @@ export function Materiais() {
                     </div>
 
                     {listaMateriais.length > 0 ? (
-                        <div className="w-full overflow-hidden border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
-                            <table className="w-full text-left border-collapse">
+                        <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
+                            <table className="w-full min-w-[700px] text-left border-collapse">
                                 <thead>
                                     <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
                                         <th className="p-5 font-title text-[#695088] font-bold">Material</th>
@@ -115,14 +115,14 @@ export function Materiais() {
                             </table>
                         </div>
                     ) : (
-                        <div className="w-2/4 text-center mx-auto mt-16 flex flex-col items-center">
-                            <div className="w-30 h-30 rounded-full flex justify-center items-center text-7xl bg-[#ede0f0] animate-bounce">
+                        <div className="w-11/12 md:w-3/4 lg:w-2/4 text-center mx-auto mt-12 md:mt-16 flex flex-col items-center">
+                            <div className="w-24 h-24 md:w-30 md:h-30 rounded-full flex justify-center items-center text-5xl md:text-7xl bg-[#ede0f0] animate-bounce">
                                 📦
                             </div>
-                            <h1 className="font-title text-5xl font-bold text-[#695088]">Adicione seu primeiro material</h1>
+                            <h1 className="font-title text-3xl md:text-4xl lg:text-5xl font-bold text-[#695088]">Adicione seu primeiro material</h1>
                             <p className="text-gray-400 mt-4 font-text">Cadastre seus papéis, fitas e colas para começar a criar produtos.</p>
                             <button
-                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-12 shadow-md font-title tracking-wider"
+                                className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-full max-w-56 font-semibold cursor-pointer mt-8 md:mt-12 shadow-md font-title tracking-wider"
                                 onClick={() => setDrawerIsOpen(true)}
                             >
                                 Cadastrar Material
