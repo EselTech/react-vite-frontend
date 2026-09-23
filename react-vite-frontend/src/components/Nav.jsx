@@ -32,7 +32,13 @@ export function Nav(props) {
                 position="top-center"
                 reverseOrder={false}
             />
-            <div className="hidden mt-8 w-full md:flex">
+            <div className="w-full pt-2 pr-2">
+                <p className="text-right font-bold text-xl cursor-pointer">
+                    ×
+                </p>
+            </div>
+            <div className="hidden -mt-4 w-full md:flex">
+
                 <img className="ml-[0.75vw]" src="logo.svg" alt="Logo Atelier da Cibis" />
                 <div className="flex flex-col">
                     <p className="font-bold text-[#695088] font-title">Atelier da Cibis</p>
