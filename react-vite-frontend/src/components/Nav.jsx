@@ -39,7 +39,7 @@ export function Nav(props) {
             />
 
             {navAtiva ? (
-                <div className="h-full flex flex-col">
+                <div className="h-full w-full md:flex md:flex-col">
 
                     <div className="w-full pt-2 pr-2">
                         <p
@@ -97,7 +97,7 @@ export function Nav(props) {
             ) : (
                 <div
                     className="bg-[#E6D5FE] border-[#634C89] w-10 h-12 mt-10 rounded-tr-4xl rounded-br-4xl content-center cursor-pointer"
-                    onClick={() => {setNavAtiva(!navAtiva)}}
+                    onClick={() => { setNavAtiva(!navAtiva) }}
                 >
                     <img
                         src="hamburguer-icon.png"
