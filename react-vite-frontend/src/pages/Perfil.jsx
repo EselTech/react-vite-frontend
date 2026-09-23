@@ -143,7 +143,7 @@ export function Perfil() {
     return (
         <div className="flex">
             <Nav tela="Perfil" />
-            <div className="w-full flex-1 min-w-0 bg-white px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-28 flex overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 bg-[#FAF7FB] px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-28 flex overflow-y-auto">
 
                 <Toaster
                     position="top-center"

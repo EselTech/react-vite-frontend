@@ -43,12 +43,12 @@ export function Materiais() {
     return (
         <div className="flex h-screen overflow-hidden">
             <Nav tela="Materiais" />
-            <div className="w-full flex-1 min-w-0 bg-white px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 bg-[#FAF7FB] px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
                 <Toaster
                     position="top-center"
                     reverseOrder={false}
                 />
-                <div className="w-full max-w-[1400px] mt-8">
+                <div className="w-full max-w-350 mt-8">
                     <div className="min-h-16 flex flex-col justify-center gap-4 w-full items-start mb-8 md:flex-row md:justify-between md:items-center md:mb-12">
                         <div>
                             <h1 className={`text-[#695088] font-title font-semibold text-3xl md:text-4xl lg:text-5xl self-start ${listaMateriais.length < 1 ? "hidden" : "block"}`}>

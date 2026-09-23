@@ -65,7 +65,7 @@ export function Orcamentos() {
                 position="top-center"
                 reverseOrder={false}
             />            <Nav tela="Orcamentos" />
-            <div className="w-full flex-1 min-w-0 bg-white px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 bg-[#FAF7FB] px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
                 <div className="w-full max-w-[1400px] mt-8 flex flex-wrap gap-2">
                     {listaOrcamentos.length > 0 ? (
                         <>

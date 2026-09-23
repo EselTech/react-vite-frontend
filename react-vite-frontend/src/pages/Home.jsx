@@ -193,7 +193,7 @@ export function Home() {
   return (
     <div className="flex w-full h-screen overflow-hidden">
       <Nav tela="Home" />
-      <main className="flex-1 min-w-0 h-screen px-4 pb-20 pt-6 flex flex-col bg-white font-sans text-gray-800 overflow-y-auto md:p-8 md:pb-8">
+      <main className="flex-1 min-w-0 h-screen px-4 pb-20 pt-6 flex flex-col bg-[#FAF7FB] font-sans text-gray-800 overflow-y-auto md:p-8 md:pb-8">
 
         <header className="mb-6 shrink-0">
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">

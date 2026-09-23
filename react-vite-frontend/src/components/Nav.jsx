@@ -31,7 +31,7 @@ export function Nav(props) {
     return (
 
         <nav
-            className={navAtiva ? "fixed bottom-0 left-0 z-40 w-full h-16 bg-[#E6D5FE] flex flex-row gap-2 shadow-[0_-4px_16px_rgba(105,80,136,0.12)] md:static md:w-2/12 md:h-screen md:flex-col md:gap-8 md:shadow-none" : ""}
+            className={navAtiva ? "fixed bottom-0 left-0 z-40 w-full h-16 bg-[#E6D5FE] flex flex-row gap-2 shadow-[0_-4px_16px_rgba(105,80,136,0.12)] md:static md:w-2/12 md:h-screen md:flex-col md:gap-8 md:shadow-none" : "bg-[#FAF7FB]"}
         >
             <Toaster
                 position="top-center"
@@ -43,7 +43,7 @@ export function Nav(props) {
 
                     <div className="w-full pt-2 pr-2">
                         <p
-                            className="text-right font-bold text-xl cursor-pointer"
+                            className="text-right font-bold text-xl cursor-pointer hidden md:block"
                             onClick={() => setNavAtiva(!navAtiva)}
                         >
                             ×
@@ -95,7 +95,10 @@ export function Nav(props) {
                     </div>
                 </div>
             ) : (
-                <div className="bg-amber-300 w-12 h-12">
+                <div
+                    className="bg-[#E6D5FE] border-[#634C89] w-10 h-12 mt-10 rounded-tr-4xl rounded-br-4xl content-center cursor-pointer"
+                    onClick={() => {setNavAtiva(!navAtiva)}}
+                >
                     <img
                         src="hamburguer-icon.png"
                         className="w-8"

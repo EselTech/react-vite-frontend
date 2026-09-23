@@ -80,7 +80,7 @@ export function Chatbot() {
     }
 
     return (
-        <div className="flex w-screen bg-white h-screen overflow-hidden">
+        <div className="flex w-screen bg-[#FAF7FB] h-screen overflow-hidden">
             <Toaster
                 position="top-center"
                 reverseOrder={false}
