@@ -247,7 +247,7 @@ export function Home() {
         </section>
 
         {/* graficos */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-70">
+        <section className="grid grid-cols-1 gap-6 flex-1 min-h-70">
 
           {/* grafico 1 - pedidos por status */}
           <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
@@ -278,7 +278,7 @@ export function Home() {
           </div>
 
           {/* grafico 3 - materiais por categoria */}
-          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80 col-span-2">
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
             <div className="flex gap-10 items-center mb-4">
               <h3 className="text-gray-400 text-sm font-medium font-title">Materiais mais Utilizados no mês atual por Categoria</h3>
               <select
