@@ -77,7 +77,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                     className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
+                    <div className="bg-[#EDE0F0] min-h-24 border-b border-[#896D9533] flex items-center px-4 md:px-8 justify-between">
                         <div>
                             <h2 className="text-[#3D2B4F] font-semibold text-xl font-title">Editar Produto</h2>
                             <p className="text-[#3D2B4F] text-sm font-text">Atualize as informações do estoque</p>
@@ -90,7 +90,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                         </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6">
                         <div className="flex flex-col">
                             <label
                                 className="font-medium mb-2 font-title text-[#3D2B4F]"
@@ -156,7 +156,7 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
 
                     </div>
 
-                    <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 gap-4 bg-white">
+                    <div className="h-auto min-h-28 border-t border-[#e8d8f0] flex flex-col md:flex-row items-stretch md:items-center px-4 md:px-8 py-4 gap-3 bg-white">
                         <button
                             onClick={handleSalvar}
                             className="w-2/3 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"

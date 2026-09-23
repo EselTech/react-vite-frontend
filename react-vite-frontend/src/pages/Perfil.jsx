@@ -143,7 +143,7 @@ export function Perfil() {
     return (
         <div className="flex">
             <Nav tela="Perfil" />
-            <div className="w-10/12 bg-white pl-28 pt-[4vh] flex">
+            <div className="w-full flex-1 min-w-0 bg-[#FAF7FB] px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-28 flex overflow-y-auto">
 
                 <Toaster
                     position="top-center"
@@ -151,18 +151,18 @@ export function Perfil() {
                 />
 
                 <div className="w-full">
-                    <h1 className="text-[#695088] font-title font-semibold text-5xl mb-20">
+                    <h1 className="text-[#695088] font-title font-semibold text-3xl md:text-4xl lg:text-5xl mb-10 md:mb-20">
                         Informações Pessoais
                     </h1>
-                    <div className="flex flex-row gap-40 w-full">
+                    <div className="flex flex-col gap-12 lg:flex-row lg:gap-20 w-full">
                         <div>
-                            <div className="w-100 flex flex-col gap-7">
+                            <div className="w-full max-w-100 flex flex-col gap-7">
                                 <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize seu perfil</h1>
                                 <InputPerfil isBlocked={block} valor={nome} setValor={setNome} legenda={"Nome"} />
                                 <InputPerfil isBlocked={block} valor={email} setValor={setEmail} legenda={"Email"} />
                                 <InputPerfil isBlocked={block} valor={userName} setValor={setUserName} legenda={"Nome de usuário"} />
                             </div>
-                            <div className="flex gap-8 mt-14">
+                            <div className="flex flex-wrap gap-4 mt-10 md:mt-14">
                                 {block ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => block ? setBlock(false) : setBlock(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => editarUsuario()}>Salvar</button>}
 
                                 <button
@@ -175,13 +175,13 @@ export function Perfil() {
                         </div>
 
                         <div>
-                            <div className="w-100 flex flex-col gap-7">
+                            <div className="w-full max-w-100 flex flex-col gap-7">
                                 <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize sua senha</h1>
                                 <InputPerfil isBlocked={blockSenha} valor={senha} setValor={setSenha} legenda={"Senha antiga"} />
                                 <InputPerfil isBlocked={blockSenha} valor={novaSenha} setValor={setNovaSenha} legenda={"Nova senha"} />
                                 <InputPerfil isBlocked={blockSenha} valor={senhaConfirmada} setValor={setSenhaConfirmada} legenda={"Confirme sua senha"} />
                             </div>
-                            <div className="flex gap-8 mt-14">
+                            <div className="flex flex-wrap gap-4 mt-10 md:mt-14">
                                 {blockSenha ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => blockSenha ? setBlockSenha(false) : setBlockSenha(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => atualizarSenha()}>Salvar</button>}
 
                             </div>

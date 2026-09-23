@@ -1,7 +1,7 @@
 export function InputCadastro({ nome, placeholder, aoMudar, erro, type = "text", inputsBloqueados, imagem }) {
 
     return (
-        <div className="flex flex-col text-left font-text font-semibold w-96">
+        <div className="flex w-full max-w-96 flex-col text-left font-text font-semibold">
             <label className="mb-1 text-sm">{nome}</label>
 
             <div className="relative flex items-center">
