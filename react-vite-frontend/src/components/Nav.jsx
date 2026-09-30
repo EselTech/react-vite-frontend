@@ -87,7 +87,7 @@ export function Nav(props) {
                         <BotaoNav imagem="perfil" descricao="Perfil" ativo={props.tela == "Perfil"} aoClicar={() => navigate("/perfil")} />
 
                     </div>
-                    <div className="shrink-0 flex items-center justify-center gap-2 mt-auto mb-1 md:mb-4 ml-0 md:ml-4" >
+                    <div className="shrink-0 flex items-center justify-start gap-2 mt-auto mb-1 md:mb-4 ml-0 md:ml-4" >
                         <img src="logoutIcon.svg" alt="Sair" className="w-4 cursor-pointer" onClick={logout} />
                         <p className="hidden md:block font-title cursor-pointer" onClick={logout}>
                             Sair

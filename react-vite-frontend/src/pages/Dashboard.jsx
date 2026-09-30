@@ -77,26 +77,29 @@ export function Dashboard() {
     tooltip: baseTooltip,
     grid: baseGrid,
     xAxis: baseXAxis(dados?.graficoProdutosLucro?.map((p) => p.nome) ?? []),
+    xAxis: {
+      axisLabel: { rotate: 45 }
+    },
     yAxis: baseYAxis,
-    series: [
-      {
-        name: "Lucro Total no Mês (R$)",
-        type: "bar",
-        data: dados?.graficoProdutosLucro?.map((p) =>
-          Number(p.lucroTotalMes).toFixed(2)
-        ) ?? [],
-        itemStyle: { borderRadius: [6, 6, 0, 0] },
-        label: {
-          show: true,
-          position: "top",
-          color: "#C8A0C0",
-          fontSize: 11,
-          fontWeight: "bold",
-          formatter: (p) =>
-            `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-        },
+    series: [{
+      barWidth: 10,
+      name: "Lucro Total no Mês (R$)",
+      type: "line",
+      data: dados?.graficoProdutosLucro?.map((p) =>
+        Number(p.lucroTotalMes).toFixed(2)
+      ) ?? [],
+      itemStyle: { borderRadius: [6, 6, 0, 0] },
+      label: {
+        show: true,
+        position: "top-left",
+        color: "#C8A0C0",
+        fontSize: 10,
+        rotate: 90,
+        fontWeight: "regular",
+        formatter: (p) =>
+          `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
       },
-    ],
+    },],
   };
 
   // grafico 2 - produtos com maior crescimento
@@ -337,7 +340,7 @@ export function Dashboard() {
               {graficos.map((grafico, index) => (
                 <div
                   key={index}
-                  className="bg-white border border-[#EDE8F3] rounded-2xl p-6 shadow-sm flex flex-col gap-3"
+                  className="bg-white border border-[#EDE8F3] rounded-2xl p-6 shadow-sm flex flex-col gap-3 h-120 md:h-100"
                 >
                   {/* Cabeçalho do card */}
                   <div className="flex items-baseline gap-2">
@@ -351,7 +354,7 @@ export function Dashboard() {
                   <div className="flex-1 w-full" style={{ minHeight: "220px" }}>
                     <ReactECharts
                       option={grafico.opcoes}
-                      style={{ height: "220px", width: "100%" }}
+                      style={{ height: "100%", width: "100%" }}
                       opts={{ renderer: "svg" }}
                     />
                   </div>
