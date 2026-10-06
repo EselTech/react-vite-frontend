@@ -89,16 +89,6 @@ export function Dashboard() {
         Number(p.lucroTotalMes).toFixed(2)
       ) ?? [],
       itemStyle: { borderRadius: [6, 6, 0, 0] },
-      label: {
-        show: true,
-        position: "top-left",
-        color: "#C8A0C0",
-        fontSize: 10,
-        rotate: 90,
-        fontWeight: "regular",
-        formatter: (p) =>
-          `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-      },
     },],
   };
 
@@ -119,7 +109,9 @@ export function Dashboard() {
     ),
     yAxis: baseYAxis,
     series: [
+
       {
+        barWidth: 30,
         name: "Crescimento",
         type: "bar",
         data: (dados?.graficoMaiorCrescimento ?? [])
@@ -154,8 +146,9 @@ export function Dashboard() {
       data: ["T1 (Jan–Mar)", "T2 (Abr–Jun)", "T3 (Jul–Set)", "T4 (Out–Dez)"],
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#aaa", fontSize: 11 },
+      axisLabel: { color: "#aaa", fontSize: 11, rotate: 45 },
     },
+
     yAxis: baseYAxis,
     series: [
       {
@@ -206,7 +199,7 @@ export function Dashboard() {
       data: MESES_ABREV,
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#aaa", fontSize: 11 },
+      axisLabel: { color: "#aaa", fontSize: 10, rotate: 45 },
     },
     yAxis: baseYAxis,
     series: [

@@ -143,7 +143,7 @@ export function Perfil() {
     return (
         <div className="flex ">
             <Nav tela="Perfil" />
-            <div className="w-full flex-1 min-w-0 px-4 bg-[#FAF7FB] pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-28 flex overflow-y-auto">
+            <div className="w-full  flex-1 min-w-0 px-4 bg-[#FAF7FB] pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-28 flex overflow-y-auto">
 
                 <Toaster
                     position="top-center"
@@ -183,7 +183,6 @@ export function Perfil() {
                             </div>
                             <div className="flex flex-wrap gap-4 mt-10 md:mt-14">
                                 {blockSenha ? <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold font-text rounded-3xl w-24 h-12 cursor-pointer hover:bg-[#896D95] hover:text-[#F4F4F4] hover:font-bold" onClick={() => blockSenha ? setBlockSenha(false) : setBlockSenha(true)}>Editar</button> : <button className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] hover:shadow-lg hover:brightness-110 active:scale-95 text-[#F4F4F4] font-bold bg-[#896D95] font-text rounded-3xl w-24 h-12 cursor-pointer" onClick={() => atualizarSenha()}>Salvar</button>}
-
                             </div>
 
                         </div>
