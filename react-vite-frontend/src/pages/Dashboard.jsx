@@ -77,26 +77,19 @@ export function Dashboard() {
     tooltip: baseTooltip,
     grid: baseGrid,
     xAxis: baseXAxis(dados?.graficoProdutosLucro?.map((p) => p.nome) ?? []),
+    xAxis: {
+      axisLabel: { rotate: 45 }
+    },
     yAxis: baseYAxis,
-    series: [
-      {
-        name: "Lucro Total no Mês (R$)",
-        type: "bar",
-        data: dados?.graficoProdutosLucro?.map((p) =>
-          Number(p.lucroTotalMes).toFixed(2)
-        ) ?? [],
-        itemStyle: { borderRadius: [6, 6, 0, 0] },
-        label: {
-          show: true,
-          position: "top",
-          color: "#C8A0C0",
-          fontSize: 11,
-          fontWeight: "bold",
-          formatter: (p) =>
-            `R$ ${Number(p.value).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
-        },
-      },
-    ],
+    series: [{
+      barWidth: 10,
+      name: "Lucro Total no Mês (R$)",
+      type: "line",
+      data: dados?.graficoProdutosLucro?.map((p) =>
+        Number(p.lucroTotalMes).toFixed(2)
+      ) ?? [],
+      itemStyle: { borderRadius: [6, 6, 0, 0] },
+    },],
   };
 
   // grafico 2 - produtos com maior crescimento
@@ -116,7 +109,9 @@ export function Dashboard() {
     ),
     yAxis: baseYAxis,
     series: [
+
       {
+        barWidth: 30,
         name: "Crescimento",
         type: "bar",
         data: (dados?.graficoMaiorCrescimento ?? [])
@@ -151,8 +146,9 @@ export function Dashboard() {
       data: ["T1 (Jan–Mar)", "T2 (Abr–Jun)", "T3 (Jul–Set)", "T4 (Out–Dez)"],
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#aaa", fontSize: 11 },
+      axisLabel: { color: "#aaa", fontSize: 11, rotate: 45 },
     },
+
     yAxis: baseYAxis,
     series: [
       {
@@ -203,7 +199,7 @@ export function Dashboard() {
       data: MESES_ABREV,
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#aaa", fontSize: 11 },
+      axisLabel: { color: "#aaa", fontSize: 10, rotate: 45 },
     },
     yAxis: baseYAxis,
     series: [
@@ -295,7 +291,7 @@ export function Dashboard() {
     <div className="flex min-h-screen bg-[#F7F5FA] h-screen overflow-hidden">
       <Nav tela="Dashboard" />
 
-      <main className="flex-1 flex flex-col p-8 gap-6 overflow-auto font-sans text-gray-800 overflow-y-auto">
+      <main className="flex-1 min-w-0 flex flex-col px-4 pb-20 pt-6 gap-6 overflow-auto font-sans text-gray-800 overflow-y-auto md:p-8 md:pb-8">
 
         {/* cabecalho */}
         <header className="flex items-end justify-between">
@@ -337,7 +333,7 @@ export function Dashboard() {
               {graficos.map((grafico, index) => (
                 <div
                   key={index}
-                  className="bg-white border border-[#EDE8F3] rounded-2xl p-6 shadow-sm flex flex-col gap-3"
+                  className="bg-white border border-[#EDE8F3] rounded-2xl p-6 shadow-sm flex flex-col gap-3 h-120 md:h-100"
                 >
                   {/* Cabeçalho do card */}
                   <div className="flex items-baseline gap-2">
@@ -351,7 +347,7 @@ export function Dashboard() {
                   <div className="flex-1 w-full" style={{ minHeight: "220px" }}>
                     <ReactECharts
                       option={grafico.opcoes}
-                      style={{ height: "220px", width: "100%" }}
+                      style={{ height: "100%", width: "100%" }}
                       opts={{ renderer: "svg" }}
                     />
                   </div>

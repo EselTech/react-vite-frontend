@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
 import { Nav } from "../components/Nav";
 import { api } from "../provider/api";
+import { color } from "echarts";
 
 function tempoRelativo(dtEnvio) {
   if (!dtEnvio) return "";
@@ -104,7 +105,7 @@ export function Home() {
       data: dadosPedidosStatus.map((p) => statusLabel[p.status] || p.status),
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#999" },
+      axisLabel: { color: "#999", fontSize: 10, rotate: 45 },
     },
     yAxis: { type: "value", show: false },
     series: [{
@@ -134,9 +135,10 @@ export function Home() {
       axisLabel: {
         color: "#999",
         interval: 0,
-        rotate: 0,
         overflow: "truncate",
         width: 80,
+        fontSize: 10,
+        rotate: 45
       },
     },
     yAxis: { type: "value", show: true, axisLabel: { color: "#999" }, splitLine: { lineStyle: { color: "#EFEFEF" } } },
@@ -172,7 +174,7 @@ export function Home() {
         .map((m) => m.nome),
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: "#999", interval: 0 },
+      axisLabel: { color: "#999", interval: 0, rotate: 45 },
     },
     yAxis: { type: "value", show: false },
     series: [{
@@ -191,9 +193,9 @@ export function Home() {
   ];
 
   return (
-    <div className="flex w-full h-screen overflow-hidden">
+    <div className="flex md:w-full h-screen overflow-hidden">
       <Nav tela="Home" />
-      <main className="flex-1 h-screen p-6 flex flex-col bg-white font-sans text-gray-800 overflow-y-auto">
+      <main className="flex-1 min-w-0 h-screen px-4 pb-20 pt-6 flex flex-col bg-[#FAF7FB] font-sans text-gray-800 overflow-y-auto md:p-8 md:pb-8">
 
         <header className="mb-6 shrink-0">
           <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">
@@ -247,10 +249,10 @@ export function Home() {
         </section>
 
         {/* graficos */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-70">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-none pb-8">
 
           {/* grafico 1 - pedidos por status */}
-          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-100">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-gray-400 text-sm font-medium font-title">Quantidade de pedidos por Status</h3>
             </div>
@@ -259,26 +261,27 @@ export function Home() {
                 option={optPedidos}
                 style={{ height: "100%", width: "100%" }}
                 opts={{ renderer: "svg" }}
+
               />
             </div>
           </div>
 
           {/* grafico 2 - produtos mais vendidos */}
-          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80">
-            <div className="flex justify-between items-center mb-4">
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-4 shadow-sm flex flex-col h-100">
+            <div className="flex justify-between items-center">
               <h3 className="text-gray-400 text-sm font-medium font-title">Produtos mais Vendidos no mês atual</h3>
             </div>
             <div className="flex-1 w-full min-h-0">
               <ReactECharts
                 option={optProdutosVendidos}
-                style={{ height: "100%", width: "100%" }}
+                style={{ height: "130%", width: "100%" }}
                 opts={{ renderer: "svg" }}
               />
             </div>
           </div>
 
           {/* grafico 3 - materiais por categoria */}
-          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-80 col-span-2">
+          <div className="bg-[#FAFAFA] border border-[#EFEFEF] rounded-xl p-6 shadow-sm flex flex-col h-140 md:h-100 md:col-span-2">
             <div className="flex gap-10 items-center mb-4">
               <h3 className="text-gray-400 text-sm font-medium font-title">Materiais mais Utilizados no mês atual por Categoria</h3>
               <select

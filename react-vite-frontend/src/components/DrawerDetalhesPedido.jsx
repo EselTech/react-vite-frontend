@@ -87,7 +87,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                     className={`w-full md:w-1/3 h-screen bg-[#fcfaff] flex flex-col shadow-2xl transition-transform duration-500 transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="bg-[#f3eaf8] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
+                    <div className="bg-[#f3eaf8] min-h-24 border-b border-[#896D9533] flex items-center px-4 md:px-8 justify-between">
                         <div>
                             <h2 className="text-[#3D2B4F] font-semibold text-xl font-title">Detalhes do Pedido</h2>
                             <p className="text-[#3D2B4F] text-sm font-text">Altere informações do seu pedido</p>
@@ -100,7 +100,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
                         </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6">
                         <div className="flex flex-col">
                             <label
                                 className="font-medium mb-2 font-title text-[#3D2B4F]"
@@ -192,7 +192,7 @@ export function DrawerDetalhesPedido({ isOpen, setIsOpen, pedido, carregarPedido
 
                     </div>
 
-                    <div className="p-8 border-t border-[#e8d8f0] flex gap-4 bg-white">
+                    <div className="p-4 md:p-8 border-t border-[#e8d8f0] flex flex-col md:flex-row gap-4 bg-white">
                         <button
                             onClick={handleSalvar}
                             className="flex-1 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest"

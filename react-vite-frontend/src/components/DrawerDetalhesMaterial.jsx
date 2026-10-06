@@ -58,7 +58,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                     onClick={e => e.stopPropagation()}
                 >
                     {/* Header */}
-                    <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between text-[#3D2B4F]">
+                    <div className="bg-[#EDE0F0] min-h-24 border-b border-[#896D9533] flex items-center px-4 md:px-8 justify-between text-[#3D2B4F]">
                         <div>
                             <h2 className="font-semibold text-xl tracking-tight font-title">Editar Material</h2>
                             <p className="text-sm font-text">Altere as informações do insumo</p>
@@ -72,7 +72,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                     </div>
 
                     {/* Corpo */}
-                    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Nome do Insumo</label>
@@ -98,7 +98,7 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                             </select>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="flex flex-col">
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd em Estoque</label>
                                 <input
@@ -130,17 +130,17 @@ export function DrawerDetalhesMaterial({ isOpen, setIsOpen, material, onAtualiza
                         </div>
                     </div>
 
-                    <div className="h-28 border-t border-[#e8d8f0] flex items-center px-8 bg-white">
-                        <div className="w-full flex justify-between items-center gap-4">
+                    <div className="h-auto min-h-28 border-t border-[#e8d8f0] flex items-center px-4 md:px-8 py-4 bg-white">
+                        <div className="w-full flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3">
                             <button
                                 onClick={handleSalvar}
-                                className="w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
+                                className="w-full md:w-3/4 bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                             >
                                 Salvar Alterações
                             </button>
                             <button
                                 onClick={handleExcluir}
-                                className="w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
+                                className="w-full md:w-1/4 bg-linear-to-br from-[#f34444] to-[#bb3737] text-white h-12 rounded-full font-semibold shadow-md hover:scale-105 transition-all font-title tracking-widest cursor-pointer"
                             >
                                 Excluir
                             </button>
