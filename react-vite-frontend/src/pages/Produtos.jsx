@@ -11,6 +11,8 @@ export function Produtos() {
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [listaProdutos, setListaProdutos] = useState([]);
     const [listaMateriais, setListaMateriais] = useState([]);
+    const [paginacaoConfig, setPaginacaoConfig] = useState()
+    const [paginaAtual, setPaginaAtual] = useState(0)
 
     const abrirDetalhes = (produto) => {
         setProdutoSelecionado(produto);
@@ -27,9 +29,9 @@ export function Produtos() {
     };
 
     function carregarMateriais() {
-        api.get("/materiais")
+        api.get("/materiais?size=9999")
             .then(resposta => {
-                setListaMateriais(resposta.data);
+                setListaMateriais(resposta.data.content);
             })
             .catch(erro => {
                 if (erro.response && erro.response.status == 404) {
@@ -41,9 +43,10 @@ export function Produtos() {
     }
 
     function carregarProdutos() {
-        api.get("/produtos")
+        api.get(`/produtos?page=${paginaAtual}`)
             .then(resposta => {
-                setListaProdutos(resposta.data);
+                setPaginacaoConfig(resposta.data)
+                setListaProdutos(resposta.data.content);
             })
             .catch(erro => {
                 setListaProdutos([]);
@@ -66,7 +69,7 @@ export function Produtos() {
     useEffect(() => {
         carregarMateriais()
         carregarProdutos()
-    }, [])
+    }, [paginaAtual])
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -141,10 +144,86 @@ export function Produtos() {
                                                 </button>
                                             </td>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {listaProdutos.map((prod) => (
+
+                                            <tr
+                                                key={prod.id}
+                                                className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
+                                                onClick={() => abrirDetalhes(prod)}
+                                            >
+                                                <td className="p-5">
+                                                    <div className="flex flex-col">
+                                                        <span className="font-bold text-[#3D2B4F] text-sm">{prod.nome}</span>
+                                                        <span className="text-[10px] text-gray-400 line-clamp-1">{prod.descricao}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="p-5">
+                                                    <span className="p-5 text-right font-bold text-[#695088]">
+                                                        R$ {Number(prod.custo).toFixed(2)}
+                                                    </span>
+                                                </td>
+                                                <td className="p-5">
+                                                    <span className="p-5 text-right font-bold text-[#695088]">
+                                                        R$ {Number(prod.preco).toFixed(2)}
+                                                    </span>
+                                                </td>
+                                                <td className="p-5">
+                                                    <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold cursor-pointer">
+                                                        Detalhes
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="flex gap-8 items-center pt-4">
+
+                                <div
+                                    className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
+                                    onClick={() => {
+                                        if (!paginacaoConfig.first) {
+                                            setPaginaAtual(paginaAtual - 1)
+                                        }
+                                    }}
+                                >
+                                    ‹
+                                </div>
+
+                                <div className="flex justify-around gap-4">
+                                    {paginacaoConfig && Array.from({ length: paginacaoConfig.totalPages }, (_, index) => {
+                                        const numeroPagina = index + 1
+                                        return (
+                                            <button
+                                                className={numeroPagina == (paginacaoConfig.number + 1) ? "border font-bold bg-[#e8d8f0] border-[#e8d8f0] h-7 w-7 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors" : "cursor-pointer h-7 w-7"}
+                                                key={index}
+                                                onClick={() => {
+                                                    setPaginaAtual(index)
+                                                }}
+                                            >
+                                                {numeroPagina}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                <div
+                                    className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
+                                    onClick={() => {
+                                        if (!paginacaoConfig.last) {
+                                            setPaginaAtual(paginaAtual + 1)
+                                        }
+                                    }}
+                                >
+                                    ›
+                                </div>
+
+                            </div>
                         </div>
+
                     ) : (
                         <div className="w-11/12 md:w-3/4 lg:w-2/4 text-center mx-auto mt-12 md:mt-16 flex flex-col items-center">
                             <div className="w-24 h-24 md:w-30 md:h-30 rounded-full flex justify-center items-center text-5xl md:text-7xl bg-[#ede0f0] animate-bounce">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DrawerMaterial } from "../components/DrawerMaterial";
 import { DrawerDetalhesMaterial } from "../components/DrawerDetalhesMaterial";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { api } from "../provider/api";
 import { Toaster } from "react-hot-toast";
 import { Nav } from "../components/Nav";
@@ -11,6 +11,8 @@ export function Materiais() {
     const [drawerDetalhesOpen, setDrawerDetalhesOpen] = useState(false);
     const [materialSelecionado, setMaterialSelecionado] = useState(null);
     const [listaMateriais, setListaMateriais] = useState([]);
+    const [paginacaoConfig, setPaginacaoConfig] = useState()
+    const [paginaAtual, setPaginaAtual] = useState(0)
 
     const abrirDetalhes = (material) => {
         setMaterialSelecionado(material);
@@ -22,9 +24,10 @@ export function Materiais() {
     };
 
     function carregarMateriais() {
-        api.get("/materiais")
+        api.get(`/materiais?page=${paginaAtual}`)
             .then(resposta => {
-                setListaMateriais(resposta.data);
+                setPaginacaoConfig(resposta.data)
+                setListaMateriais(resposta.data.content);
             })
             .catch(erro => {
                 setListaMateriais([])
@@ -38,7 +41,7 @@ export function Materiais() {
 
     useEffect(() => {
         carregarMateriais()
-    }, [])
+    }, [paginaAtual])
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -110,9 +113,87 @@ export function Materiais() {
                                                 </button>
                                             </td>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {listaMateriais.map((mat) => (
+                                            <tr
+                                                key={mat.id}
+                                                className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
+                                                onClick={() => abrirDetalhes(mat)}
+                                            >
+                                                <td className="p-5">
+                                                    <div className="flex flex-col">
+                                                        <span className="font-bold text-[#3D2B4F] text-sm">{mat.nome}</span>
+                                                        <span className="text-[10px] text-gray-400 line-clamp-1">{mat.descricao}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="p-5">
+                                                    <span className="text-xs font-bold text-[#896D95] bg-[#ede0f0] px-2 py-1 rounded-md uppercase tracking-wider">
+                                                        {mat.categoria}
+                                                    </span>
+                                                </td>
+                                                <td className="p-5 text-center">
+                                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold ${mat.qtdEstoque < 10 ? 'bg-red-100 text-red-500' : 'bg-[#ede0f0] text-[#7a6688]'}`}>
+                                                        {mat.qtdEstoque} itens
+                                                    </span>
+                                                </td>
+                                                <td className="p-5 text-right font-bold text-[#695088]">
+                                                    R$ {Number(mat.preco).toFixed(2)}
+                                                </td>
+                                                <td className="p-5 text-center">
+                                                    <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold cursor-pointer">
+                                                        Detalhes
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="flex gap-8 items-center pt-4">
+
+                                <div
+                                    className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
+                                    onClick={() => {
+                                        if (!paginacaoConfig.first) {
+                                            setPaginaAtual(paginaAtual - 1)
+                                        }
+                                    }}
+                                >
+                                    ‹
+                                </div>
+
+                                <div className="flex justify-around gap-4">
+                                    {paginacaoConfig && Array.from({ length: paginacaoConfig.totalPages }, (_, index) => {
+                                        const numeroPagina = index + 1
+                                        return (
+                                            <button
+                                                className={numeroPagina == (paginacaoConfig.number + 1) ? "border font-bold bg-[#e8d8f0] border-[#e8d8f0] h-7 w-7 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors" : "cursor-pointer h-7 w-7"}
+                                                key={index}
+                                                onClick={() => {
+                                                    setPaginaAtual(index)
+                                                }}
+                                            >
+                                                {numeroPagina}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                <div
+                                    className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
+                                    onClick={() => {
+                                        if (!paginacaoConfig.last) {
+                                            setPaginaAtual(paginaAtual + 1)
+                                        }
+                                    }}
+                                >
+                                    ›
+                                </div>
+
+                            </div>
+
                         </div>
                     ) : (
                         <div className="w-11/12 md:w-3/4 lg:w-2/4 text-center mx-auto mt-12 md:mt-16 flex flex-col items-center">

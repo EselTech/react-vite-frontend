@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { api } from "../provider/api";
 import toast from "react-hot-toast";
 
-export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar, carregarProdutos }) {
+export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar, carregarProdutos, materiaisDisponiveis }) {
     const [editProd, setEditProd] = useState(null);
+
+    console.log(materiaisDisponiveis);
+
 
     useEffect(() => {
         if (produto) setEditProd({ ...produto });
@@ -19,15 +22,15 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
         try {
 
             const { empresa, ...produtoSemEmpresa } = editProd
-            const listaMateriaisFormatados = produtoSemEmpresa.listaMateriais.map((material) => {
+            const materiaisFormatados = produtoSemEmpresa.materiais.map((material) => {
                 return {
                     materialId: material.material.id,
                     quantidade: material.quantidade
                 };
             });
 
-            const { listaMateriais, ...produtoSemMateriais } = produtoSemEmpresa
-            const produtoFinal = { materiais: listaMateriaisFormatados, empresaId: 1, ...produtoSemMateriais }
+            const { materiais, ...produtoSemMateriais } = produtoSemEmpresa
+            const produtoFinal = { materiais: materiaisFormatados, empresaId: 1, ...produtoSemMateriais }
 
             console.log(produtoFinal);
 
@@ -66,6 +69,9 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
             return 'g'
         }
     }
+
+    console.log(produto);
+
 
     return (
         <div
@@ -134,20 +140,26 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label className="font-medium mb-2 font-title text-[#3D2B4F]">Materiais deste Produto</label>
                             <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
-                                {produto.listaMateriais && produto.listaMateriais.length > 0 ? (
-                                    produto.listaMateriais.map((material) => (
-                                        <div
-                                            key={material?.id}
-                                            className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl shadow-sm"
-                                        >
-                                            <span className="font-semibold text-sm">
-                                                {material.material?.nome || "Produto não identificado"}
-                                            </span>
-                                            <span className="bg-[#ede0f0] text-[#3D2B4F] font-bold text-xs px-3 py-1 rounded-full border border-[#896D9522]">
-                                                Qtd: {material?.quantidade}{identificarUnidade(material.material?.categoria)}
-                                            </span>
-                                        </div>
-                                    ))
+                                {produto.materiais && produto.materiais.length > 0 ? (
+                                    produto.materiais.map((item, index) => {
+                                        const materialId = item.materialId || item.material?.id;
+
+                                        const materialEncontrado = materiaisDisponiveis?.find(m => m.id === materialId);
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl shadow-sm"
+                                            >
+                                                <span className="font-semibold text-sm">
+                                                    {materialEncontrado?.nome || "Material não identificado"}
+                                                </span>
+                                                <span className="bg-[#ede0f0] text-[#3D2B4F] font-bold text-xs px-3 py-1 rounded-full border border-[#896D9522]">
+                                                    Qtd: {item?.quantidade} {identificarUnidade(materialEncontrado?.categoria || item.material?.categoria)}
+                                                </span>
+                                            </div>
+                                        );
+                                    })
                                 ) : (
                                     <p className="text-sm text-gray-400 italic">Nenhum material adicionado a este produto.</p>
                                 )}
