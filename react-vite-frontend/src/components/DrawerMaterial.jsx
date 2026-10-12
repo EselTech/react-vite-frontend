@@ -47,7 +47,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                 >
 
                     {/* Header */}
-                    <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between text-[#3D2B4F]">
+                    <div className="bg-[#EDE0F0] min-h-24 border-b border-[#896D9533] flex items-center px-4 md:px-8 justify-between text-[#3D2B4F]">
                         <div>
                             <h2 className="text-[#3D2B4F] font-semibold text-xl font-title">Novo Material</h2>
                             <p className="text-[#3D2B4F] text-sm font-text">Entrada de Insumo</p>
@@ -61,7 +61,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                     </div>
 
                     {/* Corpo */}
-                    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 text-[#3D2B4F]">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 text-[#3D2B4F]">
 
                         <div className="flex flex-col">
                             <label
@@ -88,7 +88,7 @@ export function DrawerMaterial({ isOpen, setDrawerIsOpen, carregarMateriais }) {
                             </select>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="flex flex-col">
                                 <label className="font-medium mb-2 font-title text-[#3D2B4F]">Qtd. Estoque</label>
                                 <input

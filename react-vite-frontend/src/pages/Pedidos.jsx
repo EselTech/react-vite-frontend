@@ -78,21 +78,21 @@ export function Pedidos() {
             />
 
             <Nav tela="Pedidos" />
-            <div className="h-screen overflow-y-auto flex flex-col w-10/12 bg-[#FAF7FB] font-text p-10">
-                <header className="h-20 flex items-center justify-between mb-6 shrink-0">
+            <div className="h-screen overflow-y-auto flex flex-col flex-1 min-w-0 w-full bg-[#FAF7FB] font-text px-4 pb-20 pt-6 md:w-10/12 md:p-10 md:pb-10">
+                <header className="min-h-20 flex flex-col items-start gap-4 justify-center mb-6 shrink-0 md:flex-row md:items-center md:justify-between">
                     <div>
-                        <h1 className="text-4xl font-title font-bold text-[#634C89] mb-1">Pedidos</h1>
+                        <h1 className="text-3xl md:text-4xl font-title font-bold text-[#634C89] mb-1">Pedidos</h1>
                         <p className="text-gray-400 m-0">Gerencie aqui todos os seus pedidos</p>
                     </div>
                     <button
                         onClick={() => setIsNovoOpen(true)}
-                        className="bg-[#896D95] text-white px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95 cursor-pointer font-title tracking-wider"
+                        className="bg-[#896D95] text-white w-full sm:w-auto px-8 py-2.5 rounded-full font-bold shadow-md hover:bg-[#7a6285] transition-all active:scale-95 cursor-pointer font-title tracking-wider"
                     >
                         + Novo Pedido
                     </button>
                 </header>
 
-                <main className="p-8 flex gap-6 overflow-x-auto items-start flex-1 h-[calc(100vh-160px)]">
+                <main className="p-2 md:p-8 flex gap-6 overflow-x-auto items-start flex-1 min-h-0">
                     {colunas.map(coluna => (
                         <div
                             key={coluna.id}

@@ -77,7 +77,7 @@ export default function DrawerPedidos(props) {
                 >
 
                     {/* Header */}
-                    <div className="bg-[#EDE0F0] h-24 border-b border-[#896D9533] flex items-center px-8 justify-between">
+                    <div className="bg-[#EDE0F0] min-h-24 border-b border-[#896D9533] flex items-center px-4 md:px-8 justify-between">
                         <div>
                             <h2 className="text-[#3D2B4F] font-semibold text-xl font-title">Novo Pedido</h2>
                             <p className="text-[#3D2B4F] font-text">Personalize o pedido</p>
@@ -90,7 +90,7 @@ export default function DrawerPedidos(props) {
                         </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-6">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6">
                         <div className="flex flex-col text-[#3D2B4F]">
                             <label
                                 className="font-medium mb-2 font-title text-[#3D2B4F]"
@@ -160,7 +160,7 @@ export default function DrawerPedidos(props) {
                         </div>
                     </div>
 
-                    <div className="p-8 border-t border-[#e8d8f0]">
+                    <div className="p-4 md:p-8 border-t border-[#e8d8f0]">
                         <button
                             onClick={salvarPedido}
                             className="w-full bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white h-12 rounded-full font-semibold shadow-md hover:opacity-90 transition-opacity font-title tracking-widest cursor-pointer"

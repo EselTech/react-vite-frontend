@@ -90,11 +90,11 @@ export function CampoCadastro(props) {
     }
 
     return (
-        <div className="p-[6%] w-1/2 h-1/1 rounded-l-3xl bg-[#FAF7FB] text-center">
+        <div className="p-6 md:p-[6%] w-full md:w-1/2 rounded-l-3xl bg-[#FAF7FB] text-center">
             <Toaster />
             <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
 
-            <h2 className="mt-8 text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
+            <h2 className="mt-8 text-3xl md:text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
 
             <div className="flex flex-col space-y-3 items-center justify-center mt-8 ">
                 <InputCadastro
