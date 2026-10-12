@@ -70,8 +70,8 @@ export function Materiais() {
 
                     {listaMateriais.length > 0 ? (
                         <div>
-                            <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
-                                <table className="w-full min-w-[700px] text-left border-collapse">
+                            <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)] h-112">
+                                <table className="w-full min-w-175 text-left border-collapse">
                                     <thead>
                                         <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
                                             <th className="p-5 font-title text-[#695088] font-bold">Material</th>
@@ -105,7 +105,7 @@ export function Materiais() {
                                                     </span>
                                                 </td>
                                                 <td className="p-5 text-right font-bold text-[#695088]">
-                                                    R\]$ {Number(mat.preco).toFixed(2)}
+                                                    R$ {Number(mat.preco).toFixed(2)}
                                                 </td>
                                                 <td className="p-5 text-center">
                                                     <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold cursor-pointer">

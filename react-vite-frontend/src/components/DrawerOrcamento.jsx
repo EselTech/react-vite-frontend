@@ -45,8 +45,8 @@ export function DrawerOrcamento({ isOpen, setDrawerIsOpen, onSalvar }) {
     };
 
     function carregarListaProdutos() {
-        api.get("/produtos")
-            .then(resposta => setListaProdutos(resposta.data))
+        api.get("/produtos?size=9999")
+            .then(resposta => setListaProdutos(resposta.data.content))
             .catch(() => setListaProdutos([]));
     }
 

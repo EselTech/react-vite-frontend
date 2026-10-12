@@ -91,7 +91,7 @@ export function Produtos() {
 
                     {listaProdutos.length > 0 ? (
                         <div>
-                            <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
+                            <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)] h-112">
                                 <table className="w-full min-w-175 md:min-w-155 text-left border-collapse">
                                     <thead>
                                         <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
