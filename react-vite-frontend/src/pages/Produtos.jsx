@@ -11,8 +11,8 @@ export function Produtos() {
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [listaProdutos, setListaProdutos] = useState([]);
     const [listaMateriais, setListaMateriais] = useState([]);
-    const [paginacaoConfig, setPaginacaoConfig] = useState()
-    const [paginaAtual, setPaginaAtual] = useState(0)
+    const [paginacaoConfig, setPaginacaoConfig] = useState();
+    const [paginaAtual, setPaginaAtual] = useState(0);
 
     const abrirDetalhes = (produto) => {
         setProdutoSelecionado(produto);
@@ -45,31 +45,23 @@ export function Produtos() {
     function carregarProdutos() {
         api.get(`/produtos?page=${paginaAtual}`)
             .then(resposta => {
-                setPaginacaoConfig(resposta.data)
+                setPaginacaoConfig(resposta.data);
                 setListaProdutos(resposta.data.content);
             })
             .catch(erro => {
                 setListaProdutos([]);
                 if (erro.response && erro.response.status == 404) {
-                    console.log("Nenhum material cadastrado");
+                    console.log("Nenhum produto cadastrado");
                 } else {
                     console.log("Erro ao carregar produtos:", erro.message);
                 }
             });
     }
 
-    function carregarProdutosShopee() {
-        api.post("/api/shopee/importar-produtos", {
-            "shopId": 227406387,
-            "empresaId": 1,
-            "pageSize": 100
-        }).then(response => carregarProdutos())
-    }
-
     useEffect(() => {
-        carregarMateriais()
-        carregarProdutos()
-    }, [paginaAtual])
+        carregarMateriais();
+        carregarProdutos();
+    }, [paginaAtual]);
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -89,12 +81,6 @@ export function Produtos() {
                                 Gerencie produtos, composições e margens de lucro
                             </p>
                         </div>
-                        {/* <button
-                        className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-58 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 ${listaProdutos.length > 0 ? "block" : "hidden"}`}
-                        onClick={carregarProdutosShopee}
-                    >
-                        Carregar Produtos Shopee
-                    </button> */}
                         <button
                             className={`bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-full sm:w-44 font-semibold cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-110 active:scale-95 font-title tracking-wider ${listaProdutos.length > 0 ? "block" : "hidden"}`}
                             onClick={() => setDrawerIsOpen(true)}
@@ -104,50 +90,19 @@ export function Produtos() {
                     </div>
 
                     {listaProdutos.length > 0 ? (
-                        <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
-                            <table className="w-full min-w-175 md:min-w-155 text-left border-collapse">
-                                <thead>
-                                    <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
-                                        <th className="p-5 font-title text-[#695088] font-bold">Produto</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold pl-8">Custo Total</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold">Preço de Venda</th>
-                                        <th className="p-5 font-title text-[#695088] font-bold pl-10">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {listaProdutos.map((prod) => (
-
-                                        <tr
-                                            key={prod.id}
-                                            className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
-                                            onClick={() => abrirDetalhes(prod)}
-                                        >
-                                            <td className="p-5">
-                                                <div className="flex flex-col">
-                                                    <span className="font-bold text-[#3D2B4F] text-sm">{prod.nome}</span>
-                                                    <span className="text-[10px] text-gray-400 line-clamp-1">{prod.descricao}</span>
-                                                </div>
-                                            </td>
-                                            <td className="p-5">
-                                                <span className="p-5 text-right font-bold text-[#695088]">
-                                                    R$ {Number(prod.custo).toFixed(2)}
-                                                </span>
-                                            </td>
-                                            <td className="p-5">
-                                                <span className="p-5 text-right font-bold text-[#695088]">
-                                                    R$ {Number(prod.preco).toFixed(2)}
-                                                </span>
-                                            </td>
-                                            <td className="p-5">
-                                                <button className="text-xs text-[#7a6688] bg-[#ede0f0] group-hover:bg-[#C8A0C0] group-hover:text-white transition-all px-4 py-1.5 rounded-lg font-semibold cursor-pointer">
-                                                    Detalhes
-                                                </button>
-                                            </td>
+                        <div>
+                            <div className="w-full overflow-x-auto border border-[#e8d8f0] rounded-2xl shadow-[0_4px_24px_rgba(137,109,149,0.05)]">
+                                <table className="w-full min-w-175 md:min-w-155 text-left border-collapse">
+                                    <thead>
+                                        <tr className="bg-[#f8f4f9] border-b border-[#e8d8f0]">
+                                            <th className="p-5 font-title text-[#695088] font-bold">Produto</th>
+                                            <th className="p-5 font-title text-[#695088] font-bold pl-8">Custo Total</th>
+                                            <th className="p-5 font-title text-[#695088] font-bold">Preço de Venda</th>
+                                            <th className="p-5 font-title text-[#695088] font-bold pl-10">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {listaProdutos.map((prod) => (
-
                                             <tr
                                                 key={prod.id}
                                                 className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
@@ -181,12 +136,11 @@ export function Produtos() {
                             </div>
 
                             <div className="flex gap-8 items-center pt-4">
-
                                 <div
                                     className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
                                     onClick={() => {
-                                        if (!paginacaoConfig.first) {
-                                            setPaginaAtual(paginaAtual - 1)
+                                        if (paginacaoConfig && !paginacaoConfig.first) {
+                                            setPaginaAtual(paginaAtual - 1);
                                         }
                                     }}
                                 >
@@ -195,13 +149,13 @@ export function Produtos() {
 
                                 <div className="flex justify-around gap-4">
                                     {paginacaoConfig && Array.from({ length: paginacaoConfig.totalPages }, (_, index) => {
-                                        const numeroPagina = index + 1
+                                        const numeroPagina = index + 1;
                                         return (
                                             <button
-                                                className={numeroPagina == (paginacaoConfig.number + 1) ? "border font-bold bg-[#e8d8f0] border-[#e8d8f0] h-7 w-7 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors" : "cursor-pointer h-7 w-7"}
+                                                className={numeroPagina == (paginacaoConfig.number + 1) ? "border font-bold bg-[#e8d8f0] border-[#e8d8f0] h-7 w-7 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors select-none" : "cursor-pointer h-7 w-7 select-none"}
                                                 key={index}
                                                 onClick={() => {
-                                                    setPaginaAtual(index)
+                                                    setPaginaAtual(index);
                                                 }}
                                             >
                                                 {numeroPagina}
@@ -213,17 +167,15 @@ export function Produtos() {
                                 <div
                                     className="select-none text-3xl border pb-2 bg-[#e8d8f0] border-[#e8d8f0] h-9 w-9 rounded-full flex items-center justify-center cursor-pointer text-[#695088] hover:bg-[#ede0f0] transition-colors"
                                     onClick={() => {
-                                        if (!paginacaoConfig.last) {
-                                            setPaginaAtual(paginaAtual + 1)
+                                        if (paginacaoConfig && !paginacaoConfig.last) {
+                                            setPaginaAtual(paginaAtual + 1);
                                         }
                                     }}
                                 >
                                     ›
                                 </div>
-
                             </div>
                         </div>
-
                     ) : (
                         <div className="w-11/12 md:w-3/4 lg:w-2/4 text-center mx-auto mt-12 md:mt-16 flex flex-col items-center">
                             <div className="w-24 h-24 md:w-30 md:h-30 rounded-full flex justify-center items-center text-5xl md:text-7xl bg-[#ede0f0] animate-bounce">
@@ -237,13 +189,6 @@ export function Produtos() {
                             >
                                 Cadastrar Produto
                             </button>
-                            {/* <button
-                            className="bg-linear-to-br from-[#896D95] to-[#C8A0C0] text-white rounded-full h-12 w-56 font-semibold cursor-pointer mt-4 shadow-md hover:scale-105 transition-transform"
-                            onClick={carregarProdutosShopee}
-                        >
-                            Carregar Produtos Shopee
-                        </button> */}
-
                         </div>
                     )}
                 </div>
