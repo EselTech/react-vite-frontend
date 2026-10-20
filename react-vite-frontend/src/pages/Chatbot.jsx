@@ -87,14 +87,14 @@ export function Chatbot() {
             />
             <Nav tela="Chatbot" />
 
-            <div className="w-full flex-1 min-w-0 flex flex-col justify-between items-center gap-6 px-4 pb-20 pt-[4vh] md:w-10/12 md:pb-[4vh] overflow-y-auto">
+            <div className="w-full flex-1 min-w-0 bg-[#FAF7FB] px-4 pb-20 pt-[4vh] md:w-10/12 md:pl-10 md:pb-0 lg:pl-20 overflow-y-auto">
 
                 <div className="self-start w-full max-w-5xl shrink-0">
                     <h1 className="text-[#695088] font-semibold text-3xl md:text-5xl mb-2.5 font-title">Chatbot</h1>
                     <p className="text-[#896D95] font-normal text-lg font-text">Tire todas as suas dúvidas aqui</p>
                 </div>
 
-                <div className="w-full max-w-5xl h-[50vh] min-h-80 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
+                <div className="w-full max-w-5xl h-[50vh] min-h-130 flex flex-col gap-8 overflow-y-auto px-4 py-2 border border-gray-100 rounded-xl chat-container-invisible-scroll">
                     {chat.map(mensagem => {
                         return <MensagemChatbot key={mensagem.id} remetente={mensagem.emissor} texto={mensagem.mensagem} />
                     })}

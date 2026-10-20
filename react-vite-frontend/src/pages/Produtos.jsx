@@ -105,7 +105,7 @@ export function Produtos() {
                                         {listaProdutos.map((prod) => (
                                             <tr
                                                 key={prod.id}
-                                                className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
+                                                className="border-t border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
                                                 onClick={() => abrirDetalhes(prod)}
                                             >
                                                 <td className="p-5">
@@ -147,7 +147,7 @@ export function Produtos() {
                                     ‹
                                 </div>
 
-                                <div className="flex justify-around gap-4">
+                                <div className="flex justify-around gap-4 text-[#695088]">
                                     {paginacaoConfig && Array.from({ length: paginacaoConfig.totalPages }, (_, index) => {
                                         const numeroPagina = index + 1;
                                         return (

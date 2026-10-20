@@ -151,10 +151,10 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
                                                 key={index}
                                                 className="flex justify-between items-center bg-[#f8f4f9] border border-[#e8d8f0] p-3 rounded-xl shadow-sm"
                                             >
-                                                <span className="font-semibold text-sm">
+                                                <span className="font-bold text-sm font-text">
                                                     {materialEncontrado?.nome || "Material não identificado"}
                                                 </span>
-                                                <span className="bg-[#ede0f0] text-[#3D2B4F] font-bold text-xs px-3 py-1 rounded-full border border-[#896D9522]">
+                                                <span className="bg-[#ede0f0] text-[#3D2B4F] font-semibold font-title text-xs px-3 py-1 rounded-full border border-[#896D9522]">
                                                     Qtd: {item?.quantidade} {identificarUnidade(materialEncontrado?.categoria || item.material?.categoria)}
                                                 </span>
                                             </div>

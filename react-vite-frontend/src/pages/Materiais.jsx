@@ -85,7 +85,7 @@ export function Materiais() {
                                         {listaMateriais.map((mat) => (
                                             <tr
                                                 key={mat.id}
-                                                className="border-b border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
+                                                className="border-t border-[#e8d8f0] hover:bg-[#fcf0ff] transition-colors group cursor-pointer font-text"
                                                 onClick={() => abrirDetalhes(mat)}
                                             >
                                                 <td className="p-5">
@@ -130,7 +130,7 @@ export function Materiais() {
                                     ‹
                                 </div>
 
-                                <div className="flex justify-around gap-4">
+                                <div className="flex justify-around gap-4 text-[#695088]">
                                     {paginacaoConfig && Array.from({ length: paginacaoConfig.totalPages }, (_, index) => {
                                         const numeroPagina = index + 1;
                                         return (

@@ -43,7 +43,7 @@ export function Nav(props) {
 
                     <div className="w-full pt-2 pr-2">
                         <p
-                            className="text-right font-bold text-xl cursor-pointer hidden md:block"
+                            className="text-right font-bold text-xl cursor-pointer hidden md:block text-[#695088]"
                             onClick={() => setNavAtiva(!navAtiva)}
                         >
                             ×
