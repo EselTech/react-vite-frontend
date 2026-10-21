@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
 import { api } from "../provider/api";
-import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import { InputCadastro } from "./InputCadastro";
 import toast, { Toaster } from "react-hot-toast";
 import { BotaoEntrar } from "./BotaoEntrar";
 import { useNavigate } from "react-router-dom";
 
 export function CampoCadastro(props) {
-    const caracteresEspeciais = [".", ",", "!", "?", "@", "#", "$"]
-    let haveCaractere = false
+    const caracteresEspeciais = [".", ",", "!", "?", "@", "#", "$"];
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [senha, setSenha] = useState("");
-    const [inputsBloqueados, setInputsBloqueados] = useState(false)
+    const [inputsBloqueados, setInputsBloqueados] = useState(false);
     const [erros, setErros] = useState({});
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         let novosErros = {};
@@ -36,27 +34,25 @@ export function CampoCadastro(props) {
             }
         }
 
-        if (senha && senha.length < 8) {
-            novosErros.senha = "A senha deve possuir ao menos 8 caracteres.";
-        }
+        if (senha) {
+            if (senha.length < 8) {
+                novosErros.senha = "A senha deve possuir ao menos 8 caracteres.";
+            } else if (senha.toLowerCase() === senha) {
+                novosErros.senha = "A senha deve possuir ao menos uma letra maiúscula.";
+            } else if (senha.toUpperCase() === senha) {
+                novosErros.senha = "A senha deve possuir ao menos uma letra minúscula.";
+            } else {
+                let haveCaractere = false;
+                caracteresEspeciais.forEach(caractere => {
+                    if (senha.includes(caractere)) {
+                        haveCaractere = true;
+                    }
+                });
 
-        if (senha.toLowerCase() == senha) {
-            novosErros.senha = "A senha deve possuir ao menos uma letra maiúscula.";
-        }
-
-        if (senha.toUpperCase() == senha) {
-            novosErros.senha = "A senha deve possuir ao menos uma letra minúscula.";
-        }
-
-        // Validar presença de caracteres especiais
-        caracteresEspeciais.map(caractere => {
-            if (senha.includes(caractere)) {
-                haveCaractere = true
+                if (!haveCaractere) {
+                    novosErros.senha = "A senha deve possuir ao menos um caractere especial.";
+                }
             }
-        })
-
-        if (!haveCaractere) {
-            novosErros.senha = "A senha deve possuir ao menos um caractere especial.";
         }
 
         setErros(novosErros);
@@ -69,21 +65,18 @@ export function CampoCadastro(props) {
         if (temErros || temCamposVazios) {
             toast("Por favor, preencha todos os campos corretamente", {
                 icon: "⚠️"
-            })
-            return
+            });
+            return;
         }
 
         try {
             const credenciais = { nome, email, username, senha, role: "USER" };
-            console.log("Passou 1")
             const response = await api.post("/auth/registrar", credenciais);
-            console.log("Passou Axios")
-            toast.success("Cadastro realizado com sucesso!")
-            console.log("Passou tudo")
-            setInputsBloqueados(true)
+            toast.success("Cadastro realizado com sucesso!");
+            setInputsBloqueados(true);
             setTimeout(() => {
-                navigate("/")
-            }, 2000)
+                navigate("/");
+            }, 2000);
         } catch (error) {
             console.error("Erro ao cadastrar:", error.response?.data || error.message);
         }
@@ -92,7 +85,6 @@ export function CampoCadastro(props) {
     return (
         <div className="p-6 md:p-[6%] w-full md:w-1/2 rounded-l-3xl bg-[#FAF7FB] text-center">
             <Toaster />
-            <MenuCadastroLogin tela={props.tela} setTela={props.setTela} />
 
             <h2 className="mt-8 text-3xl md:text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
 

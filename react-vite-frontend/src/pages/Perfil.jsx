@@ -156,7 +156,7 @@ export function Perfil() {
                     </h1>
                     <div className="flex flex-col gap-12 lg:flex-row lg:gap-20 w-full">
                         <div>
-                            <div className="w-full max-w-100 flex flex-col gap-7">
+                            <div className="w-70 max-w-70 flex flex-col gap-7">
                                 <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize seu perfil</h1>
                                 <InputPerfil isBlocked={block} valor={nome} setValor={setNome} legenda={"Nome"} />
                                 <InputPerfil isBlocked={block} valor={email} setValor={setEmail} legenda={"Email"} />
@@ -175,7 +175,7 @@ export function Perfil() {
                         </div>
 
                         <div>
-                            <div className="w-full max-w-100 flex flex-col gap-7">
+                            <div className="w-70 max-w-70 flex flex-col gap-7">
                                 <h1 className="text-[#695088] font-title font-medium text-2xl">Atualize sua senha</h1>
                                 <InputPerfil isBlocked={blockSenha} valor={senha} setValor={setSenha} legenda={"Senha antiga"} />
                                 <InputPerfil isBlocked={blockSenha} valor={novaSenha} setValor={setNovaSenha} legenda={"Nova senha"} />
