@@ -53,8 +53,12 @@ export function Nav(props) {
 
                         <img className="ml-[0.75vw]" src="logo.svg" alt="Logo Atelier da Cibis" />
                         <div className="flex flex-col">
-                            <p className="font-bold text-[#695088] font-title">Atelier da Cibis</p>
-                            <p className="font-bold text-[#896D95] text-[12px] font-text">Papelaria personalizada</p>
+                            <p className="font-bold text-[#695088] font-title text-xs lg:text-[14px] xl:text-[16px] truncate">
+                                Atelier da Cibis
+                            </p>
+                            <p className="font-bold text-[#896D95] text-[10px] lg:text-[10px] xl:text-[12px] font-text truncate">
+                                Papelaria personalizada
+                            </p>
                         </div>
                     </div>
                     <div className="flex flex-row w-full gap-1 px-1 overflow-x-auto md:flex-col md:gap-4 md:ml-0 md:px-3">
