@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar, carregarProdutos, materiaisDisponiveis }) {
     const [editProd, setEditProd] = useState(null);
 
-    console.log(materiaisDisponiveis);
 
 
     useEffect(() => {
@@ -20,28 +19,29 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
 
     async function handleSalvar() {
         try {
+            const { empresa, ...produtoSemEmpresa } = editProd;
+            console.log("editProd atual:", editProd);
 
-            const { empresa, ...produtoSemEmpresa } = editProd
-            const materiaisFormatados = produtoSemEmpresa.materiais.map((material) => {
+            const materiaisFormatados = (produtoSemEmpresa.materiais || []).map((item) => {
                 return {
-                    materialId: material.material.id,
-                    quantidade: material.quantidade
+                    materialId: item.materialId || item.material?.id || item.id,
+                    quantidade: item.quantidade
                 };
             });
 
-            const { materiais, ...produtoSemMateriais } = produtoSemEmpresa
-            const produtoFinal = { materiais: materiaisFormatados, empresaId: 1, ...produtoSemMateriais }
-
-            console.log(produtoFinal);
-
+            const { materiais, ...produtoSemMateriais } = produtoSemEmpresa;
+            const produtoFinal = { 
+                ...produtoSemMateriais, 
+                materiais: materiaisFormatados, 
+                empresaId: 1 
+            };
 
             const response = await api.put(`/produtos/${editProd.id}`, produtoFinal);
-            console.log("Produto atualizado:", response.data);
             onAtualizar(editProd);
             setIsOpen(false);
-            toast.success("Produto alterado com sucesso")
+            toast.success("Produto alterado com sucesso");
         } catch (error) {
-            toast.error("Erro ao alterar produto")
+            toast.error("Erro ao alterar produto");
             console.error("Erro ao atualizar:", error.response?.data || error.message);
         }
     }
@@ -70,7 +70,6 @@ export function DrawerDetalhesProduto({ isOpen, setIsOpen, produto, onAtualizar,
         }
     }
 
-    console.log(produto);
 
 
     return (
