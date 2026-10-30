@@ -148,12 +148,13 @@ export default function DrawerPedidos(props) {
                         <div>
                             <p className="font-medium mb-2 font-title text-[#3D2B4F]">Produtos</p>
                             <div className="flex flex-col gap-1 ">
-                                {produtosDisponiveis.map(produto => (
-                                    <CardProdutoPedido
-                                        key={produto.id}
+                                {console.log(produtosDisponiveis)}
+                                {Object.entries(produtosDisponiveis.content).map(produto => (
+                                    < CardProdutoPedido
+                                        key={produto[1].id}
                                         pedido={form}
                                         atualizarPedido={setForm}
-                                        produto={produto}
+                                        produto={produto[1]}
                                     />
                                 ))}
                             </div>
