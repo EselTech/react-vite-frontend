@@ -20,7 +20,7 @@ export function CardMaterialSelecao({ material, qtd, onUpdate }) {
                     📦
                 </div>
                 <div className="flex-1 pl-4 flex flex-col justify-center">
-                    <p className="text-[#3D2B4F] font-title font-semibold">{material.nome}</p>
+                    <p className="text-[#695088] font-title font-semibold">{material.nome}</p>
                     <p className="text-[10px] text-[#7a6688] font-bold uppercase">Unitário: R$ {material.preco.toFixed(2)}</p>
                 </div>
                 <div className="text-right font-title font-bold text-[#695088]">
@@ -31,7 +31,7 @@ export function CardMaterialSelecao({ material, qtd, onUpdate }) {
             {isSelecionado && (
                 <div className="h-16 border-t border-[#ede0f0] flex items-center justify-between px-6" onClick={(e) => e.stopPropagation()}>
                     <div className="flex flex-col">
-                        <p className="text-[9px] text-[#7a6688] uppercase font-black tracking-widest">Subtotal Material</p>
+                        <p className="text-[9px] text-[#695088] uppercase font-black tracking-widest">Subtotal Material</p>
                         <p className="text-sm font-bold text-[#695088]">R$ {(material.preco * qtd).toFixed(2)}</p>
                     </div>
                     <div className="flex gap-4 items-center bg-white px-3 py-1 rounded-full border border-[#ede0f0]">
