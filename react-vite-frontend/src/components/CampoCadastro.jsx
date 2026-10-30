@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../provider/api";
 import { InputCadastro } from "./InputCadastro";
+import { MenuCadastroLogin } from "./MenuCadastroLogin";
 import toast, { Toaster } from "react-hot-toast";
 import { BotaoEntrar } from "./BotaoEntrar";
 import { useNavigate } from "react-router-dom";
@@ -85,6 +86,7 @@ export function CampoCadastro(props) {
     return (
         <div className="p-6 md:p-[6%] w-full md:w-1/2 rounded-l-3xl bg-[#FAF7FB] text-center">
             <Toaster />
+            <MenuCadastroLogin tela={"Cadastro"} />
 
             <h2 className="mt-8 text-3xl md:text-4xl font-semibold font-title text-gray-900">Cadastre-se</h2>
 
